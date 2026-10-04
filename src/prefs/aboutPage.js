@@ -7,10 +7,11 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
+import Pango from 'gi://Pango';
 
 import {gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-import {changelogToMarkup} from '../lib/markdown.js';
+import {escapeMarkup, parseChangelog} from '../lib/markdown.js';
 import {BACKUP_KEYS, buildBackup, parseBackup} from '../lib/settingsBackup.js';
 
 const JSON_KEYS = new Set(['devices-config', 'presets']);
@@ -26,6 +27,23 @@ function linkRow(title, subtitle, uri) {
     row.connect('activated', () => {
         new Gtk.UriLauncher({uri}).launch(row.get_root(), null, null);
     });
+    return row;
+}
+
+// One changelog entry: the bullet in its own column, so wrapped lines line
+// up with the text instead of running under the bullet.
+function changelogItem({markup, level}) {
+    const row = new Gtk.Box({spacing: 8, margin_start: level * 18});
+    row.append(new Gtk.Label({label: level ? '◦' : '•', valign: Gtk.Align.START, css_classes: ['dim-label']}));
+    row.append(new Gtk.Label({
+        label: markup,
+        use_markup: true,
+        wrap: true,
+        wrap_mode: Pango.WrapMode.WORD_CHAR,
+        xalign: 0,
+        hexpand: true,
+        selectable: true,
+    }));
     return row;
 }
 
@@ -154,22 +172,47 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
 
     _showChangelog(path) {
         const text = this._readChangelog(path);
-        const label = new Gtk.Label({
-            label: text ? changelogToMarkup(text) : _('Release notes are not available.'),
-            use_markup: Boolean(text),
-            wrap: true,
-            xalign: 0,
-            selectable: true,
-            margin_top: 18,
-            margin_bottom: 18,
-            margin_start: 18,
-            margin_end: 18,
-        });
-        const card = new Gtk.Box({css_classes: ['card']});
-        card.append(label);
+        const releases = text ? parseChangelog(text) : [];
+        const page = new Adw.PreferencesPage();
 
-        const clamp = new Adw.Clamp({child: card, margin_top: 12, margin_bottom: 24, margin_start: 12, margin_end: 12});
-        const toolbar = new Adw.ToolbarView({content: new Gtk.ScrolledWindow({child: clamp, vexpand: true})});
+        if (!releases.length) {
+            page.add(new Adw.PreferencesGroup({description: _('Release notes are not available.')}));
+        }
+        for (const release of releases) {
+            const group = new Adw.PreferencesGroup({
+                title: escapeMarkup(release.version === 'Unreleased' ? _('Not released yet') : release.version),
+                description: release.date ? escapeMarkup(release.date) : null,
+            });
+            const card = new Gtk.Box({
+                orientation: Gtk.Orientation.VERTICAL,
+                spacing: 6,
+                css_classes: ['card'],
+            });
+            for (const section of release.sections) {
+                const box = new Gtk.Box({
+                    orientation: Gtk.Orientation.VERTICAL,
+                    spacing: 6,
+                    margin_top: 12,
+                    margin_bottom: 12,
+                    margin_start: 14,
+                    margin_end: 14,
+                });
+                if (section.title) {
+                    box.append(new Gtk.Label({
+                        label: section.title,
+                        xalign: 0,
+                        css_classes: ['heading'],
+                    }));
+                }
+                for (const item of section.items)
+                    box.append(changelogItem(item));
+                card.append(box);
+            }
+            group.add(card);
+            page.add(group);
+        }
+
+        const toolbar = new Adw.ToolbarView({content: page});
         toolbar.add_top_bar(new Adw.HeaderBar());
         this._window.push_subpage(new Adw.NavigationPage({title: _('What’s New'), child: toolbar}));
     }

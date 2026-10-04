@@ -1,5 +1,5 @@
 import {test, assertEqual, assertThrows, done} from './harness.js';
-import {changelogToMarkup, escapeMarkup} from '../src/lib/markdown.js';
+import {parseChangelog, escapeMarkup} from '../src/lib/markdown.js';
 import {buildBackup, parseBackup} from '../src/lib/settingsBackup.js';
 import {formatDebugInfo, formatGjsVersion} from '../src/lib/debugInfo.js';
 
@@ -7,10 +7,15 @@ test('escapes Pango markup', () => {
     assertEqual(escapeMarkup('<a & "b">'), '&lt;a &amp; &quot;b&quot;&gt;');
 });
 
-test('changelog: skips intro, renders headings, bullets and inline code', () => {
-    const md = '# Changelog\n\nIntro text.\n\n## [1.0] - 2026-10-04\n\n### Added\n- New `thing` & **bold**\n  - nested\n\n[1.0]: https://x';
-    assertEqual(changelogToMarkup(md),
-        '<span size="large"><b>1.0</b></span>  <span alpha="60%">2026-10-04</span>\n\n<b>Added</b>\n• New <tt>thing</tt> &amp; <b>bold</b>\n    ◦ nested');
+test('changelog: skips intro, parses releases, sections and items', () => {
+    const md = '# Changelog\n\nIntro text.\n\n## [1.0] - 2026-10-04\n\n### Added\n- New `thing` & **bold**\n  continued\n  - nested\n\n## [Unreleased]\n- loose\n\n[1.0]: https://x';
+    assertEqual(parseChangelog(md), [
+        {version: '1.0', date: '2026-10-04', sections: [{title: 'Added', items: [
+            {markup: 'New <tt>thing</tt> &amp; <b>bold</b> continued', level: 0},
+            {markup: 'nested', level: 1},
+        ]}]},
+        {version: 'Unreleased', date: null, sections: [{title: '', items: [{markup: 'loose', level: 0}]}]},
+    ]);
 });
 
 test('backup round-trip keeps values and omits the API key', () => {

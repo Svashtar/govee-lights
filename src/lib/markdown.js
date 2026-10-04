@@ -20,34 +20,40 @@ function inline(text) {
         .replace(/`([^`]+)`/g, '<tt>$1</tt>');
 }
 
-// Skips everything before the first release heading (the file's own title and
-// intro) and link reference definitions at the bottom.
-export function changelogToMarkup(markdown) {
-    const out = [];
-    let started = false;
+// Parses a Keep a Changelog file into releases for About → What's New:
+//   [{version, date, sections: [{title, items: [{markup, level}]}]}]
+// Item text is Pango markup (links reduced to their text). Everything before
+// the first "## " heading and link reference lines are skipped.
+export function parseChangelog(markdown) {
+    const releases = [];
+    let release = null;
+    let section = null;
 
     for (const raw of markdown.split('\n')) {
         const line = raw.trimEnd();
-        if (/^## /.test(line))
-            started = true;
-        if (!started || /^\[[^\]]+\]:\s/.test(line))
+        if (/^\[[^\]]+\]:\s/.test(line))
             continue;
 
         let m;
         if ((m = line.match(/^## \[?([^\]]+?)\]?(?: - (.*))?$/))) {
-            if (out.length)
-                out.push('');
-            out.push(`<span size="large"><b>${inline(m[1])}</b></span>${m[2] ? `  <span alpha="60%">${inline(m[2])}</span>` : ''}`);
+            release = {version: m[1], date: m[2] ?? null, sections: []};
+            section = null;
+            releases.push(release);
+        } else if (!release) {
+            continue;
         } else if ((m = line.match(/^### (.*)$/))) {
-            out.push(`<b>${inline(m[1])}</b>`);
+            section = {title: m[1], items: []};
+            release.sections.push(section);
         } else if ((m = line.match(/^(\s*)[-*] (.*)$/))) {
-            out.push(`${m[1] ? '    ◦' : '•'} ${inline(m[2])}`);
-        } else if (line !== '' || out.at(-1) !== '') {
-            out.push(inline(line));
+            if (!section) {
+                section = {title: '', items: []};
+                release.sections.push(section);
+            }
+            section.items.push({markup: inline(m[2]), level: m[1].length >= 2 ? 1 : 0});
+        } else if (line.trim() && section?.items.length) {
+            // A wrapped continuation of the previous item.
+            section.items.at(-1).markup += ` ${inline(line.trim())}`;
         }
     }
-
-    while (out.at(-1) === '')
-        out.pop();
-    return out.join('\n');
+    return releases;
 }
