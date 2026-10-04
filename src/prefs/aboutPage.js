@@ -12,7 +12,7 @@ import Pango from 'gi://Pango';
 import {gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import {escapeMarkup, parseChangelog} from '../lib/markdown.js';
-import {BACKUP_KEYS, buildBackup, parseBackup} from '../lib/settingsBackup.js';
+import {BACKUP_KEYS, BackupError, buildBackup, parseBackup} from '../lib/settingsBackup.js';
 
 const JSON_KEYS = new Set(['devices-config', 'presets']);
 
@@ -28,6 +28,15 @@ function linkRow(title, subtitle, uri) {
         new Gtk.UriLauncher({uri}).launch(row.get_root(), null, null);
     });
     return row;
+}
+
+function backupErrorMessage(e) {
+    switch (e.reason) {
+    case 'not-json': return _('The file is not valid JSON.');
+    case 'not-backup': return _('The file is not a Govee Lights settings backup.');
+    case 'newer': return _('The backup was made by a newer version of Govee Lights.');
+    default: return _('The backup has an invalid “%s” value.').format(e.field);
+    }
 }
 
 // One changelog entry: the bullet in its own column, so wrapped lines line
@@ -62,7 +71,7 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         this._settings = settings;
         this._metadata = metadata;
 
-        const version = metadata['version-name'] ?? String(metadata.version);
+        const version = metadata['version-name'];
         const repo = metadata.url;
 
         // Header ---------------------------------------------------------------
@@ -135,7 +144,7 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         // Legal ----------------------------------------------------------------
         const legal = new Adw.PreferencesGroup();
         legal.add(linkRow(_('License'), _('GNU General Public License, version 2 or later'),
-            'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html'));
+                          'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html'));
         const disclaimer = new Gtk.Label({
             label: _('Govee is a trademark of Shenzhen Intellirocks Tech. Co., Ltd. This extension is not affiliated with or endorsed by Govee.'),
             css_classes: ['dim-label', 'caption'],
@@ -152,7 +161,11 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
     }
 
     _fail(e) {
-        if (e.matches?.(Gtk.DialogError, Gtk.DialogError.DISMISSED))
+        if (e instanceof BackupError) {
+            this._toast(backupErrorMessage(e));
+            return;
+        }
+        if (e instanceof GLib.Error && e.matches(Gtk.DialogError, Gtk.DialogError.DISMISSED))
             return;
         logError(e, 'govee-lights: settings backup');
         this._toast(e.message);
@@ -231,7 +244,7 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         const file = await dialog.save(this._window, null);
         const json = buildBackup(this._currentValues(), this._metadata['version-name']);
         await file.replace_contents_async(new TextEncoder().encode(json), null, false,
-            Gio.FileCreateFlags.REPLACE_DESTINATION, null);
+                                          Gio.FileCreateFlags.REPLACE_DESTINATION, null);
         this._toast(_('Settings exported'));
     }
 

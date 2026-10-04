@@ -4,6 +4,16 @@
 // Settings export/import. The API key lives in the keyring and is never part
 // of a backup. Pure so it can be unit tested.
 
+export class BackupError extends Error {
+    // reason: 'not-json' | 'not-backup' | 'newer' | 'invalid'; field: for 'invalid'
+    constructor(reason, field = null) {
+        super(field ? `${reason}: ${field}` : reason);
+        this.name = 'BackupError';
+        this.reason = reason;
+        this.field = field;
+    }
+}
+
 export const BACKUP_FORMAT = 'govee-lights-settings';
 export const BACKUP_VERSION = 1;
 
@@ -26,25 +36,26 @@ export function buildBackup(values, extensionVersion) {
 }
 
 // Returns {gsettingsKey: value}; JSON keys come back as strings ready for set_string().
-// Throws Error with a user-facing message when the file is not a valid backup.
+// Throws BackupError when the file is not a valid backup; prefs shows a
+// translated message for its `reason`.
 export function parseBackup(text) {
     let data;
     try {
         data = JSON.parse(text);
     } catch {
-        throw new Error('The file is not valid JSON.');
+        throw new BackupError('not-json');
     }
     if (data?.format !== BACKUP_FORMAT)
-        throw new Error('The file is not a Govee Lights settings backup.');
+        throw new BackupError('not-backup');
     if (data.version > BACKUP_VERSION)
-        throw new Error('The backup was made by a newer version of Govee Lights.');
+        throw new BackupError('newer');
 
     const result = {};
     for (const [key, field, valid] of FIELDS) {
         if (!(field in data))
             continue;
         if (!valid(data[field]))
-            throw new Error(`The backup has an invalid “${field}” value.`);
+            throw new BackupError('invalid', field);
         result[key] = JSON_KEYS.has(key) ? JSON.stringify(data[field]) : data[field];
     }
     return result;

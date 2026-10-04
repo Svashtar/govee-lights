@@ -70,19 +70,19 @@ function uuid() {
     return GLib.uuid_string_random();
 }
 
+// Resolves after `ms`; destroy() cancels `cancellable`, which removes the
+// timeout and rejects.
 function wait(ms, cancellable) {
     return new Promise((resolve, reject) => {
-        let cancelId = 0;
         const id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, ms, () => {
-            if (cancelId)
-                cancellable.disconnect(cancelId);
+            cancellable.disconnect(cancelId);
             resolve();
             return GLib.SOURCE_REMOVE;
         });
-        cancelId = cancellable?.connect(() => {
+        const cancelId = cancellable.connect(() => {
             GLib.source_remove(id);
             reject(new GoveeError('cancelled', 'Cancelled'));
-        }) ?? 0;
+        });
     });
 }
 
@@ -137,7 +137,7 @@ export class CloudClient {
         headers.append('Accept', 'application/json');
         if (body !== null) {
             message.set_request_body_from_bytes('application/json',
-                new GLib.Bytes(new TextEncoder().encode(JSON.stringify(body))));
+                                                new GLib.Bytes(new TextEncoder().encode(JSON.stringify(body))));
         }
 
         this._onRequest();
@@ -145,7 +145,7 @@ export class CloudClient {
         try {
             bytes = await this._session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, this._cancellable);
         } catch (e) {
-            if (e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
+            if (e.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
                 throw new GoveeError('cancelled', 'Cancelled');
             throw new GoveeError('network', e.message);
         }

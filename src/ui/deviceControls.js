@@ -12,17 +12,14 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Slider from 'resource:///org/gnome/shell/ui/slider.js';
 
 import {hsvToRgb, rgbToHsv, toHex} from '../lib/capabilities.js';
-import {matchesQuery, sceneOptions} from '../lib/presets.js';
-import {CheckItem} from './checkItem.js';
+import {sceneOptions} from '../lib/presets.js';
 import {hueSlider, temperatureSlider} from './gradientSlider.js';
+import {OptionList} from './optionList.js';
 
 const SWATCHES = [
     {r: 255, g: 0, b: 0}, {r: 255, g: 120, b: 0}, {r: 255, g: 210, b: 0}, {r: 0, g: 220, b: 60},
     {r: 0, g: 200, b: 255}, {r: 0, g: 60, b: 255}, {r: 150, g: 0, b: 255}, {r: 255, g: 0, b: 160},
 ];
-
-// Lists longer than this scroll inside a fixed height (see stylesheet.css).
-const LONG_LIST = 8;
 
 const SCENE_MENUS = () => [
     {kind: 'scene', label: _('Scenes'), search: _('Search scenes'), icon: 'starred-symbolic'},
@@ -56,52 +53,6 @@ function errorText(device) {
     case 'network': return _('No connection to Govee');
     default: return _('Last command failed');
     }
-}
-
-// Search field at the top of a long option list. It filters as you type,
-// Enter picks the first match and Down moves to the results.
-function addSearch(menu, items, hint) {
-    const row = new PopupMenu.PopupBaseMenuItem({reactive: false, can_focus: false, style_class: 'govee-option-search-item'});
-    const entry = new St.Entry({
-        hint_text: hint,
-        can_focus: true,
-        x_expand: true,
-        style_class: 'govee-option-search',
-        primary_icon: new St.Icon({icon_name: 'edit-find-symbolic', style_class: 'popup-menu-icon'}),
-    });
-    row.add_child(entry);
-    menu.addMenuItem(row, 0);
-
-    const empty = new PopupMenu.PopupMenuItem(_('No matches'), {reactive: false});
-    empty.visible = false;
-    menu.addMenuItem(empty);
-
-    const firstMatch = () => items.find(i => i.item.visible)?.item;
-    const text = entry.clutter_text;
-    text.connect('text-changed', () => {
-        let shown = 0;
-        for (const {name, item} of items) {
-            item.visible = matchesQuery(name, entry.text);
-            shown += item.visible ? 1 : 0;
-        }
-        empty.visible = shown === 0;
-    });
-    text.connect('activate', () => firstMatch()?.activate(Clutter.get_current_event()));
-    text.connect('key-press-event', (_a, event) => {
-        if (event.get_key_symbol() !== Clutter.KEY_Down || !firstMatch())
-            return Clutter.EVENT_PROPAGATE;
-        firstMatch().grab_key_focus();
-        return Clutter.EVENT_STOP;
-    });
-
-    // Focus the field when the list opens, so typing searches at once;
-    // start fresh the next time it opens.
-    menu.actor.connect('notify::mapped', () => {
-        if (menu.actor.mapped)
-            text.grab_key_focus();
-        else
-            entry.text = '';
-    });
 }
 
 // A menu row holding a slider, like the Quick Settings brightness slider.
@@ -175,31 +126,22 @@ export class DeviceControls {
             section.addMenuItem(this._swatchRow(c => send('color', c)));
         }
 
-        this._optionItems = [];
+        this._lists = [];
         this._sceneKey = undefined;
         for (const {kind, label, search, icon} of SCENE_MENUS()) {
             const options = sceneOptions(device, kind);
             if (!options.length || !device.supports(kind))
                 continue;
-            const sub = new PopupMenu.PopupSubMenuMenuItem(label, true);
-            sub.icon.icon_name = icon;
-            // Picking keeps the list open and moves the checkmark, so scenes
-            // can be tried one after another.
-            const items = options.map(option => {
-                const item = new CheckItem(option.name, () => send(kind, option));
-                sub.menu.addMenuItem(item);
-                return {name: option.name, kind, item};
+            const list = new OptionList({
+                label,
+                iconName: icon,
+                searchHint: search,
+                options,
+                onPick: option => send(kind, option),
+                onExpand: opened => this._lists.forEach(l => l.list !== opened && l.list.setExpanded(false)),
             });
-            this._optionItems.push(...items);
-            sub.menu.actor.add_style_class_name('govee-option-list');
-            if (options.length > LONG_LIST) {
-                addSearch(sub.menu, items, search);
-                // GNOME only scrolls a submenu when the whole menu is taller
-                // than the screen; long lists get a fixed height instead.
-                sub.menu._needsScrollbar = () => true;
-                sub.menu.actor.add_style_class_name('govee-option-list-long');
-            }
-            section.addMenuItem(sub);
+            this._lists.push({kind, list});
+            section.addMenuItem(list);
         }
 
         if (onSavePreset)
@@ -232,13 +174,12 @@ export class DeviceControls {
 
     sync() {
         const {state} = this._device;
-        // The light's current scene (set when one is picked, cleared by a
-        // colour or white change); only walk the lists when it changes.
+        // Only walk the option lists when the scene actually changed.
         const sceneKey = state.scene ? `${state.scene.kind}:${state.scene.name}` : null;
         if (sceneKey !== this._sceneKey) {
             this._sceneKey = sceneKey;
-            for (const {name, kind, item} of this._optionItems)
-                item.setChecked(sceneKey === `${kind}:${name}`);
+            for (const {kind, list} of this._lists)
+                list.setChecked(state.scene?.kind === kind ? state.scene.name : null);
         }
         this._power?.setToggleState(Boolean(state.power));
         if (state.brightness !== null)

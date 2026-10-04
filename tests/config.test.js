@@ -14,7 +14,7 @@ test('successes are written at most once a minute', () => {
 
 test('account errors are recorded and keep the last success', () => {
     assertEqual(nextCloudStatus({okAt: 1000, error: null, errorAt: 0}, {kind: 'auth'}, 1010),
-        {okAt: 1000, error: 'auth', errorAt: 1010});
+                {okAt: 1000, error: 'auth', errorAt: 1010});
     assertEqual(nextCloudStatus(fresh, {kind: 'rate-limit'}, 5).error, 'rate-limit');
     assertEqual(nextCloudStatus(fresh, {kind: 'network'}, 5).error, 'network');
 });
@@ -26,7 +26,7 @@ test('a light-level failure says nothing about the key', () => {
 
 test('a success right after an error clears it at once', () => {
     assertEqual(nextCloudStatus({okAt: 1000, error: 'auth', errorAt: 1010}, null, 1015),
-        {okAt: 1015, error: null, errorAt: 0});
+                {okAt: 1015, error: null, errorAt: 0});
 });
 
 done();

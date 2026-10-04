@@ -11,20 +11,24 @@ Gio._promisify(Secret, 'password_lookup', 'password_lookup_finish');
 Gio._promisify(Secret, 'password_store', 'password_store_finish');
 Gio._promisify(Secret, 'password_clear', 'password_clear_finish');
 
-const SCHEMA = new Secret.Schema('com.svashta.GoveeLights', Secret.SchemaFlags.NONE, {
-    account: Secret.SchemaAttributeType.STRING,
-});
 const ATTRIBUTES = {account: 'govee-api'};
 
-export async function lookupApiKey() {
-    return (await Secret.password_lookup(SCHEMA, ATTRIBUTES, null)) || null;
+// Created per call so nothing is built when the module is imported.
+function schema() {
+    return new Secret.Schema('com.svashta.GoveeLights', Secret.SchemaFlags.NONE, {
+        account: Secret.SchemaAttributeType.STRING,
+    });
+}
+
+export async function lookupApiKey(cancellable = null) {
+    return (await Secret.password_lookup(schema(), ATTRIBUTES, cancellable)) || null;
 }
 
 export async function storeApiKey(apiKey) {
-    await Secret.password_store(SCHEMA, ATTRIBUTES, Secret.COLLECTION_DEFAULT,
-        'Govee Lights API key', apiKey, null);
+    await Secret.password_store(schema(), ATTRIBUTES, Secret.COLLECTION_DEFAULT,
+                                'Govee Lights API key', apiKey, null);
 }
 
 export async function clearApiKey() {
-    await Secret.password_clear(SCHEMA, ATTRIBUTES, null);
+    await Secret.password_clear(schema(), ATTRIBUTES, null);
 }

@@ -237,7 +237,7 @@ class GoveeLightsPresetsPage extends Adw.PreferencesPage {
             description: _('A preset sets one or more lights in one click. Presets appear at the top of the top-bar menu. You can also save a light’s current state as a preset from its menu.'),
         });
         const add = new Gtk.Button({icon_name: 'list-add-symbolic', css_classes: ['flat'], tooltip_text: _('Add Preset'),
-            sensitive: this._devices.length > 0});
+                                    sensitive: this._devices.length > 0});
         add.connect('clicked', () => this._addPreset());
         list.set_header_suffix(add);
 
@@ -263,10 +263,10 @@ class GoveeLightsPresetsPage extends Adw.PreferencesPage {
         });
 
         const up = new Gtk.Button({icon_name: 'go-up-symbolic', css_classes: ['flat'], valign: Gtk.Align.CENTER,
-            tooltip_text: _('Move Up'), sensitive: index > 0});
+                                   tooltip_text: _('Move Up'), sensitive: index > 0});
         up.connect('clicked', () => this._move(index, -1));
         const down = new Gtk.Button({icon_name: 'go-down-symbolic', css_classes: ['flat'], valign: Gtk.Align.CENTER,
-            tooltip_text: _('Move Down'), sensitive: index < this._presets.length - 1});
+                                     tooltip_text: _('Move Down'), sensitive: index < this._presets.length - 1});
         down.connect('clicked', () => this._move(index, 1));
         row.add_suffix(up);
         row.add_suffix(down);
@@ -283,12 +283,12 @@ class GoveeLightsPresetsPage extends Adw.PreferencesPage {
             });
             if (device) {
                 const edit = new Gtk.Button({icon_name: 'document-edit-symbolic', css_classes: ['flat'],
-                    valign: Gtk.Align.CENTER, tooltip_text: _('Edit')});
+                                             valign: Gtk.Align.CENTER, tooltip_text: _('Edit')});
                 edit.connect('clicked', () => this._editStep(index, stepIndex));
                 stepRow.add_suffix(edit);
             }
             const remove = new Gtk.Button({icon_name: 'user-trash-symbolic', css_classes: ['flat'],
-                valign: Gtk.Align.CENTER, tooltip_text: _('Remove')});
+                                           valign: Gtk.Align.CENTER, tooltip_text: _('Remove')});
             remove.connect('clicked', () => this._update(index, p => ({...p, steps: p.steps.filter((_s, i) => i !== stepIndex)})));
             stepRow.add_suffix(remove);
             row.add_row(stepRow);

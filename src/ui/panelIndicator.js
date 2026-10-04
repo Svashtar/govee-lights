@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
 
-import Atk from 'gi://Atk';
 import Clutter from 'gi://Clutter';
-import Graphene from 'gi://Graphene';
 import GObject from 'gi://GObject';
 import St from 'gi://St';
 
@@ -13,26 +11,17 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 import {CheckItem} from './checkItem.js';
 import {DeviceControls, stateSummary} from './deviceControls.js';
+import {ExpanderItem} from './expanderItem.js';
 
-// Header row for one light: icon, name, state, power switch and an expander
-// arrow. GNOME menus allow only one open submenu at a time, so a light can't
-// be a submenu itself: its Scenes/DIY/Music submenus would close it when they
-// open. The header instead shows or hides a plain section below it.
+// Header row for one light: name, state, power switch and expander arrow.
 const DeviceHeader = GObject.registerClass(
-class GoveeLightsDeviceHeader extends PopupMenu.PopupBaseMenuItem {
+class GoveeLightsDeviceHeader extends ExpanderItem {
     _init(device, manager, gicon, onToggle) {
-        super._init({style_class: 'govee-device-item'});
+        super._init(device.name, gicon, onToggle);
         this._device = device;
-        this._onToggle = onToggle;
-
-        this._icon = new St.Icon({gicon, style_class: 'popup-menu-icon'});
-        this.add_child(this._icon);
-        this.label = new St.Label({y_align: Clutter.ActorAlign.CENTER, x_expand: true});
-        this.add_child(this.label);
-        this.label_actor = this.label;
 
         this._summary = new St.Label({style_class: 'govee-device-summary', y_align: Clutter.ActorAlign.CENTER, opacity: 160});
-        this.add_child(this._summary);
+        this.addSuffix(this._summary);
 
         if (device.supports('power')) {
             this._switch = new PopupMenu.Switch(false);
@@ -44,30 +33,8 @@ class GoveeLightsDeviceHeader extends PopupMenu.PopupBaseMenuItem {
                 accessible_name: _('Power'),
             });
             button.connect('clicked', () => manager.control(device, 'power', !this._switch.state));
-            this.add_child(button);
+            this.addSuffix(button);
         }
-
-        this._arrow = new St.Icon({
-            icon_name: 'pan-end-symbolic',
-            style_class: 'popup-menu-arrow',
-            y_align: Clutter.ActorAlign.CENTER,
-            pivot_point: new Graphene.Point({x: 0.5, y: 0.5}),
-        });
-        this.add_child(this._arrow);
-        this.setExpanded(false);
-    }
-
-    // Toggles the section instead of emitting 'activate', which would close the menu.
-    activate(_event) {
-        this._onToggle();
-    }
-
-    setExpanded(expanded) {
-        this._arrow.rotation_angle_z = expanded ? 90 : 0;
-        if (expanded)
-            this.add_accessible_state(Atk.StateType.EXPANDED);
-        else
-            this.remove_accessible_state(Atk.StateType.EXPANDED);
     }
 
     sync() {
@@ -75,7 +42,7 @@ class GoveeLightsDeviceHeader extends PopupMenu.PopupBaseMenuItem {
         this._summary.text = stateSummary(this._device);
         if (this._switch)
             this._switch.state = Boolean(this._device.state.power);
-        this._icon.opacity = this._device.state.power ? 255 : 120;
+        this.icon.opacity = this._device.state.power ? 255 : 120;
     }
 });
 
@@ -134,7 +101,7 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
         this.menu.addMenuItem(this._content);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu.addAction(_('Refresh'), () => manager.sync().catch(e => logError(e, 'govee-lights: refresh')),
-            'view-refresh-symbolic');
+                            'view-refresh-symbolic');
         this.menu.addAction(_('Settings'), () => callbacks.openPreferences(), 'preferences-system-symbolic');
 
         this.menu.connect('open-state-changed', (_m, open) => {
@@ -179,8 +146,8 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
             // another; the active one shows a checkmark.
             const items = presets.map(preset => {
                 const item = new CheckItem(preset.name,
-                    () => this._manager.applyPreset(preset).catch(e => logError(e, 'govee-lights: preset')),
-                    {iconName: 'media-playback-start-symbolic'});
+                                           () => this._manager.applyPreset(preset).catch(e => logError(e, 'govee-lights: preset')),
+                                           {iconName: 'media-playback-start-symbolic'});
                 this._content.addMenuItem(item);
                 return [preset.id, item];
             });
@@ -193,7 +160,7 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
 
         // One light open at a time, like the submenus elsewhere in the shell.
         const sections = devices.map(device => new DeviceSection(device, this._manager, this._gicon,
-            this._callbacks.savePreset, opened => sections.forEach(s => s !== opened && s.setExpanded(false))));
+                                                                 this._callbacks.savePreset, opened => sections.forEach(s => s !== opened && s.setExpanded(false))));
         sections.forEach(section => this._content.addMenuItem(section));
 
         if (devices.length > 1)

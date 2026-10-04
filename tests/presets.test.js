@@ -44,9 +44,9 @@ test('colour wins over temperature only when no scene', () => {
 test('step from current state', () => {
     const dev = devices.get('A');
     assertEqual(stepFromState(dev, {power: true, brightness: 40, scene: {kind: 'scene', name: 'Aurora'}, color: {r: 1, g: 1, b: 1}}),
-        {deviceId: 'A', power: true, brightness: 40, scene: {kind: 'scene', name: 'Aurora', value: {id: 1, paramId: 2}}});
+                {deviceId: 'A', power: true, brightness: 40, scene: {kind: 'scene', name: 'Aurora', value: {id: 1, paramId: 2}}});
     assertEqual(stepFromState(dev, {power: true, brightness: 40, kelvin: 2700, color: null}),
-        {deviceId: 'A', power: true, brightness: 40, temperature: 2700});
+                {deviceId: 'A', power: true, brightness: 40, temperature: 2700});
     assertEqual(stepFromState(dev, {power: false, brightness: 40}), {deviceId: 'A', power: false});
 });
 

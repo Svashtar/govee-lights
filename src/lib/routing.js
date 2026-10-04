@@ -10,9 +10,10 @@ export const CLOUD_DEBOUNCE_MS = 400;
 // LAN commands are not acknowledged; read the state back after a burst.
 export const LAN_CONFIRM_MS = 700;
 
-// 'lan' | 'cloud' | null (cannot be sent: no route available)
-export function chooseRoute({ip, hasCloud}, action, useLan) {
-    if (useLan && ip && LAN_ACTIONS.has(action))
+// ip: the light's LAN address, or null when it isn't reachable or LAN is off.
+// Returns 'lan' | 'cloud' | null (no route available).
+export function chooseRoute({ip, hasCloud}, action) {
+    if (ip && LAN_ACTIONS.has(action))
         return 'lan';
     return hasCloud ? 'cloud' : null;
 }

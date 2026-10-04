@@ -22,7 +22,6 @@ export class Device extends Emitter {
         this.ip = null;
         this.state = {online: null, power: null, brightness: null, color: null, kelvin: null, scene: null};
         this.cloudUpdated = 0;
-        this.busy = false;
         this.error = null;
     }
 

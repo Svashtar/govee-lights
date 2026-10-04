@@ -1,5 +1,6 @@
 import {test, assertEqual, done} from './harness.js';
-import {Throttle, Debounce, FakeTimers} from '../src/lib/throttle.js';
+import {Throttle, Debounce} from '../src/lib/throttle.js';
+import {FakeTimers} from './fakeTimers.js';
 
 test('throttle: first value at once, then at most one per interval, ending on the latest', () => {
     const t = new FakeTimers(), sent = [];

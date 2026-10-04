@@ -41,8 +41,11 @@ async function run() {
         const snapshot = new Gtk.Snapshot();
         paintable.snapshot(snapshot, window.get_width(), window.get_height());
         const node = snapshot.to_node();
-        const texture = window.get_renderer().render_texture(node,
-            new Graphene.Rect({origin: new Graphene.Point({x: 0, y: 0}), size: new Graphene.Size({width: window.get_width(), height: window.get_height()})}));
+        const bounds = new Graphene.Rect({
+            origin: new Graphene.Point({x: 0, y: 0}),
+            size: new Graphene.Size({width: window.get_width(), height: window.get_height()}),
+        });
+        const texture = window.get_renderer().render_texture(node, bounds);
         texture.save_to_png(out);
         print(`saved ${out}`);
         loop.quit();

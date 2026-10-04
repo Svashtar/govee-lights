@@ -87,7 +87,7 @@ test('cloud state: temperature mode vs colour mode', () => {
 
 test('LAN state', () => {
     assertEqual(C.stateFromLan({onOff: 0, brightness: 55, color: {r: 1, g: 2, b: 3}, colorTemInKelvin: 0}),
-        {online: true, power: false, brightness: 55, color: {r: 1, g: 2, b: 3}, kelvin: null});
+                {online: true, power: false, brightness: 55, color: {r: 1, g: 2, b: 3}, kelvin: null});
 });
 
 test('cloud commands', () => {
@@ -106,7 +106,7 @@ test('LAN commands exist only for LAN actions', () => {
 
 test('scene list parsing', () => {
     const body = {payload: {capabilities: [{type: 'devices.capabilities.dynamic_scene', instance: 'lightScene',
-        parameters: {options: [{name: 'Sunrise', value: {id: 10, paramId: 20}}, {bad: true}]}}]}};
+                                            parameters: {options: [{name: 'Sunrise', value: {id: 10, paramId: 20}}, {bad: true}]}}]}};
     assertEqual(C.parseSceneList(body, C.CAP.scene), [{name: 'Sunrise', value: {id: 10, paramId: 20}}]);
     assertEqual(C.parseSceneList({}, C.CAP.scene), []);
 });

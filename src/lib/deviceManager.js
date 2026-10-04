@@ -10,6 +10,7 @@
 //   'error'            (kind, message) for errors the user should see once
 //                      (auth, rate-limit); per-device errors go on Device.error
 
+import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 
 import {cloudCommand, flattenState, lanCommand, optimisticState, stateFromCloud, stateFromLan} from './capabilities.js';
@@ -75,7 +76,9 @@ export class DeviceManager extends Emitter {
         // Kept for this session only.
         this.activePresetId = null;
         this._scanId = 0;
-        this._destroyed = false;
+        this._afterScanId = 0;
+        // Cancelled by destroy(), so async steps (keyring lookup) stop there.
+        this._cancellable = new Gio.Cancellable();
         this.lanError = null;
         this.hasApiKey = false;
     }
@@ -107,9 +110,11 @@ export class DeviceManager extends Emitter {
         this._cacheMonitor = monitorFile(DEVICES_CACHE, () => this._loadDevices());
 
         this._updateLan();
-        await this._connectCloud();
-        if (this._destroyed)
-            return;
+        try {
+            await this._connectCloud();
+        } catch {
+            return; // cancelled by destroy()
+        }
 
         // First run with a key but no cache (e.g. key set from another machine's backup).
         if (this._cloud && !this._devices.size) {
@@ -122,13 +127,15 @@ export class DeviceManager extends Emitter {
     }
 
     destroy() {
-        this._destroyed = true;
-        this._settingsIds?.forEach(id => this._settings.disconnect(id));
-        this._cacheMonitor?.cancel();
+        this._cancellable.cancel();
         if (this._scanId)
             GLib.source_remove(this._scanId);
         this._senders.forEach(s => s.cancel());
         this._timers.clearAll();
+
+        this._settingsIds.forEach(id => this._settings.disconnect(id));
+        this._cacheMonitor.cancel();
+
         this._lan?.destroy();
         this._cloud?.destroy();
         this._devices.forEach(d => d.destroy());
@@ -172,9 +179,11 @@ export class DeviceManager extends Emitter {
     async _reload() {
         this._cloud?.destroy();
         this._cloud = null;
-        await this._connectCloud();
-        if (this._destroyed)
-            return;
+        try {
+            await this._connectCloud();
+        } catch {
+            return; // cancelled by destroy()
+        }
         this._loadDevices();
         this.refreshAll(false);
     }
@@ -187,21 +196,27 @@ export class DeviceManager extends Emitter {
         this.emit('devices-changed');
     }
 
+    // Throws only when cancelled by destroy(); a keyring problem leaves the
+    // extension running without the cloud.
     async _connectCloud() {
+        let apiKey;
         try {
-            const apiKey = await lookupApiKey();
-            this.hasApiKey = Boolean(apiKey);
-            if (apiKey && !this._destroyed) {
-                const count = requestCounter(this._settings);
-                this._cloud = new CloudClient({
-                    apiKey,
-                    onRequest: () => this._countRequest(count),
-                    onResult: cloudStatusRecorder(this._settings),
-                });
-            }
+            apiKey = await lookupApiKey(this._cancellable);
         } catch (e) {
+            if (e.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
+                throw e;
             console.warn(`govee-lights: keyring unavailable: ${e.message}`);
+            return;
         }
+        this.hasApiKey = Boolean(apiKey);
+        if (!apiKey)
+            return;
+        const count = requestCounter(this._settings);
+        this._cloud = new CloudClient({
+            apiKey,
+            onRequest: () => this._countRequest(count),
+            onResult: cloudStatusRecorder(this._settings),
+        });
     }
 
     _countRequest(count) {
@@ -266,7 +281,8 @@ export class DeviceManager extends Emitter {
             console.warn(`govee-lights: LAN scan failed: ${e.message}`);
             return;
         }
-        this._timers.setTimeout(() => this._afterScan(), 3000);
+        this._timers.clearTimeout(this._afterScanId);
+        this._afterScanId = this._timers.setTimeout(() => this._afterScan(), 3000);
     }
 
     _afterScan() {
@@ -355,7 +371,7 @@ export class DeviceManager extends Emitter {
             if (!active || active.steps.some(s => s.deviceId === device.id))
                 this._setActivePreset(null);
         }
-        const route = chooseRoute({ip: this.useLan ? device.ip : null, hasCloud: Boolean(this._cloud)}, action, true);
+        const route = chooseRoute({ip: this.useLan ? device.ip : null, hasCloud: Boolean(this._cloud)}, action);
         if (!route) {
             device.setError(this.hasApiKey ? 'unreachable' : 'no-key');
             return;
@@ -392,7 +408,6 @@ export class DeviceManager extends Emitter {
     }
 
     async _sendCloud(device, action, value) {
-        device.busy = true;
         try {
             await this._cloud.control(device, cloudCommand(device.capabilities, action, value));
             device.setError(null);
@@ -400,8 +415,6 @@ export class DeviceManager extends Emitter {
             this._handleError(device, e);
             // The optimistic state may be wrong now; read the real one.
             this.refresh(device, true).catch(() => {});
-        } finally {
-            device.busy = false;
         }
     }
 
@@ -428,7 +441,8 @@ export class DeviceManager extends Emitter {
     }
 
     _handleError(device, e) {
-        if (e.kind === 'cancelled' || this._destroyed)
+        // GoveeError has a kind; a cancelled keyring lookup is a GLib.Error.
+        if (e.kind === 'cancelled' || (e instanceof GLib.Error && e.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED)))
             return;
         console.warn(`govee-lights: ${device?.sku ?? 'sync'}: ${e.message}`);
         if (e.kind === 'auth' || e.kind === 'rate-limit')

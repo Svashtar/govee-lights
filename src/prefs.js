@@ -58,7 +58,7 @@ export default class GoveeLightsPreferences extends ExtensionPreferences {
         const config = getDevicesConfig(settings);
         const lan = readLanCache();
         return formatDebugInfo({
-            extensionVersion: this.metadata['version-name'] ?? String(this.metadata.version),
+            extensionVersion: this.metadata['version-name'],
             commit: this.metadata.commit,
             shellVersion: Config.PACKAGE_VERSION,
             gjsVersion: formatGjsVersion(System.version),

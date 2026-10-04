@@ -25,9 +25,9 @@ export function featureSummary(caps, device) {
         parts.push(_('White %d–%d K').format(caps.temperature.min, caps.temperature.max));
     if (caps.color)
         parts.push(_('Colour'));
-    if (device.scenes?.length)
+    if (device.scenes.length)
         parts.push(ngettext('%d scene', '%d scenes', device.scenes.length).format(device.scenes.length));
-    if (device.diyScenes?.length)
+    if (device.diyScenes.length)
         parts.push(ngettext('%d DIY scene', '%d DIY scenes', device.diyScenes.length).format(device.diyScenes.length));
     if (caps.snapshots.length)
         parts.push(ngettext('%d snapshot', '%d snapshots', caps.snapshots.length).format(caps.snapshots.length));
@@ -113,9 +113,9 @@ class GoveeLightsDevicesPage extends Adw.PreferencesPage {
 
         // Reorder buttons
         const up = new Gtk.Button({icon_name: 'go-up-symbolic', valign: Gtk.Align.CENTER, css_classes: ['flat'],
-            tooltip_text: _('Move Up'), sensitive: index > 0});
+                                   tooltip_text: _('Move Up'), sensitive: index > 0});
         const down = new Gtk.Button({icon_name: 'go-down-symbolic', valign: Gtk.Align.CENTER, css_classes: ['flat'],
-            tooltip_text: _('Move Down'), sensitive: index < sorted.length - 1});
+                                     tooltip_text: _('Move Down'), sensitive: index < sorted.length - 1});
         up.connect('clicked', () => this._move(sorted, index, -1));
         down.connect('clicked', () => this._move(sorted, index, 1));
         row.add_suffix(up);
