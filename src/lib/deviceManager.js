@@ -108,8 +108,13 @@ export class DeviceManager extends Emitter {
             return;
 
         // First run with a key but no cache (e.g. key set from another machine's backup).
-        if (this._cloud && !this._devices.size)
+        if (this._cloud && !this._devices.size) {
             await this.sync().catch(e => this._handleError(null, e));
+            return;
+        }
+        // Show real state on the tiles straight away: free over LAN, one
+        // cloud read per cloud-only light.
+        this.refreshAll(false);
     }
 
     destroy() {
@@ -282,9 +287,11 @@ export class DeviceManager extends Emitter {
         const device = this._devices.get(found.id);
         if (!device)
             return;
-        const isNew = !device.ip;
+        // Ask for state when the light is new to us, has moved, or its state
+        // is still unknown (its IP may have come from the cache at startup).
+        const ask = device.ip !== found.ip || device.state.power === null;
         device.setIp(found.ip);
-        if (isNew)
+        if (ask)
             this._lan.requestStatus(found.ip);
     }
 

@@ -40,7 +40,9 @@ class GoveeLightsDeviceToggle extends QuickSettings.QuickMenuToggle {
     _sync() {
         const summary = stateSummary(this._device);
         this.title = this._device.name;
-        this.subtitle = summary;
+        // null, not '': the tile only hides its subtitle line for null, and an
+        // empty line would push the name above the icon's centre.
+        this.subtitle = summary || null;
         this.checked = Boolean(this._device.state.power);
         this.menu.setHeader(this._gicon, this._device.name, summary);
     }
@@ -65,6 +67,14 @@ export class QuickToggles {
         this._indicator = null;
         this._key = null;
         this._managerId = manager.connect('devices-changed', () => this._update());
+        // Refresh the tiles whenever Quick Settings opens, so state changed
+        // elsewhere (Govee app, wall switch) shows up without opening each light.
+        this._quickSettingsMenu = Main.panel.statusArea.quickSettings.menu;
+        this._menuId = this._quickSettingsMenu.connect('open-state-changed', (_m, open) => {
+            const devices = this._manager.devices.filter(d => d.placement === 'quick-settings');
+            if (open && devices.length)
+                this._manager.menuOpened(devices);
+        });
         this._update();
     }
 
@@ -87,6 +97,7 @@ export class QuickToggles {
 
     destroy() {
         this._manager.disconnect(this._managerId);
+        this._quickSettingsMenu.disconnect(this._menuId);
         this._indicator?.destroy();
         this._indicator = null;
     }
