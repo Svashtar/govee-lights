@@ -3,7 +3,7 @@
   "name": "Govee Lights",
   "description": "Control your Govee lights from the top bar or Quick Settings.\n\nInstant control over your local network (LAN), with the Govee cloud as a fallback. Power, brightness, colour temperature, colour, scenes, DIY scenes, snapshots, music modes and your own multi-light presets.\n\nNeeds a free Govee API key. Not affiliated with Govee.",
   "shell-version": ["50"],
-  "url": "https://github.com/svashtar/govee-lights",
+  "url": "https://github.com/Svashtar/govee-lights",
   "settings-schema": "org.gnome.shell.extensions.govee-lights",
   "gettext-domain": "govee-lights",
   "version": 1,

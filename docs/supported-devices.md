@@ -21,7 +21,7 @@ The SKU is the model number, such as `H6008` or `H619A`. You can find it:
 
 ## How to report a device
 
-Open a [device report](https://github.com/svashtar/govee-lights/issues/new?template=device_report.yml) and fill in:
+Open a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml) and fill in:
 
 - the SKU and product name;
 - whether it answers over LAN (the **Devices** page shows *LAN* or *Cloud*; make sure LAN Control is on in the Govee Home app first);

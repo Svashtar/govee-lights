@@ -1,6 +1,6 @@
 # Troubleshooting
 
-Start here when something doesn't work. If none of this helps, please [open a bug report](https://github.com/svashtar/govee-lights/issues/new/choose) and include the output of **Settings → About → Copy Debug Info** and any relevant [logs](#collecting-logs).
+Start here when something doesn't work. If none of this helps, please [open a bug report](https://github.com/Svashtar/govee-lights/issues/new/choose) and include the output of **Settings → About → Copy Debug Info** and any relevant [logs](#collecting-logs).
 
 ## The extension doesn't appear
 
@@ -23,7 +23,7 @@ Authentication errors are shown once as a notification rather than repeating for
 
 - Only devices that Govee reports as **lights** are listed. Plugs, sensors and appliances are skipped.
 - Lights added to the Govee app after setup appear after you press **Test & fetch devices** on the Account page again.
-- Some older models aren't available through Govee's developer API at all. If the light doesn't show up after fetching, please file a [device report](https://github.com/svashtar/govee-lights/issues/new?template=device_report.yml).
+- Some older models aren't available through Govee's developer API at all. If the light doesn't show up after fetching, please file a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml).
 
 ## A light shows "Offline"
 

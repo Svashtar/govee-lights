@@ -4,13 +4,9 @@
 
 [![GNOME 50](https://img.shields.io/badge/GNOME-50-4a86cf?logo=gnome&logoColor=white)](https://release.gnome.org/50/)
 [![License: GPL-2.0-or-later](https://img.shields.io/badge/license-GPL--2.0--or--later-blue)](LICENSE)
-[![CI](https://github.com/svashtar/govee-lights/actions/workflows/ci.yml/badge.svg)](https://github.com/svashtar/govee-lights/actions/workflows/ci.yml)
+[![CI](https://github.com/Svashtar/govee-lights/actions/workflows/ci.yml/badge.svg)](https://github.com/Svashtar/govee-lights/actions/workflows/ci.yml)
 
-<p align="center">
-  <img src="docs/screenshots/quick-settings.png" alt="Govee lights as Quick Settings tiles, next to Wi-Fi and Night Light" width="420">
-  &nbsp;
-  <img src="docs/screenshots/panel-menu.png" alt="The Govee Lights top-bar menu with presets and per-light controls" width="420">
-</p>
+> **Status: early development.** There is no release yet, and screenshots will be added with the first one. Follow the [changelog](CHANGELOG.md) for progress.
 
 ## Introduction
 
@@ -50,7 +46,7 @@ Lights that have *LAN Control* enabled are driven directly over your local netwo
 
 ### From a release zip
 
-1. Download `govee-lights@svashta.com.shell-extension.zip` from the [latest release](https://github.com/svashtar/govee-lights/releases/latest).
+1. Download `govee-lights@svashta.com.shell-extension.zip` from the [latest release](https://github.com/Svashtar/govee-lights/releases/latest).
 2. Install it:
 
    ```sh
@@ -69,7 +65,7 @@ Lights that have *LAN Control* enabled are driven directly over your local netwo
 You need `git`, `make` and `glib-compile-schemas` (from the GLib development tools, usually already installed).
 
 ```sh
-git clone https://github.com/svashtar/govee-lights.git
+git clone https://github.com/Svashtar/govee-lights.git
 cd govee-lights
 make install
 ```
@@ -112,7 +108,7 @@ Yes. The extension shares the LAN ports with other Govee integrations instead of
 The extension shows devices that the Govee cloud reports as lights. Plugs, sensors and other appliances are skipped.
 
 **A control is missing for my light.**
-Controls are shown only when the light reports that capability. If you think yours should have it, please open a [device report](https://github.com/svashtar/govee-lights/issues/new?template=device_report.yml).
+Controls are shown only when the light reports that capability. If you think yours should have it, please open a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml).
 
 ## Privacy
 
@@ -120,7 +116,7 @@ Govee Lights has no telemetry and no servers of its own. The only things it talk
 
 ## Contributing
 
-Bug reports, device reports, translations and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first. When reporting a bug, open **Settings → About → Copy Debug Info** and paste the result into the [bug report form](https://github.com/svashtar/govee-lights/issues/new/choose).
+Bug reports, device reports, translations and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first. When reporting a bug, open **Settings → About → Copy Debug Info** and paste the result into the [bug report form](https://github.com/Svashtar/govee-lights/issues/new/choose).
 
 ## Translations
 

@@ -2,14 +2,14 @@
 
 Thanks for helping out! This guide covers setting up a development environment, the checks that run in CI, code style and how to send changes.
 
-If you just want to report a problem, open an [issue](https://github.com/svashtar/govee-lights/issues/new/choose) and paste the output of **Settings → About → Copy Debug Info**.
+If you just want to report a problem, open an [issue](https://github.com/Svashtar/govee-lights/issues/new/choose) and paste the output of **Settings → About → Copy Debug Info**.
 
 ## Development setup
 
 You need GNOME Shell 50, `gjs`, `make`, `glib-compile-schemas`, `gettext` (for `make pot`) and Node.js (for `make lint`).
 
 ```sh
-git clone https://github.com/svashtar/govee-lights.git
+git clone https://github.com/Svashtar/govee-lights.git
 cd govee-lights
 make install
 gnome-extensions enable govee-lights@svashta.com
@@ -129,7 +129,7 @@ The interface uses British English spelling ("colour").
 
 ## Reporting devices
 
-Govee sells many models and we can only test a few. If you have a light that isn't in [docs/supported-devices.md](docs/supported-devices.md), please file a [device report](https://github.com/svashtar/govee-lights/issues/new?template=device_report.yml) with its SKU (for example `H6008`, shown on the **Devices** page and in the debug info), whether it answers over LAN and which cloud features worked.
+Govee sells many models and we can only test a few. If you have a light that isn't in [docs/supported-devices.md](docs/supported-devices.md), please file a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml) with its SKU (for example `H6008`, shown on the **Devices** page and in the debug info), whether it answers over LAN and which cloud features worked.
 
 ## Code of conduct
 
