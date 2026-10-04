@@ -1,0 +1,71 @@
+name: Device report
+description: Report a light model as working, partly working or not working.
+title: "[Device] "
+labels: ["device report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Reports like this keep [Supported devices](https://github.com/svashtar/govee-lights/blob/main/docs/supported-devices.md) up to date.
+
+        Before testing LAN, turn on **LAN Control** for the light in the Govee Home app and make sure your firewall allows UDP port 4002 (see [LAN control](https://github.com/svashtar/govee-lights/blob/main/docs/lan-control.md)).
+  - type: input
+    id: sku
+    attributes:
+      label: SKU
+      description: The model number, shown on the Devices page and in the debug info.
+      placeholder: H6008
+    validations:
+      required: true
+  - type: input
+    id: product
+    attributes:
+      label: Product name
+      placeholder: Govee Smart LED Bulb
+  - type: dropdown
+    id: lan
+    attributes:
+      label: Works over LAN?
+      description: The Devices page shows LAN or Cloud as the light's connection.
+      options:
+        - "Yes"
+        - "No"
+        - Unknown
+    validations:
+      required: true
+  - type: dropdown
+    id: lan-option
+    attributes:
+      label: Does the Govee Home app offer "LAN Control" for this light?
+      options:
+        - "Yes"
+        - "No"
+        - Not sure
+  - type: checkboxes
+    id: working
+    attributes:
+      label: Features that work
+      description: Tick everything you tested and found working. Leave unticked anything that failed or that you didn't test, and explain below.
+      options:
+        - label: Power
+        - label: Brightness
+        - label: Colour temperature
+        - label: Colour
+        - label: Scenes
+        - label: DIY scenes
+        - label: Snapshots
+        - label: Music mode
+        - label: Presets including this light
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: What didn't work, missing controls, wrong ranges, firmware version, anything else.
+  - type: textarea
+    id: debug-info
+    attributes:
+      label: Debug info
+      description: Settings → About → Copy Debug Info. It never contains your API key or device IDs.
+      render: text
+    validations:
+      required: true

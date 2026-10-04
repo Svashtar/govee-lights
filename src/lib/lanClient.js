@@ -83,17 +83,9 @@ export class LanClient extends Emitter {
         this.#send(ip, COMMAND_PORT, encode('devStatus'));
     }
 
-    turn(ip, on) {
-        this.#send(ip, COMMAND_PORT, encode('turn', {value: on ? 1 : 0}));
-    }
-
-    brightness(ip, value) {
-        this.#send(ip, COMMAND_PORT, encode('brightness', {value}));
-    }
-
-    // Either an RGB colour or a colour temperature; the light ignores the other.
-    colorwc(ip, {color = {r: 0, g: 0, b: 0}, kelvin = 0}) {
-        this.#send(ip, COMMAND_PORT, encode('colorwc', {color, colorTemInKelvin: kelvin}));
+    // cmd/data as built by capabilities.lanCommand()
+    command(ip, cmd, data) {
+        this.#send(ip, COMMAND_PORT, encode(cmd, data));
     }
 
     #send(host, port, text) {

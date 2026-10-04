@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Troubleshooting guide
+    url: https://github.com/svashtar/govee-lights/blob/main/docs/troubleshooting.md
+    about: Solutions for offline lights, LAN discovery, API key and rate-limit problems.
