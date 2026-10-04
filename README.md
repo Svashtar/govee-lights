@@ -14,6 +14,12 @@ Govee Lights puts your Govee lamps, bulbs and strips where the rest of your desk
 
 Lights that have *LAN Control* enabled are driven directly over your local network, so sliders follow your finger live and nothing depends on the internet. Everything else (scenes, DIY scenes, snapshots, music modes and lights without LAN support) goes through the official Govee cloud API.
 
+## Why?
+
+- **There is no Govee app for Linux.** Without this extension, changing a light from your desk means reaching for your phone.
+- **Local control is instant and private.** Commands sent over your LAN never pass through Govee's servers, and your lights keep working when the internet is down.
+- **Your lights belong with your other controls.** They sit next to Wi-Fi, Bluetooth and Night Light, one click away, instead of in yet another app.
+
 ## Features
 
 - **Quick Settings tiles.** Click the tile to toggle a light, open the arrow for its full controls. The subtitle shows brightness, the active scene or "Offline".
