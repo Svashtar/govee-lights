@@ -29,7 +29,7 @@ export function errorMessage(e) {
 export const AccountPage = GObject.registerClass(
 class GoveeLightsAccountPage extends Adw.PreferencesPage {
     _init({window, settings, docsUrl}) {
-        super._init({title: _('Account'), icon_name: 'dialog-password-symbolic', name: 'account'});
+        super._init({title: _('Account'), icon_name: 'avatar-default-symbolic', name: 'account'});
         this._window = window;
         this._settings = settings;
 
@@ -38,8 +38,6 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
             title: _('Govee Account'),
             description: _('In the Govee Home app, open Profile → Settings → Apply for API Key. The key arrives by email.'),
         });
-        const help = new Gtk.LinkButton({uri: `${docsUrl}/getting-started.md`, label: _('How to Get a Key'), valign: Gtk.Align.CENTER});
-        account.set_header_suffix(help);
 
         this._keyRow = new Adw.PasswordEntryRow({title: _('API Key'), show_apply_button: true});
         this._keyRow.connect('apply', () => this._saveKey());
@@ -57,6 +55,11 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         removeKey.add_css_class('destructive-action');
         removeKey.connect('activated', () => this._removeKey());
         account.add(removeKey);
+
+        const help = new Adw.ActionRow({title: _('How to Get an API Key'), activatable: true});
+        help.add_suffix(new Gtk.Image({icon_name: 'adw-external-link-symbolic'}));
+        help.connect('activated', () => new Gtk.UriLauncher({uri: `${docsUrl}/getting-started.md`}).launch(this._window, null, null));
+        account.add(help);
         this.add(account);
 
         // Local network -----------------------------------------------------

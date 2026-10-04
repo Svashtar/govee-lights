@@ -45,7 +45,7 @@ function infoRow(title, value) {
 export const DevicesPage = GObject.registerClass(
 class GoveeLightsDevicesPage extends Adw.PreferencesPage {
     _init({window, settings}) {
-        super._init({title: _('Lights'), icon_name: 'display-brightness-symbolic', name: 'devices'});
+        super._init({title: _('Lights'), icon_name: 'govee-lights-symbolic', name: 'devices'});
         this._window = window;
         this._settings = settings;
         this._groups = [];
