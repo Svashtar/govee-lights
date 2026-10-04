@@ -1,1 +1,54 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
+
+.govee-menu {
+  min-width: 340px;
+}
+
+.govee-section-title .popup-menu-item-label,
+.govee-section-title {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.govee-device-summary {
+  font-size: 0.9em;
+  padding: 0 6px;
+}
+
+.govee-power-button {
+  padding: 0 4px;
+}
+
+.govee-swatches {
+  spacing: 8px;
+  padding: 2px 0;
+}
+
+.govee-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 99px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.govee-swatch:hover,
+.govee-swatch:focus {
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.govee-status-item .popup-menu-item-label,
+.govee-status {
+  font-size: 0.85em;
+}
+
+.govee-gradient-slider {
+  -slider-handle-radius: 10px;
+}
+
+.govee-save-preset-box {
+  spacing: 12px;
+  min-width: 320px;
+}
+
+.govee-save-preset-description {
+}

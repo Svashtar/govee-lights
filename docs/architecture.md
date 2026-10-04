@@ -4,7 +4,6 @@ This page is for contributors. It describes how the extension is put together, h
 
 The extension targets **GNOME Shell 50** only, uses ES modules, and runs as two processes: the **shell** side (`extension.js`, `ui/`) inside `gnome-shell`, and the **preferences** window (`prefs.js`, `prefs/`) in a separate `gjs` process. `lib/` is shared by both, and its pure modules are unit-tested with plain `gjs -m`.
 
-> Some modules below are still being written. The map shows the intended layout; check `src/` for what exists today.
 
 ## Module map
 
@@ -12,22 +11,26 @@ The extension targets **GNOME Shell 50** only, uses ES modules, and runs as two 
 src/metadata.json            uuid govee-lights@svashta.com, shell-version ["50"], settings-schema
 src/extension.js             enable/disable; wires store → UIs
 src/prefs.js                 Adw preferences window; builds the pages in src/prefs/
-src/prefs/                   preference pages: Account, Devices, Presets, About (aboutPage.js)
-src/lib/cloudClient.js       Soup 3 client, typed GoveeError, retry rules, daily request counter
+src/prefs/                   preference pages: accountPage, devicesPage ("Lights"), presetsPage, aboutPage
+src/lib/cloudClient.js       Soup 3 client, typed GoveeError, retry rules
 src/lib/lanClient.js         Gio.Socket UDP: discovery, send, devStatus listener
 src/lib/capabilities.js      pure: capability table, supports(), ranges, option parsers, colour helpers
-src/lib/device.js            GObject per light: metadata + state + notify signals
+src/lib/device.js            one light: metadata, user config, IP, state; emits 'changed'
 src/lib/deviceManager.js     merges cloud + LAN, routes each action (LAN if possible), throttling,
                              optimistic state, confirm-read
 src/lib/presets.js           multi-device presets: model, apply (parallel per device)
 src/lib/secret.js            libsecret helpers (shared by shell + prefs)
-src/lib/config.js            GSettings JSON (de)serialisation + metadata cache file
+src/lib/config.js            GSettings JSON helpers, cache files (devices.json, lan.json), request counter
+src/lib/sync.js              fetch lights + scene lists from the cloud, write devices.json
+src/lib/routing.js           pure: LAN vs cloud choice, timing constants, staleness
+src/lib/throttle.js          pure: Throttle (LAN drags) and Debounce (cloud drags)
 src/lib/debugInfo.js         pure: "Copy Debug Info" text (no key, IDs, IPs or names)
 src/lib/settingsBackup.js    pure: settings export/import format (never the API key)
 src/lib/markdown.js          pure: CHANGELOG.md → Pango markup for About → What's New
 src/lib/emitter.js           tiny signal emitter for non-GObject classes
 src/ui/deviceControls.js     shared PopupMenu builders (power, sliders, colour, scene submenus)
-src/ui/hueSlider.js          Slider subclass with a rainbow gradient (Cairo)
+src/ui/gradientSlider.js     Slider subclass drawing a hue or warm→cool white gradient (Cairo)
+src/ui/savePresetDialog.js   ModalDialog asking for a preset name
 src/ui/panelIndicator.js     PanelMenu.Button: presets section + per-device sections; hidden when empty
 src/ui/quickToggles.js       SystemIndicator + QuickMenuToggle per quick-settings device
 src/schemas/                 org.gnome.shell.extensions.govee-lights.gschema.xml
@@ -74,6 +77,8 @@ The design is **LAN first, cloud as fallback**.
   - Runs on enable, then every 5 minutes, and on menu open when a device has no known IP.
   - The `device` value in scan replies has the same `AA:BB:…` format as the cloud device ID; that's how LAN and cloud devices are matched.
   - The socket is bound with address/port reuse so it coexists with Home Assistant and similar tools. If it can't bind, the extension runs cloud-only.
+  - Only the shell opens the socket. With port reuse, Linux spreads unicast replies across every socket bound to 4002, so a second listener in the prefs process would steal replies. The shell writes scan results to `~/.cache/govee-lights/lan.json`; the prefs window reads that file and asks for a rescan by bumping the `lan-scan-request` key.
+  - A light that misses more than two scans in a row is treated as off the LAN and falls back to the cloud.
 - **Cloud** (`cloudClient.js`) uses Soup 3 against `https://openapi.api.govee.com/router/api/v1/` with the `Govee-API-Key` header and a 10 s timeout:
   - `GET user/devices` keeps devices whose `type` contains `light`;
   - `POST device/state` is flattened to `type.instance → value`;

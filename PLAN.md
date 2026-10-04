@@ -70,7 +70,7 @@ lib/presets.js            multi-device presets: model, apply (parallel per devic
 lib/secret.js             libsecret helpers (shared by shell + prefs)
 lib/config.js             GSettings JSON (de)serialisation + metadata cache file
 ui/deviceControls.js      shared PopupMenu builders (power, sliders, colour, scene submenus)
-ui/hueSlider.js           Slider subclass with a rainbow gradient (Cairo)
+ui/gradientSlider.js      Slider subclass with a hue or white-temperature gradient (Cairo)
 ui/panelIndicator.js      PanelMenu.Button: presets section + per-device sections; hidden when empty
 ui/quickToggles.js        SystemIndicator + QuickMenuToggle per quick-settings device
 schemas/org.gnome.shell.extensions.govee-lights.gschema.xml

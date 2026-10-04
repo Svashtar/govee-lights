@@ -125,6 +125,7 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         try {
             await storeApiKey(key);
             await this._loadKey();
+            this._settings.set_int64('cache-stamp', GLib.get_real_time());
             await this._fetch();
         } catch (e) {
             this._toast(_('Could not save the key: %s').format(e.message));
@@ -135,6 +136,7 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         try {
             await clearApiKey();
             await this._loadKey();
+            this._settings.set_int64('cache-stamp', GLib.get_real_time());
             this._toast(_('API key removed'));
         } catch (e) {
             this._toast(e.message);
