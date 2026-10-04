@@ -1,0 +1,688 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Govee Lights package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Govee Lights\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 07:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: src/ui/deviceControls.js:24
+msgid "Scenes"
+msgstr ""
+
+#: src/ui/deviceControls.js:25
+msgid "DIY Scenes"
+msgstr ""
+
+#: src/ui/deviceControls.js:26
+msgid "Snapshots"
+msgstr ""
+
+#: src/ui/deviceControls.js:27
+msgid "Music Modes"
+msgstr ""
+
+#: src/ui/deviceControls.js:33
+msgid "No API key"
+msgstr ""
+
+#: src/ui/deviceControls.js:35 src/ui/deviceControls.js:181
+msgid "Offline"
+msgstr ""
+
+#: src/ui/deviceControls.js:39 src/prefs/presetsPage.js:29
+msgid "Off"
+msgstr ""
+
+#: src/ui/deviceControls.js:42 src/prefs/presetsPage.js:30
+msgid "On"
+msgstr ""
+
+#: src/ui/deviceControls.js:48
+msgid "Add your API key in Settings"
+msgstr ""
+
+#: src/ui/deviceControls.js:49
+msgid "Not reachable"
+msgstr ""
+
+#: src/ui/deviceControls.js:50
+msgid "API key rejected"
+msgstr ""
+
+#: src/ui/deviceControls.js:51 src/extension.js:86
+msgid "Govee rate limit reached"
+msgstr ""
+
+#: src/ui/deviceControls.js:52
+msgid "No connection to Govee"
+msgstr ""
+
+#: src/ui/deviceControls.js:53
+msgid "Last command failed"
+msgstr ""
+
+#: src/ui/deviceControls.js:106 src/ui/panelIndicator.js:34
+#: src/prefs/devicesPage.js:21
+msgid "Power"
+msgstr ""
+
+#: src/ui/deviceControls.js:112 src/prefs/devicesPage.js:23
+#: src/prefs/presetsPage.js:74
+msgid "Brightness"
+msgstr ""
+
+#: src/ui/deviceControls.js:118 src/prefs/presetsPage.js:19
+msgid "White"
+msgstr ""
+
+#: src/ui/deviceControls.js:123 src/prefs/devicesPage.js:27
+#: src/prefs/presetsPage.js:20 src/prefs/presetsPage.js:107
+msgid "Colour"
+msgstr ""
+
+#: src/ui/deviceControls.js:141
+msgid "Save as Preset…"
+msgstr ""
+
+#: src/ui/deviceControls.js:180
+msgid "LAN"
+msgstr ""
+
+#: src/ui/deviceControls.js:180
+msgid "Cloud"
+msgstr ""
+
+#: src/ui/savePresetDialog.js:19
+msgid "Save as Preset"
+msgstr ""
+
+#: src/ui/savePresetDialog.js:26 src/prefs/aboutPage.js:222
+#: src/prefs/presetsPage.js:52
+msgid "Cancel"
+msgstr ""
+
+#: src/ui/savePresetDialog.js:27 src/prefs/presetsPage.js:54
+msgid "Save"
+msgstr ""
+
+#: src/ui/panelIndicator.js:62 src/prefs/aboutPage.js:54 src/extension.js:59
+#: src/extension.js:98
+msgid "Govee Lights"
+msgstr ""
+
+#: src/ui/panelIndicator.js:73
+msgid "Refresh"
+msgstr ""
+
+#: src/ui/panelIndicator.js:75 src/prefs/aboutPage.js:103
+msgid "Settings"
+msgstr ""
+
+#: src/ui/panelIndicator.js:98
+msgid "No lights found. Open Settings to fetch them."
+msgstr ""
+
+#: src/ui/panelIndicator.js:99
+msgid "Set Up Govee Lights…"
+msgstr ""
+
+#: src/ui/panelIndicator.js:105 src/prefs/presetsPage.js:201
+#: src/prefs/presetsPage.js:236
+msgid "Presets"
+msgstr ""
+
+#: src/ui/panelIndicator.js:120
+msgid "Save All as Preset…"
+msgstr ""
+
+#: src/ui/quickToggles.js:19
+#, javascript-format
+msgid "%s Settings"
+msgstr ""
+
+#: src/prefs/aboutPage.js:41
+msgid "About"
+msgstr ""
+
+#: src/prefs/aboutPage.js:56
+msgid "Control your Govee lights from the top bar and Quick Settings"
+msgstr ""
+
+#: src/prefs/aboutPage.js:66
+msgid "Version"
+msgstr ""
+
+#: src/prefs/aboutPage.js:68
+msgid "Git commit"
+msgstr ""
+
+#: src/prefs/aboutPage.js:70 src/prefs/aboutPage.js:174
+msgid "What’s New"
+msgstr ""
+
+#: src/prefs/aboutPage.js:77
+msgid "Help"
+msgstr ""
+
+#: src/prefs/aboutPage.js:78
+msgid "Website"
+msgstr ""
+
+#: src/prefs/aboutPage.js:78
+msgid "Features, screenshots and installation"
+msgstr ""
+
+#: src/prefs/aboutPage.js:79
+msgid "Documentation"
+msgstr ""
+
+#: src/prefs/aboutPage.js:79
+msgid "Setup, LAN control, presets and troubleshooting"
+msgstr ""
+
+#: src/prefs/aboutPage.js:80
+msgid "Report an Issue"
+msgstr ""
+
+#: src/prefs/aboutPage.js:80
+msgid "Include the debug info below"
+msgstr ""
+
+#: src/prefs/aboutPage.js:83
+msgid "Copy Debug Info"
+msgstr ""
+
+#: src/prefs/aboutPage.js:84
+msgid "Versions, settings and light models. Never your API key or device IDs."
+msgstr ""
+
+#: src/prefs/aboutPage.js:92
+msgid "Debug info copied"
+msgstr ""
+
+#: src/prefs/aboutPage.js:95
+msgid "Could not collect debug info"
+msgstr ""
+
+#: src/prefs/aboutPage.js:104
+msgid ""
+"Backups include names, placements and presets. The API key stays in your "
+"keyring."
+msgstr ""
+
+#: src/prefs/aboutPage.js:106
+msgid "Export Settings…"
+msgstr ""
+
+#: src/prefs/aboutPage.js:108
+msgid "Import Settings…"
+msgstr ""
+
+#: src/prefs/aboutPage.js:110
+msgid "Reset All Settings…"
+msgstr ""
+
+#: src/prefs/aboutPage.js:119
+msgid "License"
+msgstr ""
+
+#: src/prefs/aboutPage.js:119
+msgid "GNU General Public License, version 2 or later"
+msgstr ""
+
+#: src/prefs/aboutPage.js:122
+msgid ""
+"Govee is a trademark of Shenzhen Intellirocks Tech. Co., Ltd. This extension "
+"is not affiliated with or endorsed by Govee."
+msgstr ""
+
+#: src/prefs/aboutPage.js:158
+msgid "Release notes are not available."
+msgstr ""
+
+#: src/prefs/aboutPage.js:192
+msgid "Settings exported"
+msgstr ""
+
+#: src/prefs/aboutPage.js:196
+msgid "JSON files"
+msgstr ""
+
+#: src/prefs/aboutPage.js:214
+msgid "Settings imported"
+msgstr ""
+
+#: src/prefs/aboutPage.js:219
+msgid "Reset All Settings?"
+msgstr ""
+
+#: src/prefs/aboutPage.js:220
+msgid "Names, placements and presets will be removed. Your API key is kept."
+msgstr ""
+
+#: src/prefs/aboutPage.js:223
+msgid "Reset"
+msgstr ""
+
+#: src/prefs/aboutPage.js:232
+msgid "Settings reset"
+msgstr ""
+
+#: src/prefs/accountPage.js:22
+msgid "Govee rejected the API key. Check it and try again."
+msgstr ""
+
+#: src/prefs/accountPage.js:23
+msgid "Govee’s request limit was reached. Try again later."
+msgstr ""
+
+#: src/prefs/accountPage.js:24
+msgid "Could not reach Govee. Check your internet connection."
+msgstr ""
+
+#: src/prefs/accountPage.js:32
+msgid "Account"
+msgstr ""
+
+#: src/prefs/accountPage.js:38
+msgid "Govee Account"
+msgstr ""
+
+#: src/prefs/accountPage.js:39
+msgid ""
+"In the Govee Home app, open Profile → Settings → Apply for API Key. The key "
+"arrives by email."
+msgstr ""
+
+#: src/prefs/accountPage.js:42 src/prefs/accountPage.js:114
+msgid "API Key"
+msgstr ""
+
+#: src/prefs/accountPage.js:46
+msgid "Fetch Lights"
+msgstr ""
+
+#: src/prefs/accountPage.js:49 src/prefs/devicesPage.js:48
+msgid "Lights"
+msgstr ""
+
+#: src/prefs/accountPage.js:54
+msgid "Remove API Key"
+msgstr ""
+
+#: src/prefs/accountPage.js:59
+msgid "How to Get an API Key"
+msgstr ""
+
+#: src/prefs/accountPage.js:67
+msgid "Local Network"
+msgstr ""
+
+#: src/prefs/accountPage.js:68
+msgid ""
+"Lights with LAN Control turned on respond instantly and work without "
+"internet. Turn it on per light in the Govee Home app: open the light, then "
+"Settings → LAN Control."
+msgstr ""
+
+#: src/prefs/accountPage.js:70
+msgid "Control Lights over LAN"
+msgstr ""
+
+#: src/prefs/accountPage.js:70
+msgid "Falls back to the cloud when a light can’t be reached"
+msgstr ""
+
+#: src/prefs/accountPage.js:74
+msgid "Reachable on LAN"
+msgstr ""
+
+#: src/prefs/accountPage.js:75
+msgid "Scan Now"
+msgstr ""
+
+#: src/prefs/accountPage.js:84
+msgid "Cloud Usage"
+msgstr ""
+
+#: src/prefs/accountPage.js:85
+msgid ""
+"Govee allows 10,000 cloud requests per day. Commands sent over LAN don’t "
+"count."
+msgstr ""
+
+#: src/prefs/accountPage.js:87
+msgid "Requests Today"
+msgstr ""
+
+#: src/prefs/accountPage.js:91
+msgid "Refresh Light State After"
+msgstr ""
+
+#: src/prefs/accountPage.js:92
+msgid ""
+"Seconds. Cloud state is refreshed when a menu opens and is older than this."
+msgstr ""
+
+#: src/prefs/accountPage.js:114
+msgid "API Key (saved in your keyring)"
+msgstr ""
+
+#: src/prefs/accountPage.js:116
+#, javascript-format
+msgid "Could not open the keyring: %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:131
+#, javascript-format
+msgid "Could not save the key: %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:140
+msgid "API key removed"
+msgstr ""
+
+#: src/prefs/accountPage.js:149
+msgid "Enter your API key first"
+msgstr ""
+
+#: src/prefs/accountPage.js:160
+#, javascript-format
+msgid "Found %d light"
+msgid_plural "Found %d lights"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/accountPage.js:174
+msgid "No lights fetched yet"
+msgstr ""
+
+#: src/prefs/accountPage.js:177
+#, javascript-format
+msgid "%d light, updated %s"
+msgid_plural "%d lights, updated %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/accountPage.js:184
+#, javascript-format
+msgid "%d of %d lights"
+msgstr ""
+
+#: src/prefs/accountPage.js:185 src/prefs/presetsPage.js:246
+msgid "Fetch your lights first"
+msgstr ""
+
+#: src/prefs/accountPage.js:190
+#, javascript-format
+msgid "%d of %d"
+msgstr ""
+
+#: src/prefs/devicesPage.js:16
+msgid "Hidden"
+msgstr ""
+
+#: src/prefs/devicesPage.js:16
+msgid "Top Bar Menu"
+msgstr ""
+
+#: src/prefs/devicesPage.js:16
+msgid "Quick Settings"
+msgstr ""
+
+#: src/prefs/devicesPage.js:25
+#, javascript-format
+msgid "White %d–%d K"
+msgstr ""
+
+#: src/prefs/devicesPage.js:29
+#, javascript-format
+msgid "%d scene"
+msgid_plural "%d scenes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/devicesPage.js:31
+#, javascript-format
+msgid "%d DIY scene"
+msgid_plural "%d DIY scenes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/devicesPage.js:33
+#, javascript-format
+msgid "%d snapshot"
+msgid_plural "%d snapshots"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/devicesPage.js:35
+#, javascript-format
+msgid "%d music mode"
+msgid_plural "%d music modes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/devicesPage.js:86
+msgid "No Lights Yet"
+msgstr ""
+
+#: src/prefs/devicesPage.js:87
+msgid "Add your Govee API key on the Account page, then fetch your lights."
+msgstr ""
+
+#: src/prefs/devicesPage.js:96
+msgid "Your Lights"
+msgstr ""
+
+#: src/prefs/devicesPage.js:97
+msgid ""
+"Rename lights and choose where each one appears. Lights in Quick Settings "
+"get their own tile."
+msgstr ""
+
+#: src/prefs/devicesPage.js:111
+#, javascript-format
+msgid "%s · LAN"
+msgstr ""
+
+#: src/prefs/devicesPage.js:111
+#, javascript-format
+msgid "%s · Cloud"
+msgstr ""
+
+#: src/prefs/devicesPage.js:116 src/prefs/presetsPage.js:266
+msgid "Move Up"
+msgstr ""
+
+#: src/prefs/devicesPage.js:118 src/prefs/presetsPage.js:269
+msgid "Move Down"
+msgstr ""
+
+#: src/prefs/devicesPage.js:124 src/prefs/presetsPage.js:274
+msgid "Name"
+msgstr ""
+
+#: src/prefs/devicesPage.js:132
+msgid "Show In"
+msgstr ""
+
+#: src/prefs/devicesPage.js:141
+msgid "Name in Govee Home"
+msgstr ""
+
+#: src/prefs/devicesPage.js:142
+msgid "Model"
+msgstr ""
+
+#: src/prefs/devicesPage.js:143
+msgid "Connection"
+msgstr ""
+
+#: src/prefs/devicesPage.js:144
+#, javascript-format
+msgid "LAN (%s), cloud for scenes"
+msgstr ""
+
+#: src/prefs/devicesPage.js:145
+msgid ""
+"Cloud only. Turn on LAN Control in the Govee Home app for instant control."
+msgstr ""
+
+#: src/prefs/devicesPage.js:146
+msgid "Features"
+msgstr ""
+
+#: src/prefs/devicesPage.js:146
+msgid "None reported"
+msgstr ""
+
+#: src/prefs/presetsPage.js:18
+msgid "Keep Current"
+msgstr ""
+
+#: src/prefs/presetsPage.js:21 src/prefs/presetsPage.js:111
+msgid "Scene"
+msgstr ""
+
+#: src/prefs/presetsPage.js:22
+msgid "DIY Scene"
+msgstr ""
+
+#: src/prefs/presetsPage.js:23
+msgid "Snapshot"
+msgstr ""
+
+#: src/prefs/presetsPage.js:24
+msgid "Music Mode"
+msgstr ""
+
+#: src/prefs/presetsPage.js:46
+msgid "Edit Light"
+msgstr ""
+
+#: src/prefs/presetsPage.js:46 src/prefs/presetsPage.js:297
+msgid "Add Light"
+msgstr ""
+
+#: src/prefs/presetsPage.js:64
+msgid "Light"
+msgstr ""
+
+#: src/prefs/presetsPage.js:70
+msgid "Turn On"
+msgstr ""
+
+#: src/prefs/presetsPage.js:75
+msgid "Percent. 0 keeps the current brightness."
+msgstr ""
+
+#: src/prefs/presetsPage.js:89
+msgid "Light Mode"
+msgstr ""
+
+#: src/prefs/presetsPage.js:93
+msgid "Colour Temperature"
+msgstr ""
+
+#: src/prefs/presetsPage.js:94
+msgid "Kelvin"
+msgstr ""
+
+#: src/prefs/presetsPage.js:237
+msgid ""
+"A preset sets one or more lights in one click. Presets appear at the top of "
+"the top-bar menu. You can also save a light’s current state as a preset from "
+"its menu."
+msgstr ""
+
+#: src/prefs/presetsPage.js:239
+msgid "Add Preset"
+msgstr ""
+
+#: src/prefs/presetsPage.js:246
+msgid "No presets yet"
+msgstr ""
+
+#: src/prefs/presetsPage.js:247
+msgid "Use the + button to create one"
+msgstr ""
+
+#: src/prefs/presetsPage.js:247
+msgid "Presets need at least one light"
+msgstr ""
+
+#: src/prefs/presetsPage.js:261 src/prefs/presetsPage.js:281
+msgid "Unknown light"
+msgstr ""
+
+#: src/prefs/presetsPage.js:262
+msgid "No lights yet"
+msgstr ""
+
+#: src/prefs/presetsPage.js:282
+msgid "This light is no longer in your Govee account"
+msgstr ""
+
+#: src/prefs/presetsPage.js:286
+msgid "Edit"
+msgstr ""
+
+#: src/prefs/presetsPage.js:291
+msgid "Remove"
+msgstr ""
+
+#: src/prefs/presetsPage.js:301
+msgid "Delete Preset"
+msgstr ""
+
+#: src/prefs/presetsPage.js:322
+msgid "New Preset"
+msgstr ""
+
+#: src/extension.js:59
+msgid "The light’s state isn’t known yet. Open its menu and try again."
+msgstr ""
+
+#: src/extension.js:62
+msgid "My Preset"
+msgstr ""
+
+#: src/extension.js:82
+msgid "Govee API key rejected"
+msgstr ""
+
+#: src/extension.js:83
+msgid "Check the key in Govee Lights settings."
+msgstr ""
+
+#: src/extension.js:87
+msgid ""
+"Cloud control pauses until the limit resets. Lights on your LAN keep working."
+msgstr ""
+
+#: src/extension.js:90
+msgid "Almost at the Govee daily limit"
+msgstr ""
+
+#: src/extension.js:91
+#, javascript-format
+msgid "%s cloud requests used today."
+msgstr ""
+
+#: src/extension.js:106
+msgid "Open Settings"
+msgstr ""

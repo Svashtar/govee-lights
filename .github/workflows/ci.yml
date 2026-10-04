@@ -12,8 +12,8 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: ESLint
@@ -23,7 +23,7 @@ jobs:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install gjs
         run: |
           sudo apt-get update
@@ -35,7 +35,7 @@ jobs:
     name: Pack
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Install gnome-extensions and gettext
@@ -44,7 +44,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends gnome-shell gettext libglib2.0-bin
       - name: Build zip
         run: make pack
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: govee-lights-${{ github.sha }}
           path: dist/*.zip
