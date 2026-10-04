@@ -1,6 +1,6 @@
 import {test, assertEqual, done} from './harness.js';
 import {parseCapabilities} from '../src/lib/capabilities.js';
-import {planPreset, stepFromState, sanitizePresets} from '../src/lib/presets.js';
+import {planPreset, stepFromState, sanitizePresets, matchesQuery} from '../src/lib/presets.js';
 
 const full = parseCapabilities([
     {type: 'devices.capabilities.on_off', instance: 'powerSwitch'},
@@ -53,6 +53,13 @@ test('step from current state', () => {
 test('sanitize drops junk', () => {
     const out = sanitizePresets([{id: 'x', name: 'Ok', steps: [{deviceId: 'A'}, null, {foo: 1}]}, {name: 5}, null]);
     assertEqual(out, [{id: 'x', name: 'Ok', steps: [{deviceId: 'A'}]}]);
+});
+
+test('option search ignores case, accents and word order', () => {
+    assertEqual(matchesQuery('Auróra Borealis', 'aurora'), true);
+    assertEqual(matchesQuery('Auróra Borealis', 'bor aur'), true);
+    assertEqual(matchesQuery('Sunrise', 'aurora'), false);
+    assertEqual(matchesQuery('Sunrise', '  '), true);
 });
 
 done();

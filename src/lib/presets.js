@@ -101,3 +101,16 @@ export function sanitizePresets(presets) {
             steps: p.steps.filter(s => s && typeof s.deviceId === 'string'),
         }));
 }
+
+// Folds case and accents, so "aurora" matches "Auróra".
+export function searchKey(text) {
+    return String(text).normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().trim();
+}
+
+// Whether an option name matches a search query: every word of the query
+// must appear somewhere in the name, in any order.
+export function matchesQuery(name, query) {
+    const words = searchKey(query).split(/\s+/).filter(Boolean);
+    const key = searchKey(name);
+    return words.every(w => key.includes(w));
+}

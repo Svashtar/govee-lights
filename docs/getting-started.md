@@ -20,8 +20,8 @@ Treat the key like a password: anyone who has it can control your lights.
 1. Open the extension's settings, in either of these ways:
    - the **Extensions** app → **Govee Lights** → **Settings**
    - `gnome-extensions prefs govee-lights@svashta.com`
-2. On the **Account** page, paste the key into the API key field.
-3. Press **Test & fetch devices**. The extension checks the key, downloads your device list and caches each light's capabilities and scenes.
+2. On the **Account** page, paste the key into the **API Key** field and press Enter (or the ✓ button).
+3. The extension saves the key and fetches your lights straight away. Later, press **Fetch Lights** to pick up new lights or scenes added in the Govee Home app.
 
 The key is saved in GNOME Keyring, not in GSettings. See [Privacy](privacy.md).
 
@@ -56,8 +56,8 @@ Each light shows only the controls it supports:
 - **Power**: the tile itself, or the switch in a menu section header.
 - **Brightness** and **colour temperature** sliders. The temperature range comes from the light.
 - **Colour**: eight quick swatches and a rainbow hue slider.
-- **Scenes**, **DIY scenes**, **Snapshots** and **Music mode** submenus. These always go through the cloud.
-- **Save current as preset…** to capture the light's current state. See [Presets](presets.md).
+- **Scenes**, **DIY scenes**, **Snapshots** and **Music modes** lists. These always go through the cloud. Long lists scroll inside the menu and start with a search field: type part of a name (case and accents don't matter), press Enter to pick the first match, or press Down to move into the results.
+- **Save as Preset…** to capture the light's current state. See [Presets](presets.md).
 
 Over LAN the light follows the slider as you drag it. Over the cloud the value is sent when you let go, to stay within Govee's rate limits.
 

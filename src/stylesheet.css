@@ -86,3 +86,11 @@
 .govee-option-list-long {
   max-height: 280px;
 }
+
+.govee-option-search-item {
+  padding: 4px 6px 6px 0;
+}
+
+.govee-option-search {
+  border-radius: 12px;
+}
