@@ -17,6 +17,7 @@ class GoveeLightsDeviceToggle extends QuickSettings.QuickMenuToggle {
         this._device = device;
         this._gicon = gicon;
         this.menuButtonAccessibleName = _('%s Settings').format(device.name);
+        this.menu.box.add_style_class_name('govee-quick-menu');
 
         this.connect('clicked', () => {
             if (device.supports('power'))

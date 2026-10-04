@@ -56,3 +56,33 @@
 .govee-device-controls {
   padding-left: 12px;
 }
+
+/* Quick Settings card: as wide as the tiles above it. Some shell themes
+   (e.g. Catppuccin) inset these cards with side margins. */
+.quick-toggle-menu.govee-quick-menu {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Scene, DIY scene, snapshot and music mode lists: no block background,
+   just an indent and a rounded hover highlight per row. Selectors match the
+   specificity of common shell themes, which use !important here. */
+.popup-sub-menu.govee-option-list,
+.popup-menu .popup-sub-menu.govee-option-list {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  border: none;
+  box-shadow: none;
+  padding-left: 12px;
+  margin: 0;
+}
+
+.popup-sub-menu.govee-option-list .popup-menu-item,
+.popup-menu .popup-sub-menu.govee-option-list .popup-menu-item {
+  border-radius: 12px !important;
+}
+
+/* About 6–7 rows; the rest scrolls. */
+.govee-option-list-long {
+  max-height: 280px;
+}

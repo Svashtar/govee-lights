@@ -20,6 +20,9 @@ const SWATCHES = [
     {r: 0, g: 200, b: 255}, {r: 0, g: 60, b: 255}, {r: 150, g: 0, b: 255}, {r: 255, g: 0, b: 160},
 ];
 
+// Lists longer than this scroll inside a fixed height (see stylesheet.css).
+const LONG_LIST = 8;
+
 const SCENE_MENUS = () => [
     {kind: 'scene', label: _('Scenes'), icon: 'starred-symbolic'},
     {kind: 'diyScene', label: _('DIY Scenes'), icon: 'applications-graphics-symbolic'},
@@ -133,6 +136,13 @@ export class DeviceControls {
             sub.icon.icon_name = icon;
             for (const option of options) {
                 sub.menu.addAction(option.name, () => send(kind, option));
+            }
+            sub.menu.actor.add_style_class_name('govee-option-list');
+            if (options.length > LONG_LIST) {
+                // GNOME only scrolls a submenu when the whole menu is taller
+                // than the screen; long lists get a fixed height instead.
+                sub.menu._needsScrollbar = () => true;
+                sub.menu.actor.add_style_class_name('govee-option-list-long');
             }
             section.addMenuItem(sub);
         }
