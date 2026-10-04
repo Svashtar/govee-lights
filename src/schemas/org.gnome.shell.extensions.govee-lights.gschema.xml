@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="govee-lights">
+  <schema id="org.gnome.shell.extensions.govee-lights" path="/org/gnome/shell/extensions/govee-lights/">
+    <key name="devices-config" type="s">
+      <default>'{}'</default>
+      <summary>Per-light settings</summary>
+      <description>JSON object keyed by device id: {sku, alias, placement (hidden|panel|quick-settings), order}.</description>
+    </key>
+    <key name="presets" type="s">
+      <default>'[]'</default>
+      <summary>User presets</summary>
+      <description>JSON array of presets: [{id, name, steps: [{deviceId, power?, brightness?, temperature?, color?, scene?}]}].</description>
+    </key>
+    <key name="use-lan" type="b">
+      <default>true</default>
+      <summary>Control lights over the local network</summary>
+      <description>Send commands over the Govee LAN API when a light is reachable, and use the cloud only as a fallback.</description>
+    </key>
+    <key name="refresh-stale-seconds" type="u">
+      <range min="30" max="3600"/>
+      <default>120</default>
+      <summary>Cloud state refresh interval</summary>
+      <description>Light state fetched from the cloud is refreshed when a menu opens and the last refresh is older than this.</description>
+    </key>
+    <key name="cache-stamp" type="x">
+      <default>0</default>
+      <summary>Device cache version</summary>
+      <description>Bumped by the preferences window after it rewrites the device cache, so the shell reloads it.</description>
+    </key>
+    <key name="request-counter" type="s">
+      <default>'{"day":"","count":0}'</default>
+      <summary>Cloud requests made today</summary>
+      <description>Used to warn before the Govee daily limit of 10,000 requests is reached.</description>
+    </key>
+  </schema>
+</schemalist>
