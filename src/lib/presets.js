@@ -17,13 +17,21 @@ export function newId() {
     return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 }
 
-// The options a device offers for each scene kind.
+// Govee returns options in no useful order. Natural, case-insensitive
+// alphabetical order: "Scene 2" before "Scene 10".
+const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+
+export function sortOptions(options) {
+    return [...options].sort((a, b) => collator.compare(a.name, b.name));
+}
+
+// The options a device offers for each scene kind, sorted by name.
 export function sceneOptions(device, kind) {
     switch (kind) {
-    case 'scene': return device.scenes ?? [];
-    case 'diyScene': return device.diyScenes ?? [];
-    case 'snapshot': return device.capabilities.snapshots;
-    case 'musicMode': return device.capabilities.musicModes;
+    case 'scene': return sortOptions(device.scenes ?? []);
+    case 'diyScene': return sortOptions(device.diyScenes ?? []);
+    case 'snapshot': return sortOptions(device.capabilities.snapshots);
+    case 'musicMode': return sortOptions(device.capabilities.musicModes);
     default: return [];
     }
 }

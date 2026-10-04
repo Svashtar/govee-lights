@@ -1,6 +1,6 @@
 import {test, assertEqual, done} from './harness.js';
 import {parseCapabilities} from '../src/lib/capabilities.js';
-import {planPreset, stepFromState, sanitizePresets, matchesQuery} from '../src/lib/presets.js';
+import {planPreset, stepFromState, sanitizePresets, matchesQuery, sceneOptions} from '../src/lib/presets.js';
 
 const full = parseCapabilities([
     {type: 'devices.capabilities.on_off', instance: 'powerSwitch'},
@@ -53,6 +53,12 @@ test('step from current state', () => {
 test('sanitize drops junk', () => {
     const out = sanitizePresets([{id: 'x', name: 'Ok', steps: [{deviceId: 'A'}, null, {foo: 1}]}, {name: 5}, null]);
     assertEqual(out, [{id: 'x', name: 'Ok', steps: [{deviceId: 'A'}]}]);
+});
+
+test('scene options are sorted naturally, ignoring case', () => {
+    const dev = {scenes: [{name: 'sunset', value: 1}, {name: 'Scene 10', value: 2}, {name: 'Aurora', value: 3}, {name: 'Scene 2', value: 4}], capabilities: full};
+    assertEqual(sceneOptions(dev, 'scene').map(o => o.name), ['Aurora', 'Scene 2', 'Scene 10', 'sunset']);
+    assertEqual(dev.scenes[0].name, 'sunset', 'the cached list is not changed');
 });
 
 test('option search ignores case, accents and word order', () => {
