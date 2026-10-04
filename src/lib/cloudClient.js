@@ -88,9 +88,11 @@ function wait(ms, cancellable) {
 
 export class CloudClient {
     // onRequest: called once per HTTP request, for the daily counter
-    constructor({apiKey, onRequest = () => {}}) {
+    // onResult: called after each request with null or the GoveeError
+    constructor({apiKey, onRequest = () => {}, onResult = () => {}}) {
         this._apiKey = apiKey;
         this._onRequest = onRequest;
+        this._onResult = onResult;
         this._session = new Soup.Session({timeout: TIMEOUT_SECONDS, user_agent: 'govee-lights-gnome-extension'});
         this._cancellable = new Gio.Cancellable();
     }
@@ -117,6 +119,18 @@ export class CloudClient {
     }
 
     async _send(method, path, body) {
+        try {
+            const result = await this._sendOnce(method, path, body);
+            this._onResult(null);
+            return result;
+        } catch (e) {
+            if (e instanceof GoveeError && e.kind !== 'cancelled')
+                this._onResult(e);
+            throw e;
+        }
+    }
+
+    async _sendOnce(method, path, body) {
         const message = Soup.Message.new(method, `${BASE_URL}${path}`);
         const headers = message.get_request_headers();
         headers.append('Govee-API-Key', this._apiKey);

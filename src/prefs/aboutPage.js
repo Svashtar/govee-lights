@@ -226,7 +226,7 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
             if (response !== 'reset')
                 return;
             for (const key of this._settings.settings_schema.list_keys()) {
-                if (key !== 'request-counter')
+                if (key !== 'request-counter' && key !== 'cloud-status')
                     this._settings.reset(key);
             }
             this._toast(_('Settings reset'));

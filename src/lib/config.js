@@ -149,3 +149,45 @@ export function requestCounter(settings) {
         settings.set_string('request-counter', JSON.stringify({day, count}));
     };
 }
+
+// ---- Cloud status ----------------------------------------------------------
+
+// Errors that say something about the account or connection, not one light.
+const ACCOUNT_ERRORS = new Set(['auth', 'rate-limit', 'network']);
+const OK_WRITE_INTERVAL_S = 60;
+
+// {okAt, error, errorAt}; times are unix seconds, 0 when never.
+export function getCloudStatus(settings) {
+    const v = parseJson(settings.get_string('cloud-status'), {});
+    return {
+        okAt: Number(v.okAt) || 0,
+        error: typeof v.error === 'string' ? v.error : null,
+        errorAt: Number(v.errorAt) || 0,
+    };
+}
+
+// Pure: the status after a request, or null when nothing needs writing.
+// Successes are written at most once a minute, unless they clear an error.
+export function nextCloudStatus(prev, error, now) {
+    if (error) {
+        if (!ACCOUNT_ERRORS.has(error.kind))
+            return null;
+        return {...prev, error: error.kind, errorAt: now};
+    }
+    if (!prev.error && now - prev.okAt < OK_WRITE_INTERVAL_S)
+        return null;
+    return {okAt: now, error: null, errorAt: 0};
+}
+
+// onResult callback for CloudClient.
+export function cloudStatusRecorder(settings) {
+    return error => {
+        const next = nextCloudStatus(getCloudStatus(settings), error, Math.floor(Date.now() / 1000));
+        if (next)
+            settings.set_string('cloud-status', JSON.stringify(next));
+    };
+}
+
+export function resetCloudStatus(settings) {
+    settings.reset('cloud-status');
+}

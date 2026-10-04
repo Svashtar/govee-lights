@@ -11,11 +11,25 @@ import {gettext as _, ngettext} from 'resource:///org/gnome/Shell/Extensions/js/
 
 import {CloudClient, DAILY_LIMIT} from '../lib/cloudClient.js';
 import {
-    getDevicesConfig, mergeDevicesConfig, readDevicesCache, readLanCache,
-    requestCounter, requestsToday, setDevicesConfig,
+    cloudStatusRecorder, getCloudStatus, getDevicesConfig, mergeDevicesConfig, readDevicesCache,
+    readLanCache, requestCounter, requestsToday, resetCloudStatus, setDevicesConfig,
 } from '../lib/config.js';
 import {clearApiKey, lookupApiKey, storeApiKey} from '../lib/secret.js';
 import {syncDevices} from '../lib/sync.js';
+
+// "today at 09:14", "yesterday at 21:03" or a date; lower-case unless
+// `inSentence` is false and it starts the text.
+function whenText(unixSeconds, inSentence = false) {
+    const t = GLib.DateTime.new_from_unix_local(unixSeconds);
+    const now = GLib.DateTime.new_now_local();
+    const days = now.get_day_of_year() - t.get_day_of_year() + (now.get_year() - t.get_year()) * 365;
+    const time = t.format('%H:%M');
+    if (days === 0)
+        return inSentence ? _('today at %s').format(time) : _('Today at %s').format(time);
+    if (days === 1)
+        return inSentence ? _('yesterday at %s').format(time) : _('Yesterday at %s').format(time);
+    return inSentence ? _('on %s').format(t.format('%x')) : t.format('%x');
+}
 
 export function errorMessage(e) {
     switch (e.kind) {
@@ -42,6 +56,13 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         this._keyRow = new Adw.PasswordEntryRow({title: _('API Key'), show_apply_button: true});
         this._keyRow.connect('apply', () => this._saveKey());
         account.add(this._keyRow);
+
+        // Whether a key is saved and whether it still works. The key itself
+        // is never shown again once saved.
+        this._keyStatusIcon = new Gtk.Image({valign: Gtk.Align.CENTER});
+        this._keyStatusRow = new Adw.ActionRow();
+        this._keyStatusRow.add_prefix(this._keyStatusIcon);
+        account.add(this._keyStatusRow);
 
         this._fetchButton = new Gtk.Button({label: _('Fetch Lights'), valign: Gtk.Align.CENTER, css_classes: ['suggested-action']});
         this._fetchButton.connect('clicked', () => this._fetch());
@@ -98,6 +119,7 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
 
         this._settingsIds = [
             settings.connect('changed::request-counter', () => this._updateUsage()),
+            settings.connect('changed::cloud-status', () => this._updateKeyStatus()),
             settings.connect('changed::cache-stamp', () => this.refresh()),
         ];
         this.connect('destroy', () => this._settingsIds.forEach(id => settings.disconnect(id)));
@@ -111,11 +133,44 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         try {
             this._hasKey = Boolean(await lookupApiKey());
             this._keyRow.text = '';
-            this._keyRow.title = this._hasKey ? _('API Key (saved in your keyring)') : _('API Key');
+            this._keyRow.title = this._hasKey ? _('Replace API Key') : _('API Key');
         } catch (e) {
             this._toast(_('Could not open the keyring: %s').format(e.message));
         }
         this._fetchButton.sensitive = Boolean(this._hasKey);
+        this._updateKeyStatus();
+    }
+
+    _updateKeyStatus() {
+        const set = (title, subtitle, icon, style) => {
+            this._keyStatusRow.title = title;
+            this._keyStatusRow.subtitle = subtitle;
+            this._keyStatusIcon.icon_name = icon;
+            this._keyStatusIcon.css_classes = style ? [style] : [];
+        };
+        if (!this._hasKey) {
+            set(_('No key saved'), _('Paste your key above and press Enter.'), 'govee-status-info-symbolic', null);
+            return;
+        }
+
+        const status = getCloudStatus(this._settings);
+        switch (status.error) {
+        case 'auth':
+            set(_('Govee rejected this key'), _('%s. Check the key or enter a new one.').format(whenText(status.errorAt)),
+                'govee-status-error-symbolic', 'error');
+            return;
+        case 'rate-limit':
+            set(_('Daily request limit reached'), _('%s. Cloud control resumes when Govee resets the limit; lights on your LAN keep working.').format(whenText(status.errorAt)),
+                'govee-status-warning-symbolic', 'warning');
+            return;
+        case 'network':
+            set(_('Couldn’t reach Govee'), _('%s. Check your internet connection.').format(whenText(status.errorAt)),
+                'govee-status-warning-symbolic', 'warning');
+            return;
+        }
+        set(_('Saved in your keyring'),
+            status.okAt ? _('Last worked %s').format(whenText(status.okAt, true)) : _('Not used yet'),
+            'govee-status-ok-symbolic', 'success');
     }
 
     async _saveKey() {
@@ -124,6 +179,7 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
             return;
         try {
             await storeApiKey(key);
+            resetCloudStatus(this._settings);
             await this._loadKey();
             this._settings.set_int64('cache-stamp', GLib.get_real_time());
             await this._fetch();
@@ -135,6 +191,7 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
     async _removeKey() {
         try {
             await clearApiKey();
+            resetCloudStatus(this._settings);
             await this._loadKey();
             this._settings.set_int64('cache-stamp', GLib.get_real_time());
             this._toast(_('API key removed'));
@@ -151,7 +208,11 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         }
         this._fetchButton.sensitive = false;
         this._spinner.visible = true;
-        const client = new CloudClient({apiKey, onRequest: requestCounter(this._settings)});
+        const client = new CloudClient({
+            apiKey,
+            onRequest: requestCounter(this._settings),
+            onResult: cloudStatusRecorder(this._settings),
+        });
         try {
             const devices = await syncDevices(client);
             setDevicesConfig(this._settings, mergeDevicesConfig(getDevicesConfig(this._settings), devices));

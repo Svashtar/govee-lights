@@ -10,9 +10,11 @@ Start here when something doesn't work. If none of this helps, please [open a bu
 - If the state is `ERROR`, look at the [shell log](#collecting-logs) for the reason.
 - The top-bar icon is hidden while no light or preset is placed in the top bar. Lights placed in **Quick Settings** appear as tiles instead. See [Getting started → Choose where each light appears](getting-started.md#4-choose-where-each-light-appears).
 
-## "Invalid API key" or authentication errors
+## "Govee rejected this key" or authentication errors
 
-- Copy the key again from Govee's email, without spaces or line breaks, and press **Test & fetch devices**.
+The row under the key field on the **Account** page shows the key's state: **Saved in your keyring** with when it last worked, or what went wrong (rejected key, daily limit reached, no connection to Govee) and when. The key field itself stays empty once a key is saved, so the key can't be read off the screen; typing there replaces it.
+
+- Copy the key again from Govee's email, without spaces or line breaks, paste it into **Replace API Key** and press Enter.
 - A key belongs to the Govee account that requested it. Make sure your lights are on that same account.
 - If you requested a new key, the old one stops working. Paste the new one.
 - The key is stored in GNOME Keyring. If your keyring is locked or missing (for example on a minimal install or with auto-login), the extension can't read it. Install `gnome-keyring` and make sure the *Login* keyring is unlocked; the **Passwords and Keys** app (Seahorse) shows its state.

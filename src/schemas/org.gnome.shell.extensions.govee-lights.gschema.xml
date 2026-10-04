@@ -32,6 +32,11 @@
       <summary>LAN scan request</summary>
       <description>Bumped by the preferences window to ask the shell for a LAN scan; the shell writes results to ~/.cache/govee-lights/lan.json.</description>
     </key>
+    <key name="cloud-status" type="s">
+      <default>'{}'</default>
+      <summary>Last cloud API result</summary>
+      <description>JSON {okAt, error, errorAt}: when the API key last worked and the last account-level error (auth, rate-limit, network). Shown under the API key in the preferences.</description>
+    </key>
     <key name="request-counter" type="s">
       <default>'{"day":"","count":0}'</default>
       <summary>Cloud requests made today</summary>

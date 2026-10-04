@@ -15,7 +15,7 @@ import GLib from 'gi://GLib';
 import {cloudCommand, flattenState, lanCommand, optimisticState, stateFromCloud, stateFromLan} from './capabilities.js';
 import {CloudClient, DAILY_LIMIT} from './cloudClient.js';
 import {
-    DEVICES_CACHE, getDevicesConfig, getPresets, mergeDevicesConfig, monitorFile, readDevicesCache,
+    DEVICES_CACHE, cloudStatusRecorder, getDevicesConfig, getPresets, mergeDevicesConfig, monitorFile, readDevicesCache,
     readLanCache, requestCounter, requestsToday, setDevicesConfig, writeLanCache,
 } from './config.js';
 import {Device} from './device.js';
@@ -193,7 +193,11 @@ export class DeviceManager extends Emitter {
             this.hasApiKey = Boolean(apiKey);
             if (apiKey && !this._destroyed) {
                 const count = requestCounter(this._settings);
-                this._cloud = new CloudClient({apiKey, onRequest: () => this._countRequest(count)});
+                this._cloud = new CloudClient({
+                    apiKey,
+                    onRequest: () => this._countRequest(count),
+                    onResult: cloudStatusRecorder(this._settings),
+                });
             }
         } catch (e) {
             console.warn(`govee-lights: keyring unavailable: ${e.message}`);

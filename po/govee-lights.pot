@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Govee Lights\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-04 10:26+0200\n"
+"POT-Creation-Date: 2026-10-04 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,110 +18,110 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: src/ui/deviceControls.js:27
+#: src/ui/deviceControls.js:28
 msgid "Scenes"
 msgstr ""
 
-#: src/ui/deviceControls.js:27
+#: src/ui/deviceControls.js:28
 msgid "Search scenes"
 msgstr ""
 
-#: src/ui/deviceControls.js:28
+#: src/ui/deviceControls.js:29
 msgid "DIY Scenes"
 msgstr ""
 
-#: src/ui/deviceControls.js:28
+#: src/ui/deviceControls.js:29
 msgid "Search DIY scenes"
 msgstr ""
 
-#: src/ui/deviceControls.js:29
+#: src/ui/deviceControls.js:30
 msgid "Snapshots"
 msgstr ""
 
-#: src/ui/deviceControls.js:29
+#: src/ui/deviceControls.js:30
 msgid "Search snapshots"
 msgstr ""
 
-#: src/ui/deviceControls.js:30
+#: src/ui/deviceControls.js:31
 msgid "Music Modes"
 msgstr ""
 
-#: src/ui/deviceControls.js:30
+#: src/ui/deviceControls.js:31
 msgid "Search music modes"
 msgstr ""
 
-#: src/ui/deviceControls.js:36
+#: src/ui/deviceControls.js:37
 msgid "No API key"
 msgstr ""
 
-#: src/ui/deviceControls.js:38 src/ui/deviceControls.js:239
+#: src/ui/deviceControls.js:39 src/ui/deviceControls.js:254
 msgid "Offline"
 msgstr ""
 
-#: src/ui/deviceControls.js:42 src/prefs/presetsPage.js:29
+#: src/ui/deviceControls.js:43 src/prefs/presetsPage.js:29
 msgid "Off"
 msgstr ""
 
-#: src/ui/deviceControls.js:45 src/prefs/presetsPage.js:30
+#: src/ui/deviceControls.js:46 src/prefs/presetsPage.js:30
 msgid "On"
 msgstr ""
 
-#: src/ui/deviceControls.js:51
+#: src/ui/deviceControls.js:52
 msgid "Add your API key in Settings"
 msgstr ""
 
-#: src/ui/deviceControls.js:52
+#: src/ui/deviceControls.js:53
 msgid "Not reachable"
 msgstr ""
 
-#: src/ui/deviceControls.js:53
+#: src/ui/deviceControls.js:54
 msgid "API key rejected"
 msgstr ""
 
-#: src/ui/deviceControls.js:54 src/extension.js:86
+#: src/ui/deviceControls.js:55 src/extension.js:86
 msgid "Govee rate limit reached"
 msgstr ""
 
-#: src/ui/deviceControls.js:55
+#: src/ui/deviceControls.js:56
 msgid "No connection to Govee"
 msgstr ""
 
-#: src/ui/deviceControls.js:56
+#: src/ui/deviceControls.js:57
 msgid "Last command failed"
 msgstr ""
 
-#: src/ui/deviceControls.js:74
+#: src/ui/deviceControls.js:75
 msgid "No matches"
 msgstr ""
 
-#: src/ui/deviceControls.js:155 src/ui/panelIndicator.js:43
+#: src/ui/deviceControls.js:156 src/ui/panelIndicator.js:44
 #: src/prefs/devicesPage.js:21
 msgid "Power"
 msgstr ""
 
-#: src/ui/deviceControls.js:161 src/prefs/devicesPage.js:23
+#: src/ui/deviceControls.js:162 src/prefs/devicesPage.js:23
 #: src/prefs/presetsPage.js:74
 msgid "Brightness"
 msgstr ""
 
-#: src/ui/deviceControls.js:167 src/prefs/presetsPage.js:19
+#: src/ui/deviceControls.js:168 src/prefs/presetsPage.js:19
 msgid "White"
 msgstr ""
 
-#: src/ui/deviceControls.js:172 src/prefs/devicesPage.js:27
+#: src/ui/deviceControls.js:173 src/prefs/devicesPage.js:27
 #: src/prefs/presetsPage.js:20 src/prefs/presetsPage.js:107
 msgid "Colour"
 msgstr ""
 
-#: src/ui/deviceControls.js:199
+#: src/ui/deviceControls.js:206
 msgid "Save as Preset…"
 msgstr ""
 
-#: src/ui/deviceControls.js:238
+#: src/ui/deviceControls.js:253
 msgid "LAN"
 msgstr ""
 
-#: src/ui/deviceControls.js:238
+#: src/ui/deviceControls.js:253
 msgid "Cloud"
 msgstr ""
 
@@ -138,33 +138,33 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/ui/panelIndicator.js:160 src/prefs/aboutPage.js:54 src/extension.js:59
+#: src/ui/panelIndicator.js:125 src/prefs/aboutPage.js:54 src/extension.js:59
 #: src/extension.js:98
 msgid "Govee Lights"
 msgstr ""
 
-#: src/ui/panelIndicator.js:171
+#: src/ui/panelIndicator.js:136
 msgid "Refresh"
 msgstr ""
 
-#: src/ui/panelIndicator.js:173 src/prefs/aboutPage.js:103
+#: src/ui/panelIndicator.js:138 src/prefs/aboutPage.js:103
 msgid "Settings"
 msgstr ""
 
-#: src/ui/panelIndicator.js:196
+#: src/ui/panelIndicator.js:168
 msgid "No lights found. Open Settings to fetch them."
 msgstr ""
 
-#: src/ui/panelIndicator.js:197
+#: src/ui/panelIndicator.js:169
 msgid "Set Up Govee Lights…"
 msgstr ""
 
-#: src/ui/panelIndicator.js:203 src/prefs/presetsPage.js:201
+#: src/ui/panelIndicator.js:175 src/prefs/presetsPage.js:201
 #: src/prefs/presetsPage.js:236
 msgid "Presets"
 msgstr ""
 
-#: src/ui/panelIndicator.js:218
+#: src/ui/panelIndicator.js:200
 msgid "Save All as Preset…"
 msgstr ""
 
@@ -301,156 +301,6 @@ msgstr ""
 msgid "Settings reset"
 msgstr ""
 
-#: src/prefs/accountPage.js:22
-msgid "Govee rejected the API key. Check it and try again."
-msgstr ""
-
-#: src/prefs/accountPage.js:23
-msgid "Govee’s request limit was reached. Try again later."
-msgstr ""
-
-#: src/prefs/accountPage.js:24
-msgid "Could not reach Govee. Check your internet connection."
-msgstr ""
-
-#: src/prefs/accountPage.js:32
-msgid "Account"
-msgstr ""
-
-#: src/prefs/accountPage.js:38
-msgid "Govee Account"
-msgstr ""
-
-#: src/prefs/accountPage.js:39
-msgid ""
-"In the Govee Home app, open Profile → Settings → Apply for API Key. The key "
-"arrives by email."
-msgstr ""
-
-#: src/prefs/accountPage.js:42 src/prefs/accountPage.js:114
-msgid "API Key"
-msgstr ""
-
-#: src/prefs/accountPage.js:46
-msgid "Fetch Lights"
-msgstr ""
-
-#: src/prefs/accountPage.js:49 src/prefs/devicesPage.js:48
-msgid "Lights"
-msgstr ""
-
-#: src/prefs/accountPage.js:54
-msgid "Remove API Key"
-msgstr ""
-
-#: src/prefs/accountPage.js:59
-msgid "How to Get an API Key"
-msgstr ""
-
-#: src/prefs/accountPage.js:67
-msgid "Local Network"
-msgstr ""
-
-#: src/prefs/accountPage.js:68
-msgid ""
-"Lights with LAN Control turned on respond instantly and work without "
-"internet. Turn it on per light in the Govee Home app: open the light, then "
-"Settings → LAN Control."
-msgstr ""
-
-#: src/prefs/accountPage.js:70
-msgid "Control Lights over LAN"
-msgstr ""
-
-#: src/prefs/accountPage.js:70
-msgid "Falls back to the cloud when a light can’t be reached"
-msgstr ""
-
-#: src/prefs/accountPage.js:74
-msgid "Reachable on LAN"
-msgstr ""
-
-#: src/prefs/accountPage.js:75
-msgid "Scan Now"
-msgstr ""
-
-#: src/prefs/accountPage.js:84
-msgid "Cloud Usage"
-msgstr ""
-
-#: src/prefs/accountPage.js:85
-msgid ""
-"Govee allows 10,000 cloud requests per day. Commands sent over LAN don’t "
-"count."
-msgstr ""
-
-#: src/prefs/accountPage.js:87
-msgid "Requests Today"
-msgstr ""
-
-#: src/prefs/accountPage.js:91
-msgid "Refresh Light State After"
-msgstr ""
-
-#: src/prefs/accountPage.js:92
-msgid ""
-"Seconds. Cloud state is refreshed when a menu opens and is older than this."
-msgstr ""
-
-#: src/prefs/accountPage.js:114
-msgid "API Key (saved in your keyring)"
-msgstr ""
-
-#: src/prefs/accountPage.js:116
-#, javascript-format
-msgid "Could not open the keyring: %s"
-msgstr ""
-
-#: src/prefs/accountPage.js:131
-#, javascript-format
-msgid "Could not save the key: %s"
-msgstr ""
-
-#: src/prefs/accountPage.js:140
-msgid "API key removed"
-msgstr ""
-
-#: src/prefs/accountPage.js:149
-msgid "Enter your API key first"
-msgstr ""
-
-#: src/prefs/accountPage.js:160
-#, javascript-format
-msgid "Found %d light"
-msgid_plural "Found %d lights"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/prefs/accountPage.js:174
-msgid "No lights fetched yet"
-msgstr ""
-
-#: src/prefs/accountPage.js:177
-#, javascript-format
-msgid "%d light, updated %s"
-msgid_plural "%d lights, updated %s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/prefs/accountPage.js:184
-#, javascript-format
-msgid "%d of %d lights"
-msgstr ""
-
-#: src/prefs/accountPage.js:185 src/prefs/presetsPage.js:246
-msgid "Fetch your lights first"
-msgstr ""
-
-#: src/prefs/accountPage.js:190
-#, javascript-format
-msgid "%d of %d"
-msgstr ""
-
 #: src/prefs/devicesPage.js:16
 msgid "Hidden"
 msgstr ""
@@ -495,6 +345,10 @@ msgid "%d music mode"
 msgid_plural "%d music modes"
 msgstr[0] ""
 msgstr[1] ""
+
+#: src/prefs/devicesPage.js:48 src/prefs/accountPage.js:70
+msgid "Lights"
+msgstr ""
 
 #: src/prefs/devicesPage.js:86
 msgid "No Lights Yet"
@@ -637,6 +491,10 @@ msgstr ""
 msgid "No presets yet"
 msgstr ""
 
+#: src/prefs/presetsPage.js:246 src/prefs/accountPage.js:246
+msgid "Fetch your lights first"
+msgstr ""
+
 #: src/prefs/presetsPage.js:247
 msgid "Use the + button to create one"
 msgstr ""
@@ -671,6 +529,223 @@ msgstr ""
 
 #: src/prefs/presetsPage.js:322
 msgid "New Preset"
+msgstr ""
+
+#: src/prefs/accountPage.js:28
+#, javascript-format
+msgid "today at %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:28
+#, javascript-format
+msgid "Today at %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:30
+#, javascript-format
+msgid "yesterday at %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:30
+#, javascript-format
+msgid "Yesterday at %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:31
+#, javascript-format
+msgid "on %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:36
+msgid "Govee rejected the API key. Check it and try again."
+msgstr ""
+
+#: src/prefs/accountPage.js:37
+msgid "Govee’s request limit was reached. Try again later."
+msgstr ""
+
+#: src/prefs/accountPage.js:38
+msgid "Could not reach Govee. Check your internet connection."
+msgstr ""
+
+#: src/prefs/accountPage.js:46
+msgid "Account"
+msgstr ""
+
+#: src/prefs/accountPage.js:52
+msgid "Govee Account"
+msgstr ""
+
+#: src/prefs/accountPage.js:53
+msgid ""
+"In the Govee Home app, open Profile → Settings → Apply for API Key. The key "
+"arrives by email."
+msgstr ""
+
+#: src/prefs/accountPage.js:56 src/prefs/accountPage.js:136
+msgid "API Key"
+msgstr ""
+
+#: src/prefs/accountPage.js:67
+msgid "Fetch Lights"
+msgstr ""
+
+#: src/prefs/accountPage.js:75
+msgid "Remove API Key"
+msgstr ""
+
+#: src/prefs/accountPage.js:80
+msgid "How to Get an API Key"
+msgstr ""
+
+#: src/prefs/accountPage.js:88
+msgid "Local Network"
+msgstr ""
+
+#: src/prefs/accountPage.js:89
+msgid ""
+"Lights with LAN Control turned on respond instantly and work without "
+"internet. Turn it on per light in the Govee Home app: open the light, then "
+"Settings → LAN Control."
+msgstr ""
+
+#: src/prefs/accountPage.js:91
+msgid "Control Lights over LAN"
+msgstr ""
+
+#: src/prefs/accountPage.js:91
+msgid "Falls back to the cloud when a light can’t be reached"
+msgstr ""
+
+#: src/prefs/accountPage.js:95
+msgid "Reachable on LAN"
+msgstr ""
+
+#: src/prefs/accountPage.js:96
+msgid "Scan Now"
+msgstr ""
+
+#: src/prefs/accountPage.js:105
+msgid "Cloud Usage"
+msgstr ""
+
+#: src/prefs/accountPage.js:106
+msgid ""
+"Govee allows 10,000 cloud requests per day. Commands sent over LAN don’t "
+"count."
+msgstr ""
+
+#: src/prefs/accountPage.js:108
+msgid "Requests Today"
+msgstr ""
+
+#: src/prefs/accountPage.js:112
+msgid "Refresh Light State After"
+msgstr ""
+
+#: src/prefs/accountPage.js:113
+msgid ""
+"Seconds. Cloud state is refreshed when a menu opens and is older than this."
+msgstr ""
+
+#: src/prefs/accountPage.js:136
+msgid "Replace API Key"
+msgstr ""
+
+#: src/prefs/accountPage.js:138
+#, javascript-format
+msgid "Could not open the keyring: %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:152
+msgid "No key saved"
+msgstr ""
+
+#: src/prefs/accountPage.js:152
+msgid "Paste your key above and press Enter."
+msgstr ""
+
+#: src/prefs/accountPage.js:159
+msgid "Govee rejected this key"
+msgstr ""
+
+#: src/prefs/accountPage.js:159
+#, javascript-format
+msgid "%s. Check the key or enter a new one."
+msgstr ""
+
+#: src/prefs/accountPage.js:163
+msgid "Daily request limit reached"
+msgstr ""
+
+#: src/prefs/accountPage.js:163
+#, javascript-format
+msgid ""
+"%s. Cloud control resumes when Govee resets the limit; lights on your LAN "
+"keep working."
+msgstr ""
+
+#: src/prefs/accountPage.js:167
+msgid "Couldn’t reach Govee"
+msgstr ""
+
+#: src/prefs/accountPage.js:167
+#, javascript-format
+msgid "%s. Check your internet connection."
+msgstr ""
+
+#: src/prefs/accountPage.js:171
+msgid "Saved in your keyring"
+msgstr ""
+
+#: src/prefs/accountPage.js:172
+#, javascript-format
+msgid "Last worked %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:172
+msgid "Not used yet"
+msgstr ""
+
+#: src/prefs/accountPage.js:187
+#, javascript-format
+msgid "Could not save the key: %s"
+msgstr ""
+
+#: src/prefs/accountPage.js:197
+msgid "API key removed"
+msgstr ""
+
+#: src/prefs/accountPage.js:206
+msgid "Enter your API key first"
+msgstr ""
+
+#: src/prefs/accountPage.js:221
+#, javascript-format
+msgid "Found %d light"
+msgid_plural "Found %d lights"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/accountPage.js:235
+msgid "No lights fetched yet"
+msgstr ""
+
+#: src/prefs/accountPage.js:238
+#, javascript-format
+msgid "%d light, updated %s"
+msgid_plural "%d lights, updated %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/prefs/accountPage.js:245
+#, javascript-format
+msgid "%d of %d lights"
+msgstr ""
+
+#: src/prefs/accountPage.js:251
+#, javascript-format
+msgid "%d of %d"
 msgstr ""
 
 #: src/extension.js:59
