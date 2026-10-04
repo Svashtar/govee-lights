@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Govee Lights\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-04 07:07+0200\n"
+"POT-Creation-Date: 2026-10-04 10:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,90 +18,110 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: src/ui/deviceControls.js:24
+#: src/ui/deviceControls.js:27
 msgid "Scenes"
 msgstr ""
 
-#: src/ui/deviceControls.js:25
+#: src/ui/deviceControls.js:27
+msgid "Search scenes"
+msgstr ""
+
+#: src/ui/deviceControls.js:28
 msgid "DIY Scenes"
 msgstr ""
 
-#: src/ui/deviceControls.js:26
+#: src/ui/deviceControls.js:28
+msgid "Search DIY scenes"
+msgstr ""
+
+#: src/ui/deviceControls.js:29
 msgid "Snapshots"
 msgstr ""
 
-#: src/ui/deviceControls.js:27
+#: src/ui/deviceControls.js:29
+msgid "Search snapshots"
+msgstr ""
+
+#: src/ui/deviceControls.js:30
 msgid "Music Modes"
 msgstr ""
 
-#: src/ui/deviceControls.js:33
+#: src/ui/deviceControls.js:30
+msgid "Search music modes"
+msgstr ""
+
+#: src/ui/deviceControls.js:36
 msgid "No API key"
 msgstr ""
 
-#: src/ui/deviceControls.js:35 src/ui/deviceControls.js:181
+#: src/ui/deviceControls.js:38 src/ui/deviceControls.js:239
 msgid "Offline"
 msgstr ""
 
-#: src/ui/deviceControls.js:39 src/prefs/presetsPage.js:29
+#: src/ui/deviceControls.js:42 src/prefs/presetsPage.js:29
 msgid "Off"
 msgstr ""
 
-#: src/ui/deviceControls.js:42 src/prefs/presetsPage.js:30
+#: src/ui/deviceControls.js:45 src/prefs/presetsPage.js:30
 msgid "On"
 msgstr ""
 
-#: src/ui/deviceControls.js:48
+#: src/ui/deviceControls.js:51
 msgid "Add your API key in Settings"
 msgstr ""
 
-#: src/ui/deviceControls.js:49
+#: src/ui/deviceControls.js:52
 msgid "Not reachable"
 msgstr ""
 
-#: src/ui/deviceControls.js:50
+#: src/ui/deviceControls.js:53
 msgid "API key rejected"
 msgstr ""
 
-#: src/ui/deviceControls.js:51 src/extension.js:86
+#: src/ui/deviceControls.js:54 src/extension.js:86
 msgid "Govee rate limit reached"
 msgstr ""
 
-#: src/ui/deviceControls.js:52
+#: src/ui/deviceControls.js:55
 msgid "No connection to Govee"
 msgstr ""
 
-#: src/ui/deviceControls.js:53
+#: src/ui/deviceControls.js:56
 msgid "Last command failed"
 msgstr ""
 
-#: src/ui/deviceControls.js:106 src/ui/panelIndicator.js:34
+#: src/ui/deviceControls.js:74
+msgid "No matches"
+msgstr ""
+
+#: src/ui/deviceControls.js:155 src/ui/panelIndicator.js:43
 #: src/prefs/devicesPage.js:21
 msgid "Power"
 msgstr ""
 
-#: src/ui/deviceControls.js:112 src/prefs/devicesPage.js:23
+#: src/ui/deviceControls.js:161 src/prefs/devicesPage.js:23
 #: src/prefs/presetsPage.js:74
 msgid "Brightness"
 msgstr ""
 
-#: src/ui/deviceControls.js:118 src/prefs/presetsPage.js:19
+#: src/ui/deviceControls.js:167 src/prefs/presetsPage.js:19
 msgid "White"
 msgstr ""
 
-#: src/ui/deviceControls.js:123 src/prefs/devicesPage.js:27
+#: src/ui/deviceControls.js:172 src/prefs/devicesPage.js:27
 #: src/prefs/presetsPage.js:20 src/prefs/presetsPage.js:107
 msgid "Colour"
 msgstr ""
 
-#: src/ui/deviceControls.js:141
+#: src/ui/deviceControls.js:199
 msgid "Save as Preset…"
 msgstr ""
 
-#: src/ui/deviceControls.js:180
+#: src/ui/deviceControls.js:238
 msgid "LAN"
 msgstr ""
 
-#: src/ui/deviceControls.js:180
+#: src/ui/deviceControls.js:238
 msgid "Cloud"
 msgstr ""
 
@@ -118,33 +138,33 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/ui/panelIndicator.js:62 src/prefs/aboutPage.js:54 src/extension.js:59
+#: src/ui/panelIndicator.js:160 src/prefs/aboutPage.js:54 src/extension.js:59
 #: src/extension.js:98
 msgid "Govee Lights"
 msgstr ""
 
-#: src/ui/panelIndicator.js:73
+#: src/ui/panelIndicator.js:171
 msgid "Refresh"
 msgstr ""
 
-#: src/ui/panelIndicator.js:75 src/prefs/aboutPage.js:103
+#: src/ui/panelIndicator.js:173 src/prefs/aboutPage.js:103
 msgid "Settings"
 msgstr ""
 
-#: src/ui/panelIndicator.js:98
+#: src/ui/panelIndicator.js:196
 msgid "No lights found. Open Settings to fetch them."
 msgstr ""
 
-#: src/ui/panelIndicator.js:99
+#: src/ui/panelIndicator.js:197
 msgid "Set Up Govee Lights…"
 msgstr ""
 
-#: src/ui/panelIndicator.js:105 src/prefs/presetsPage.js:201
+#: src/ui/panelIndicator.js:203 src/prefs/presetsPage.js:201
 #: src/prefs/presetsPage.js:236
 msgid "Presets"
 msgstr ""
 
-#: src/ui/panelIndicator.js:120
+#: src/ui/panelIndicator.js:218
 msgid "Save All as Preset…"
 msgstr ""
 

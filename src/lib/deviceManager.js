@@ -6,6 +6,7 @@
 //
 // Signals:
 //   'devices-changed'  the set, order, names or placements of devices changed
+//   'preset-changed'   activePresetId changed (applied, or a light in it changed by hand)
 //   'error'            (kind, message) for errors the user should see once
 //                      (auth, rate-limit); per-device errors go on Device.error
 
@@ -70,6 +71,9 @@ export class DeviceManager extends Emitter {
         this._lan = null;
         this._cloud = null;
         this._lanSeen = new Map();
+        // The preset applied last, until one of its lights is changed by hand.
+        // Kept for this session only.
+        this.activePresetId = null;
         this._scanId = 0;
         this._destroyed = false;
         this.lanError = null;
@@ -339,7 +343,14 @@ export class DeviceManager extends Emitter {
 
     // live: true while a slider is being dragged; the final value is sent
     // again with live: false when it is released.
-    control(device, action, value, {live = false} = {}) {
+    // fromPreset: sent by applyPreset(); any other change to a light in the
+    // active preset means the preset no longer describes the lights.
+    control(device, action, value, {live = false, fromPreset = false} = {}) {
+        if (!fromPreset && this.activePresetId) {
+            const active = this.presets.find(p => p.id === this.activePresetId);
+            if (!active || active.steps.some(s => s.deviceId === device.id))
+                this._setActivePreset(null);
+        }
         const route = chooseRoute({ip: this.useLan ? device.ip : null, hasCloud: Boolean(this._cloud)}, action, true);
         if (!route) {
             device.setError(this.hasApiKey ? 'unreachable' : 'no-key');
@@ -391,12 +402,20 @@ export class DeviceManager extends Emitter {
     }
 
     // Runs every light's steps in parallel; steps for one light run in order.
+    _setActivePreset(id) {
+        if (this.activePresetId === id)
+            return;
+        this.activePresetId = id;
+        this.emit('preset-changed');
+    }
+
     async applyPreset(preset) {
+        this._setActivePreset(preset.id);
         const {plans} = planPreset(preset, this._devices);
         await Promise.all(plans.map(async ({deviceId, actions}) => {
             const device = this._devices.get(deviceId);
             for (const {action, value} of actions) {
-                this.control(device, action, value);
+                this.control(device, action, value, {fromPreset: true});
                 // Give the light a moment between commands, so the power-on
                 // isn't overtaken by the colour that follows it.
                 await new Promise(resolve => this._timers.setTimeout(resolve, device.ip ? 150 : 300));

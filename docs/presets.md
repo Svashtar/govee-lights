@@ -6,7 +6,7 @@ A preset is a saved look for **one or more lights** that you apply with a single
 - **Focus**: desk lamp at 100 %, 5000 K; everything else off.
 - **Good night**: all lights off.
 
-Presets appear at the top of the extension's top-bar menu. When you apply one, all its lights change in parallel, over LAN where possible.
+Presets appear at the top of the extension's top-bar menu. When you apply one, all its lights change in parallel, over LAN where possible. The menu stays open, so you can try presets one after another, and a checkmark shows the preset applied last. The checkmark goes away when you change one of that preset's lights by hand.
 
 Govee's own scenes, DIY scenes and snapshots are different: they belong to a single light and are listed in that light's submenus. A preset can *use* a Govee scene as one of its steps.
 
@@ -26,18 +26,18 @@ Anything you leave unset is not changed. Only settings the light supports are of
 ## Creating a preset in Settings
 
 1. Open the extension's settings and go to the **Presets** page.
-2. Click **Add preset** and give it a name.
-3. Add a step for each light you want to include:
+2. Click the **+** button. A preset called "New Preset" is created and the **Add Light** dialog opens.
+3. In the dialog:
    1. choose the light;
-   2. set power, brightness, and either a colour temperature or a colour (using the colour picker);
-   3. optionally choose a scene from the drop-down. Scene lists come from the cached device data, so press **Test & fetch devices** on the Account page if a list is empty.
-4. Repeat for other lights.
+   2. choose whether it turns on, and its brightness (0 keeps the current brightness);
+   3. choose a **Light Mode**: White (colour temperature), Colour (colour picker), or one of the light's scenes, DIY scenes, snapshots or music modes. Scene lists come from the cached device data, so press **Fetch Lights** on the Account page if a list is empty.
+4. Use **Add Light** again for other lights, and rename the preset in its **Name** row.
 
 Changes are saved straight away and show up in the top-bar menu.
 
 ## Saving the current state
 
-The quickest way to make a preset is to set a light up how you like it, then choose **Save current as preset…** from that light's menu. Enter a name, and the extension creates a preset from the light's current power, brightness, colour or temperature and scene. You can add more lights to it later on the Presets page.
+The quickest way to make a preset is to set a light up how you like it, then choose **Save as Preset…** from that light's menu (or **Save All as Preset…** at the bottom of the top-bar menu for every light there). Enter a name, and the extension creates a preset from the light's current power, brightness, colour or temperature and scene. You can add more lights to it later on the Presets page.
 
 ## Managing presets
 

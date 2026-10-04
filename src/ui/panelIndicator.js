@@ -78,6 +78,42 @@ class GoveeLightsDeviceHeader extends PopupMenu.PopupBaseMenuItem {
     }
 });
 
+// A preset row. Choosing it applies the preset and keeps the menu open, so
+// you can try presets one after another; the active one shows a checkmark.
+const PresetItem = GObject.registerClass(
+class GoveeLightsPresetItem extends PopupMenu.PopupBaseMenuItem {
+    _init(preset, manager) {
+        super._init({style_class: 'govee-preset-item'});
+        this._preset = preset;
+        this._manager = manager;
+
+        this.add_child(new St.Icon({icon_name: 'media-playback-start-symbolic', style_class: 'popup-menu-icon'}));
+        this.label = new St.Label({text: preset.name, x_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this.add_child(this.label);
+        this.label_actor = this.label;
+        this._check = new St.Icon({icon_name: 'object-select-symbolic', style_class: 'popup-menu-icon'});
+        this.add_child(this._check);
+
+        this._changedId = manager.connect('preset-changed', () => this._sync());
+        this.connect('destroy', () => manager.disconnect(this._changedId));
+        this._sync();
+    }
+
+    // Applies without emitting 'activate', which would close the menu.
+    activate(_event) {
+        this._manager.applyPreset(this._preset).catch(e => logError(e, 'govee-lights: preset'));
+    }
+
+    _sync() {
+        const active = this._manager.activePresetId === this._preset.id;
+        this._check.opacity = active ? 255 : 0;
+        if (active)
+            this.add_accessible_state(Atk.StateType.CHECKED);
+        else
+            this.remove_accessible_state(Atk.StateType.CHECKED);
+    }
+});
+
 // A light in the top-bar menu: its header plus its controls, which are only
 // shown while expanded.
 class DeviceSection extends PopupMenu.PopupMenuSection {
@@ -167,10 +203,8 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
             const header = new PopupMenu.PopupMenuItem(_('Presets'), {reactive: false, style_class: 'govee-section-title'});
             header.label.opacity = 180;
             this._content.addMenuItem(header);
-            for (const preset of presets) {
-                this._content.addAction(preset.name, () => this._manager.applyPreset(preset)
-                    .catch(e => logError(e, 'govee-lights: preset')), 'media-playback-start-symbolic');
-            }
+            for (const preset of presets)
+                this._content.addMenuItem(new PresetItem(preset, this._manager));
             if (devices.length)
                 this._content.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         }
