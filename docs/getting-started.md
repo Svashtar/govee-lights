@@ -56,7 +56,7 @@ Each light shows only the controls it supports:
 - **Power**: the tile itself, or the switch in a menu section header.
 - **Brightness** and **colour temperature** sliders. The temperature range comes from the light.
 - **Colour**: eight quick swatches and a rainbow hue slider.
-- **Scenes**, **DIY scenes**, **Snapshots** and **Music modes** lists. These always go through the cloud. Long lists scroll inside the menu and start with a search field: type part of a name (case and accents don't matter), press Enter to pick the first match, or press Down to move into the results.
+- **Scenes**, **DIY scenes**, **Snapshots** and **Music modes** lists. These always go through the cloud. Picking one keeps the list open and puts a checkmark next to it, so you can try several in a row. Long lists scroll inside the menu and start with a search field: type part of a name (case and accents don't matter), press Enter to pick the first match, or press Down to move into the results.
 - **Save as Preset…** to capture the light's current state. See [Presets](presets.md).
 
 Over LAN the light follows the slider as you drag it. Over the cloud the value is sent when you let go, to stay within Govee's rate limits.

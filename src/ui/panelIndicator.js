@@ -11,6 +11,7 @@ import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js'
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
+import {CheckItem} from './checkItem.js';
 import {DeviceControls, stateSummary} from './deviceControls.js';
 
 // Header row for one light: icon, name, state, power switch and an expander
@@ -78,42 +79,6 @@ class GoveeLightsDeviceHeader extends PopupMenu.PopupBaseMenuItem {
     }
 });
 
-// A preset row. Choosing it applies the preset and keeps the menu open, so
-// you can try presets one after another; the active one shows a checkmark.
-const PresetItem = GObject.registerClass(
-class GoveeLightsPresetItem extends PopupMenu.PopupBaseMenuItem {
-    _init(preset, manager) {
-        super._init({style_class: 'govee-preset-item'});
-        this._preset = preset;
-        this._manager = manager;
-
-        this.add_child(new St.Icon({icon_name: 'media-playback-start-symbolic', style_class: 'popup-menu-icon'}));
-        this.label = new St.Label({text: preset.name, x_expand: true, y_align: Clutter.ActorAlign.CENTER});
-        this.add_child(this.label);
-        this.label_actor = this.label;
-        this._check = new St.Icon({icon_name: 'object-select-symbolic', style_class: 'popup-menu-icon'});
-        this.add_child(this._check);
-
-        this._changedId = manager.connect('preset-changed', () => this._sync());
-        this.connect('destroy', () => manager.disconnect(this._changedId));
-        this._sync();
-    }
-
-    // Applies without emitting 'activate', which would close the menu.
-    activate(_event) {
-        this._manager.applyPreset(this._preset).catch(e => logError(e, 'govee-lights: preset'));
-    }
-
-    _sync() {
-        const active = this._manager.activePresetId === this._preset.id;
-        this._check.opacity = active ? 255 : 0;
-        if (active)
-            this.add_accessible_state(Atk.StateType.CHECKED);
-        else
-            this.remove_accessible_state(Atk.StateType.CHECKED);
-    }
-});
-
 // A light in the top-bar menu: its header plus its controls, which are only
 // shown while expanded.
 class DeviceSection extends PopupMenu.PopupMenuSection {
@@ -177,7 +142,11 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
                 manager.menuOpened(this._devices);
         });
         this._managerId = manager.connect('devices-changed', () => this.rebuild());
-        this.connect('destroy', () => manager.disconnect(this._managerId));
+        this.connect('destroy', () => {
+            manager.disconnect(this._managerId);
+            if (this._presetChangedId)
+                manager.disconnect(this._presetChangedId);
+        });
         this.rebuild();
     }
 
@@ -186,6 +155,9 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
     }
 
     rebuild() {
+        if (this._presetChangedId)
+            this._manager.disconnect(this._presetChangedId);
+        this._presetChangedId = 0;
         this._content.removeAll();
         const devices = this._devices;
         const presets = this._manager.presets;
@@ -203,8 +175,18 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
             const header = new PopupMenu.PopupMenuItem(_('Presets'), {reactive: false, style_class: 'govee-section-title'});
             header.label.opacity = 180;
             this._content.addMenuItem(header);
-            for (const preset of presets)
-                this._content.addMenuItem(new PresetItem(preset, this._manager));
+            // Applying keeps the menu open, so presets can be tried one after
+            // another; the active one shows a checkmark.
+            const items = presets.map(preset => {
+                const item = new CheckItem(preset.name,
+                    () => this._manager.applyPreset(preset).catch(e => logError(e, 'govee-lights: preset')),
+                    {iconName: 'media-playback-start-symbolic'});
+                this._content.addMenuItem(item);
+                return [preset.id, item];
+            });
+            const syncPresets = () => items.forEach(([id, item]) => item.setChecked(id === this._manager.activePresetId));
+            syncPresets();
+            this._presetChangedId = this._manager.connect('preset-changed', syncPresets);
             if (devices.length)
                 this._content.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         }

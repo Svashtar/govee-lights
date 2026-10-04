@@ -13,6 +13,7 @@ import * as Slider from 'resource:///org/gnome/shell/ui/slider.js';
 
 import {hsvToRgb, rgbToHsv, toHex} from '../lib/capabilities.js';
 import {matchesQuery, sceneOptions} from '../lib/presets.js';
+import {CheckItem} from './checkItem.js';
 import {hueSlider, temperatureSlider} from './gradientSlider.js';
 
 const SWATCHES = [
@@ -174,16 +175,22 @@ export class DeviceControls {
             section.addMenuItem(this._swatchRow(c => send('color', c)));
         }
 
+        this._optionItems = [];
+        this._sceneKey = undefined;
         for (const {kind, label, search, icon} of SCENE_MENUS()) {
             const options = sceneOptions(device, kind);
             if (!options.length || !device.supports(kind))
                 continue;
             const sub = new PopupMenu.PopupSubMenuMenuItem(label, true);
             sub.icon.icon_name = icon;
-            const items = options.map(option => ({
-                name: option.name,
-                item: sub.menu.addAction(option.name, () => send(kind, option)),
-            }));
+            // Picking keeps the list open and moves the checkmark, so scenes
+            // can be tried one after another.
+            const items = options.map(option => {
+                const item = new CheckItem(option.name, () => send(kind, option));
+                sub.menu.addMenuItem(item);
+                return {name: option.name, kind, item};
+            });
+            this._optionItems.push(...items);
             sub.menu.actor.add_style_class_name('govee-option-list');
             if (options.length > LONG_LIST) {
                 addSearch(sub.menu, items, search);
@@ -225,6 +232,14 @@ export class DeviceControls {
 
     sync() {
         const {state} = this._device;
+        // The light's current scene (set when one is picked, cleared by a
+        // colour or white change); only walk the lists when it changes.
+        const sceneKey = state.scene ? `${state.scene.kind}:${state.scene.name}` : null;
+        if (sceneKey !== this._sceneKey) {
+            this._sceneKey = sceneKey;
+            for (const {name, kind, item} of this._optionItems)
+                item.setChecked(sceneKey === `${kind}:${name}`);
+        }
         this._power?.setToggleState(Boolean(state.power));
         if (state.brightness !== null)
             this._brightness?.set(state.brightness / 100);
