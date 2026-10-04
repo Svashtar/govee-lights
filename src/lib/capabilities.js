@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 // Govee capability model: parses the cloud's capability list into what the UI
 // needs, converts state from both transports into one shape, and builds the
@@ -28,7 +31,7 @@ export const LAN_ACTIONS = new Set(['power', 'brightness', 'temperature', 'color
 
 export const key = cap => `${cap.type}.${cap.instance}`;
 
-export const clamp = (v, min, max) => Math.min(max, Math.max(min, Math.round(v)));
+const clamp = (v, min, max) => Math.min(max, Math.max(min, Math.round(v)));
 
 function rangeOf(cap, fallback) {
     const r = cap?.parameters?.range;
@@ -81,8 +84,6 @@ export function parseSceneList(body, cap) {
     return enumOptions(match?.parameters?.options);
 }
 
-// ---- Colour --------------------------------------------------------------
-
 export const packRgb = ({r, g, b}) => ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
 export const unpackRgb = n => ({r: (n >> 16) & 0xff, g: (n >> 8) & 0xff, b: n & 0xff});
 
@@ -123,8 +124,6 @@ export function kelvinToRgb(kelvin) {
 
 export const toHex = ({r, g, b}) => `#${[r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')}`;
 
-// ---- Brightness scale ----------------------------------------------------
-
 // Some lights report brightness on a non-percent range (e.g. 0–254). The UI
 // and the LAN API always work in percent.
 export function brightnessToPercent(value, range) {
@@ -138,8 +137,6 @@ export function brightnessFromPercent(percent, range) {
         return clamp(percent, Math.max(1, range?.min ?? 1), 100);
     return clamp(range.min + ((percent - 1) / 99) * (range.max - range.min), range.min, range.max);
 }
-
-// ---- State ---------------------------------------------------------------
 
 // Response body of POST device/state → {"type.instance": value}
 export function flattenState(body) {
@@ -207,8 +204,6 @@ export function optimisticState(action, value) {
     default: return {};
     }
 }
-
-// ---- Commands ------------------------------------------------------------
 
 export function supports(caps, action) {
     switch (action) {

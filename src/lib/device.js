@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 import {supports} from './capabilities.js';
 import {DEFAULT_PLACEMENT, displayName} from './config.js';

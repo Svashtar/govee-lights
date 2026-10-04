@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 // Owns every Device, both transports and the refresh policy. UIs call
 // control()/applyPreset()/menuOpened() and listen to Device 'changed'.
@@ -143,8 +146,6 @@ export class DeviceManager extends Emitter {
         this.disconnectAll();
     }
 
-    // ---- Device list -------------------------------------------------------
-
     _loadDevices() {
         const {devices} = readDevicesCache();
         const config = getDevicesConfig(this._settings);
@@ -239,8 +240,6 @@ export class DeviceManager extends Emitter {
         await this.refreshAll(true);
     }
 
-    // ---- LAN ---------------------------------------------------------------
-
     _updateLan() {
         const wanted = this._settings.get_boolean('use-lan');
         if (wanted && !this._lan) {
@@ -328,8 +327,6 @@ export class DeviceManager extends Emitter {
         }
     }
 
-    // ---- State refresh ----------------------------------------------------
-
     // Called when a menu showing `devices` opens. LAN reads are free; cloud
     // reads happen only when the last one is older than refresh-stale-seconds.
     menuOpened(devices = this.devices) {
@@ -358,8 +355,6 @@ export class DeviceManager extends Emitter {
     refreshAll(force = true) {
         return Promise.all(this.devices.map(d => this.refresh(d, force).catch(e => this._handleError(d, e))));
     }
-
-    // ---- Control ----------------------------------------------------------
 
     // live: true while a slider is being dragged; the final value is sent
     // again with live: false when it is released.

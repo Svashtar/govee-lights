@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 // User presets that set one or more lights at once ("Movie night").
 // Pure (no gi imports) so it is unit tested.
@@ -11,7 +14,7 @@
 
 import {supports} from './capabilities.js';
 
-export const SCENE_KINDS = ['scene', 'diyScene', 'snapshot', 'musicMode'];
+const SCENE_KINDS = ['scene', 'diyScene', 'snapshot', 'musicMode'];
 
 export function newId() {
     return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
@@ -21,7 +24,7 @@ export function newId() {
 // alphabetical order: "Scene 2" before "Scene 10".
 const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
 
-export function sortOptions(options) {
+function sortOptions(options) {
     return [...options].sort((a, b) => collator.compare(a.name, b.name));
 }
 
@@ -111,7 +114,7 @@ export function sanitizePresets(presets) {
 }
 
 // Folds case and accents, so "aurora" matches "Auróra".
-export function searchKey(text) {
+function searchKey(text) {
     return String(text).normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().trim();
 }
 

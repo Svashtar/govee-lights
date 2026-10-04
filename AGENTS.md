@@ -28,6 +28,7 @@ make lint        # npx eslint@9 . — must stay at 0 errors/warnings
 make install     # symlink src/ into ~/.local/share/gnome-shell/extensions/
 make pack        # dist/govee-lights@svashta.com.shell-extension.zip (EGO / releases)
 make pot         # regenerate po/govee-lights.pot after changing UI strings
+make ego-check   # test + lint + pack, then fail while any AI notice remains
 GSETTINGS_BACKEND=memory GI_TYPELIB_PATH=/usr/lib/gnome-shell/girepository-1.0 \
   LD_LIBRARY_PATH=/usr/lib/gnome-shell gjs -m tools/prefs-preview.js <page> out.png
                  # render a prefs page (account|devices|presets|about) without the shell
@@ -46,12 +47,36 @@ journalctl -b _COMM=gnome-shell -o cat --since -10min   # shell log
   `govee-*` classes and never restyle the shell's own menus.
 - St CSS is not browser CSS: no `color-mix()`, no `opacity`. Use `st-transparentize()` with
   a real colour, or set `actor.opacity` in code.
-- GNOME menus allow one open submenu at a time: never nest a `PopupSubMenu` inside another.
+- GNOME menus allow one open submenu at a time: never nest a `PopupSubMenu` inside another
+  (expandable rows use `ui/expanderItem.js`).
 - Network tools (LAN scan, cloud) need the sandbox disabled. The LAN needs UDP 4002 open
   in `ufw`.
 - **Never send commands to the user's lights** (power, colour, scenes…) unless the user asks.
   Read-only checks (`scan`, `devStatus`, `device/state`, `user/devices`) are fine, but
   remember that cloud reads count against Govee's 10,000 requests/day.
+
+## extensions.gnome.org rules
+Follow both https://gjs.guide/extensions/review-guidelines/review-guidelines.html and
+https://gjs.guide/extensions/review-guidelines/best-practices.html. The ones that bite here:
+- **AI notice:** every file in `src/` carries the three-line "Generated with AI for personal
+  use…" notice from the best-practices page; new files get it too. **Never remove it.** The
+  maintainer removes it by hand after reviewing the code, then runs `make ego-check`.
+- Create nothing at import time or in constructors that run before `enable()` (no GObjects,
+  signals or sources at module level; `Gio._promisify` is fine).
+- `disable()`/`destroy()` remove every GLib source, disconnect every signal, destroy every
+  object, in that order, with `super.destroy()` last. Each class cleans up what it created,
+  and timeout removal sits next to its creation.
+- No `_destroyed`/`_enabled` flags: cancel a `Gio.Cancellable` instead.
+- No `?.` or `typeof … === 'function'` checks on things that always exist; no try/catch around
+  calls that can't throw. `?.` is fine for Govee JSON and optional widgets.
+- Comments explain why, never restate the code; no decorative dividers.
+- No private shell internals (methods starting with `_` on shell objects); build our own
+  widget instead (see `ui/expanderItem.js`, `ui/optionList.js`).
+- `metadata.json`: no `version` key (EGO sets it); the description declares network and
+  clipboard use.
+- No code that only tests use in `src/` (test helpers live in `tests/`).
+- ESLint enforces the process separation (`src/lib` no UI toolkits, `src/ui` no Gtk/Adw,
+  `src/prefs` no St/Clutter/Meta/Shell) and lines ≤ 200 characters.
 
 ## Code rules
 - `src/lib/` must work in both processes: no St, Clutter, Meta, Gtk or Adw. Pure modules
@@ -59,9 +84,6 @@ journalctl -b _COMM=gnome-shell -o cat --since -10min   # shell log
   nothing from GNOME, and every change to them gets a unit test.
 - Every user-facing string goes through `_()` / `ngettext()`; run `make pot` afterwards.
   UI copy uses British "colour". Keep strings short.
-- extensions.gnome.org review rules: create nothing at import time or in the constructor;
-  `disable()` destroys every actor, disconnects every signal, removes every GLib source
-  (track the ids), closes the UDP socket and drops references.
 - Only the shell opens UDP 4002. Prefs reads `~/.cache/govee-lights/lan.json` and asks for
   a scan via the `lan-scan-request` key (port reuse would split replies between processes).
 - `device/control` is never retried; only idempotent reads are.

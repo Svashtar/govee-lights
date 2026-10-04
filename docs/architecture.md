@@ -31,6 +31,9 @@ src/lib/emitter.js           tiny signal emitter for non-GObject classes
 src/ui/deviceControls.js     shared PopupMenu builders (power, sliders, colour, scene submenus)
 src/ui/gradientSlider.js     Slider subclass drawing a hue or warm→cool white gradient (Cairo)
 src/ui/savePresetDialog.js   ModalDialog asking for a preset name
+src/ui/expanderItem.js       menu row that expands content below it without closing the menu
+src/ui/optionList.js         scrollable, searchable scene/DIY/snapshot/music list with checkmarks
+src/ui/checkItem.js          menu row that acts without closing the menu, with a right-hand checkmark
 src/ui/panelIndicator.js     PanelMenu.Button: presets section + per-device sections; hidden when empty
 src/ui/quickToggles.js       SystemIndicator + QuickMenuToggle per quick-settings device
 src/schemas/                 org.gnome.shell.extensions.govee-lights.gschema.xml

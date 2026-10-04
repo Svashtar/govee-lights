@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 import Atk from 'gi://Atk';
 import Clutter from 'gi://Clutter';
@@ -39,7 +42,6 @@ class GoveeLightsExpanderItem extends PopupMenu.PopupBaseMenuItem {
         this.add_child(this._arrow);
     }
 
-    // Adds an actor between the label and the arrow.
     addSuffix(actor) {
         this.insert_child_below(actor, this._arrow);
     }

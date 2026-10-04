@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 // Govee Platform cloud API (openapi.api.govee.com) over Soup 3.
 // Reads are retried on 5xx/network errors; device/control is never retried,
@@ -13,7 +16,7 @@ import {CAP, parseCapabilities, parseSceneList} from './capabilities.js';
 
 Gio._promisify(Soup.Session.prototype, 'send_and_read_async', 'send_and_read_finish');
 
-export const BASE_URL = 'https://openapi.api.govee.com/router/api/v1/';
+const BASE_URL = 'https://openapi.api.govee.com/router/api/v1/';
 export const DAILY_LIMIT = 10000;
 const TIMEOUT_SECONDS = 10;
 const RETRY_DELAYS_MS = [1000, 2000, 4000];
@@ -159,7 +162,7 @@ export class CloudClient {
         return checkResponse(status, parsed, message.get_response_headers().get_one('Retry-After'));
     }
 
-    // → [{id, sku, name, capabilities (parsed), raw}] for lights only
+    // → [{id, sku, name, capabilities (parsed)}], lights only
     async getDevices() {
         const body = await this._request('GET', 'user/devices');
         const devices = Array.isArray(body.data) ? body.data : [];

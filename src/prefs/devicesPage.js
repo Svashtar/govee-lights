@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
@@ -15,7 +18,7 @@ import {escapeMarkup} from '../lib/markdown.js';
 
 const PLACEMENT_LABELS = () => [_('Hidden'), _('Top Bar Menu'), _('Quick Settings')];
 
-export function featureSummary(caps, device) {
+function featureSummary(caps, device) {
     const parts = [];
     if (caps.power)
         parts.push(_('Power'));
@@ -111,7 +114,6 @@ class GoveeLightsDevicesPage extends Adw.PreferencesPage {
             subtitle: lan ? _('%s · LAN').format(device.sku) : _('%s · Cloud').format(device.sku),
         });
 
-        // Reorder buttons
         const up = new Gtk.Button({icon_name: 'go-up-symbolic', valign: Gtk.Align.CENTER, css_classes: ['flat'],
                                    tooltip_text: _('Move Up'), sensitive: index > 0});
         const down = new Gtk.Button({icon_name: 'go-down-symbolic', valign: Gtk.Align.CENTER, css_classes: ['flat'],

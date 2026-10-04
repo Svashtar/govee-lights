@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 import Cairo from 'cairo';
 import Clutter from 'gi://Clutter';
@@ -13,7 +16,7 @@ const TAU = Math.PI * 2;
 
 // A Slider whose whole track is a colour gradient (hue, or warm→cool white),
 // with a ring handle filled in the selected colour.
-export const GradientSlider = GObject.registerClass(
+const GradientSlider = GObject.registerClass(
 class GoveeLightsGradientSlider extends Slider.Slider {
     // stops: [[offset 0–1, {r,g,b}]]; colorAt: value 0–1 → {r,g,b}
     _init(value, stops, colorAt) {

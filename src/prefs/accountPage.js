@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 import Adw from 'gi://Adw';
 import Gio from 'gi://Gio';
@@ -31,7 +34,7 @@ function whenText(unixSeconds, inSentence = false) {
     return inSentence ? _('on %s').format(t.format('%x')) : t.format('%x');
 }
 
-export function errorMessage(e) {
+function errorMessage(e) {
     switch (e.kind) {
     case 'auth': return _('Govee rejected the API key. Check it and try again.');
     case 'rate-limit': return _('Govee’s request limit was reached. Try again later.');
@@ -47,7 +50,6 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         this._window = window;
         this._settings = settings;
 
-        // Govee account -----------------------------------------------------
         const account = new Adw.PreferencesGroup({
             title: _('Govee Account'),
             description: _('In the Govee Home app, open Profile → Settings → Apply for API Key. The key arrives by email.'),
@@ -83,7 +85,6 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         account.add(help);
         this.add(account);
 
-        // Local network -----------------------------------------------------
         const lan = new Adw.PreferencesGroup({
             title: _('Local Network'),
             description: _('Lights with LAN Control turned on respond instantly and work without internet. Turn it on per light in the Govee Home app: open the light, then Settings → LAN Control.'),
@@ -100,7 +101,6 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         lan.add(this._lanRow);
         this.add(lan);
 
-        // Cloud usage -------------------------------------------------------
         const usage = new Adw.PreferencesGroup({
             title: _('Cloud Usage'),
             description: _('Govee allows 10,000 cloud requests per day. Commands sent over LAN don’t count.'),

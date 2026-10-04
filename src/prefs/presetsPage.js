@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 import Adw from 'gi://Adw';
 import Gdk from 'gi://Gdk';
@@ -24,7 +27,7 @@ const MODES = () => [
     {id: 'musicMode', label: _('Music Mode'), kind: 'musicMode'},
 ];
 
-export function stepSummary(step) {
+function stepSummary(step) {
     if (step.power === false)
         return _('Off');
     const parts = [_('On')];

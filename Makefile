@@ -5,8 +5,9 @@ DIST      := dist
 INSTALL   := $(HOME)/.local/share/gnome-shell/extensions/$(UUID)
 COMMIT    := $(shell git rev-parse --short HEAD 2>/dev/null)
 JS_FILES  := $(shell find $(SRC) -name '*.js')
+AI_NOTICE := Generated with AI for personal use.
 
-.PHONY: all schemas install uninstall test lint pot pack clean nested
+.PHONY: all schemas install uninstall test lint pot pack ego-check clean nested
 
 all: schemas
 
@@ -50,6 +51,18 @@ pack: schemas
 		--extra-source=lib --extra-source=ui --extra-source=prefs --extra-source=icons \
 		--extra-source=CHANGELOG.md --extra-source=LICENSE --podir=../po
 	@echo "Built $(DIST)/$(UUID).shell-extension.zip"
+	@if grep -rqF "$(AI_NOTICE)" $(SRC); then \
+		echo "Note: source files still carry the AI notice; see 'make ego-check' before uploading to EGO."; fi
+
+# Run before uploading to extensions.gnome.org. Fails while any source file
+# still carries the AI notice: the maintainer removes it by hand after
+# reviewing the code (https://gjs.guide/extensions/review-guidelines/best-practices.html).
+ego-check: test lint pack
+	@files=$$(grep -rlF "$(AI_NOTICE)" $(SRC)); \
+	if [ -n "$$files" ]; then echo "AI notice still present in:"; echo "$$files"; exit 1; fi
+	@if unzip -l $(DIST)/$(UUID).shell-extension.zip | grep -qE 'gschemas.compiled|\.po$$|\.pot$$'; then \
+		echo "Zip contains compiled schemas or .po files"; exit 1; fi
+	@echo "Ready to upload $(DIST)/$(UUID).shell-extension.zip"
 
 # Nested GNOME Shell for testing without logging out (needs mutter-devkit).
 nested: install

@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 // Settings export/import. The API key lives in the keyring and is never part
 // of a backup. Pure so it can be unit tested.
@@ -14,8 +17,8 @@ export class BackupError extends Error {
     }
 }
 
-export const BACKUP_FORMAT = 'govee-lights-settings';
-export const BACKUP_VERSION = 1;
+const BACKUP_FORMAT = 'govee-lights-settings';
+const BACKUP_VERSION = 1;
 
 // [GSettings key, backup field, type check]
 const FIELDS = [

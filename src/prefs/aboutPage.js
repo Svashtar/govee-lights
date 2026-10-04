@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 import Adw from 'gi://Adw';
 import Gdk from 'gi://Gdk';
@@ -74,7 +77,6 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         const version = metadata['version-name'];
         const repo = metadata.url;
 
-        // Header ---------------------------------------------------------------
         const header = new Adw.PreferencesGroup();
         const box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, spacing: 6, margin_bottom: 12});
         box.append(new Gtk.Image({icon_name: 'govee-lights', pixel_size: 112, margin_bottom: 6}));
@@ -88,7 +90,6 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         header.add(box);
         this.add(header);
 
-        // Version --------------------------------------------------------------
         const info = new Adw.PreferencesGroup();
         info.add(suffixLabel(new Adw.ActionRow({title: _('Version')}), version));
         if (metadata.commit)
@@ -100,7 +101,6 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         info.add(whatsNew);
         this.add(info);
 
-        // Links ----------------------------------------------------------------
         const links = new Adw.PreferencesGroup({title: _('Help')});
         links.add(linkRow(_('Website'), _('Features, screenshots and installation'), repo));
         links.add(linkRow(_('Documentation'), _('Setup, LAN control, presets and troubleshooting'), `${repo}/tree/main/docs`));
@@ -125,7 +125,6 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         links.add(debugRow);
         this.add(links);
 
-        // Settings backup ------------------------------------------------------
         const backup = new Adw.PreferencesGroup({
             title: _('Settings'),
             description: _('Backups include names, placements and presets. The API key stays in your keyring.'),
@@ -141,7 +140,6 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
             backup.add(row);
         this.add(backup);
 
-        // Legal ----------------------------------------------------------------
         const legal = new Adw.PreferencesGroup();
         legal.add(linkRow(_('License'), _('GNU General Public License, version 2 or later'),
                           'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html'));

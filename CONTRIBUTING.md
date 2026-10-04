@@ -40,6 +40,7 @@ This runs `dbus-run-session gnome-shell --devkit --wayland`. Enable the extensio
 | `make lint` | Run ESLint 9 (`npx --yes eslint@9 .`) with `eslint.config.js` |
 | `make pack` | Build `dist/govee-lights@svashta.com.shell-extension.zip`, the file uploaded to extensions.gnome.org and attached to releases |
 | `make pot` | Regenerate `po/govee-lights.pot` from the sources |
+| `make ego-check` | Test, lint and pack, then check the zip is ready for extensions.gnome.org (fails while any source file still carries the AI notice) |
 | `make nested` | Install and start a nested GNOME Shell |
 | `make clean` | Remove `build/`, `dist/` and the compiled schema |
 
@@ -84,13 +85,16 @@ Messages from this extension are prefixed with `govee-lights:`. For a nested she
   // SPDX-FileCopyrightText: 2026 Your Name
   ```
 
-- **Follow the [GNOME Shell extension review guidelines](https://gjs.guide/extensions/review-guidelines/review-guidelines.html).** Reviewers on extensions.gnome.org check these, so in particular:
+- **Follow the [GNOME Shell extension review guidelines](https://gjs.guide/extensions/review-guidelines/review-guidelines.html) and [best practices](https://gjs.guide/extensions/review-guidelines/best-practices.html).** Reviewers on extensions.gnome.org check these, so in particular:
   - **Do no work in the constructor.** Create objects, connect signals and start timers or sockets in `enable()`, not in the module scope or the `Extension` constructor.
   - **`disable()` must undo everything.** Disconnect every signal, remove every `GLib` timeout and source, close the UDP socket, destroy every actor and drop references (set them to `null`). After disable/enable cycles there must be no journal errors and no leftover tiles, icons or bound port (`ss -ulpn | grep 4002`).
-  - Don't import GTK/Adwaita in shell code, and don't import `Clutter`, `St` or `Meta` in prefs code.
+  - Don't import GTK/Adwaita in shell code, and don't import `Clutter`, `St` or `Meta` in prefs code. ESLint enforces this, and that `src/lib/` imports neither.
+  - Don't override private shell methods (names starting with `_`); build a small widget instead.
+  - Comments explain why, not what the code already says.
   - No synchronous network or file I/O on the shell's main thread for anything slow; use async Soup and Gio calls.
   - Never log secrets. The API key must not appear in logs, errors, debug info or backups.
 - **Wrap user-visible strings in `_()`** so they can be translated.
+- **AI notice.** Parts of this code were written with AI help. As the [best practices](https://gjs.guide/extensions/review-guidelines/best-practices.html) ask, files in `src/` carry a three-line "Generated with AI for personal use…" notice. The maintainer removes it after reviewing the code; `make ego-check` refuses to pass while it is present.
 - Prefer small, focused modules. The module map is in [docs/architecture.md](docs/architecture.md).
 
 ## Commit style

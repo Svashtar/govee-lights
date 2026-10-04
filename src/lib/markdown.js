@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
-// Just enough Markdown → Pango markup to show CHANGELOG.md in a Gtk.Label.
+// Just enough Markdown parsing to show CHANGELOG.md in About → What's New.
 // Pure (no gi imports) so it can be unit tested.
 
 export function escapeMarkup(text) {

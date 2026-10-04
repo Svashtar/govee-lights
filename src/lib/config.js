@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 // Settings and cache files shared by the shell and the preferences window.
 //
@@ -14,7 +17,7 @@ import GLib from 'gi://GLib';
 export const PLACEMENTS = ['hidden', 'panel', 'quick-settings'];
 export const DEFAULT_PLACEMENT = 'panel';
 
-export const CACHE_DIR = GLib.build_filenamev([GLib.get_user_cache_dir(), 'govee-lights']);
+const CACHE_DIR = GLib.build_filenamev([GLib.get_user_cache_dir(), 'govee-lights']);
 export const DEVICES_CACHE = GLib.build_filenamev([CACHE_DIR, 'devices.json']);
 export const LAN_CACHE = GLib.build_filenamev([CACHE_DIR, 'lan.json']);
 
@@ -26,8 +29,6 @@ function parseJson(text, fallback) {
         return fallback;
     }
 }
-
-// ---- GSettings -----------------------------------------------------------
 
 // {id: {sku, alias, placement, order}}
 export function getDevicesConfig(settings) {
@@ -69,9 +70,7 @@ export function setPresets(settings, presets) {
     settings.set_string('presets', JSON.stringify(presets));
 }
 
-// ---- Cache files ---------------------------------------------------------
-
-export function readJsonFile(path, fallback) {
+function readJsonFile(path, fallback) {
     try {
         const [, bytes] = GLib.file_get_contents(path);
         return parseJson(new TextDecoder().decode(bytes), fallback);
@@ -80,7 +79,7 @@ export function readJsonFile(path, fallback) {
     }
 }
 
-export function writeJsonFile(path, value) {
+function writeJsonFile(path, value) {
     GLib.mkdir_with_parents(GLib.path_get_dirname(path), 0o700);
     GLib.file_set_contents(path, JSON.stringify(value, null, 1));
 }
@@ -117,20 +116,17 @@ export function monitorFile(path, callback) {
     return monitor;
 }
 
-// Display name: alias if set, else the name from the Govee app.
 export function displayName(device, config) {
     return config?.alias?.trim() || device.name || device.sku;
 }
 
-// ---- Cloud request counter ----------------------------------------------
-
 // {day: 'YYYY-MM-DD', count}
-export function getRequestCounter(settings) {
+function getRequestCounter(settings) {
     const value = parseJson(settings.get_string('request-counter'), {});
     return {day: String(value.day ?? ''), count: Number(value.count) || 0};
 }
 
-export function todayKey() {
+function todayKey() {
     return GLib.DateTime.new_now_local().format('%F');
 }
 
@@ -149,8 +145,6 @@ export function requestCounter(settings) {
         settings.set_string('request-counter', JSON.stringify({day, count}));
     };
 }
-
-// ---- Cloud status ----------------------------------------------------------
 
 // Errors that say something about the account or connection, not one light.
 const ACCOUNT_ERRORS = new Set(['auth', 'rate-limit', 'network']);

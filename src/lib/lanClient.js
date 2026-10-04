@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // SPDX-FileCopyrightText: 2026 Mitja Cebokli
+// Generated with AI for personal use.
+// Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
+// and can maintain this code.
 
 // Govee LAN API over UDP. Lights with "LAN Control" enabled in the Govee Home
 // app listen for multicast scans on 239.255.255.250:4001, reply to the sender
@@ -11,10 +14,10 @@ import GLib from 'gi://GLib';
 
 import {Emitter} from './emitter.js';
 
-export const MULTICAST_GROUP = '239.255.255.250';
-export const SCAN_PORT = 4001;
-export const LISTEN_PORT = 4002;
-export const COMMAND_PORT = 4003;
+const MULTICAST_GROUP = '239.255.255.250';
+const SCAN_PORT = 4001;
+const LISTEN_PORT = 4002;
+const COMMAND_PORT = 4003;
 
 export function encode(cmd, data = {}) {
     return JSON.stringify({msg: {cmd, data}});
