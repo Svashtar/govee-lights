@@ -5,7 +5,7 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import {DeviceManager} from '../src/lib/deviceManager.js';
 
-const settings = new Gio.Settings({schema_id: 'org.gnome.shell.extensions.govee-lights'});
+const settings = new Gio.Settings({schema_id: 'org.gnome.shell.extensions.lightsbuddy'});
 const manager = new DeviceManager(settings);
 const loop = new GLib.MainLoop(null, false);
 

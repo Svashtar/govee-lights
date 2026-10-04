@@ -44,7 +44,7 @@ function errorMessage(e) {
 }
 
 export const AccountPage = GObject.registerClass(
-class GoveeLightsAccountPage extends Adw.PreferencesPage {
+class LightsBuddyAccountPage extends Adw.PreferencesPage {
     _init({window, settings, docsUrl}) {
         super._init({title: _('Account'), icon_name: 'avatar-default-symbolic', name: 'account'});
         this._window = window;
@@ -149,7 +149,7 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
             this._keyStatusIcon.css_classes = style ? [style] : [];
         };
         if (!this._hasKey) {
-            set(_('No key saved'), _('Paste your key above and press Enter.'), 'govee-status-info-symbolic', null);
+            set(_('No key saved'), _('Paste your key above and press Enter.'), 'lightsbuddy-status-info-symbolic', null);
             return;
         }
 
@@ -157,20 +157,20 @@ class GoveeLightsAccountPage extends Adw.PreferencesPage {
         switch (status.error) {
         case 'auth':
             set(_('Govee rejected this key'), _('%s. Check the key or enter a new one.').format(whenText(status.errorAt)),
-                'govee-status-error-symbolic', 'error');
+                'lightsbuddy-status-error-symbolic', 'error');
             return;
         case 'rate-limit':
             set(_('Daily request limit reached'), _('%s. Cloud control resumes when Govee resets the limit; lights on your LAN keep working.').format(whenText(status.errorAt)),
-                'govee-status-warning-symbolic', 'warning');
+                'lightsbuddy-status-warning-symbolic', 'warning');
             return;
         case 'network':
             set(_('Couldn’t reach Govee'), _('%s. Check your internet connection.').format(whenText(status.errorAt)),
-                'govee-status-warning-symbolic', 'warning');
+                'lightsbuddy-status-warning-symbolic', 'warning');
             return;
         }
         set(_('Saved in your keyring'),
             status.okAt ? _('Last worked %s').format(whenText(status.okAt, true)) : _('Not used yet'),
-            'govee-status-ok-symbolic', 'success');
+            'lightsbuddy-status-ok-symbolic', 'success');
     }
 
     async _saveKey() {

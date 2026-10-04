@@ -1,4 +1,4 @@
-UUID      := govee-lights@svashta.com
+UUID      := lightsbuddy@svashta.com
 SRC       := src
 BUILD     := build
 DIST      := dist
@@ -35,7 +35,7 @@ lint:
 
 pot:
 	xgettext --from-code=UTF-8 --language=JavaScript --keyword=_ --keyword=ngettext:1,2 \
-		--package-name="Govee Lights" --output=po/govee-lights.pot $(JS_FILES)
+		--package-name="LightsBuddy" --output=po/lightsbuddy.pot $(JS_FILES)
 
 # Builds dist/$(UUID).shell-extension.zip, the file uploaded to
 # extensions.gnome.org and attached to GitHub releases.

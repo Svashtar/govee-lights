@@ -46,9 +46,9 @@ function infoRow(title, value) {
 }
 
 export const DevicesPage = GObject.registerClass(
-class GoveeLightsDevicesPage extends Adw.PreferencesPage {
+class LightsBuddyDevicesPage extends Adw.PreferencesPage {
     _init({window, settings}) {
-        super._init({title: _('Lights'), icon_name: 'govee-lights-symbolic', name: 'devices'});
+        super._init({title: _('Lights'), icon_name: 'lightsbuddy-symbolic', name: 'devices'});
         this._window = window;
         this._settings = settings;
         this._groups = [];
@@ -85,7 +85,7 @@ class GoveeLightsDevicesPage extends Adw.PreferencesPage {
         if (!devices.length) {
             const empty = new Adw.PreferencesGroup();
             empty.add(new Adw.StatusPage({
-                icon_name: 'govee-lights-symbolic',
+                icon_name: 'lightsbuddy-symbolic',
                 title: _('No Lights Yet'),
                 description: _('Add your Govee API key on the Account page, then fetch your lights.'),
                 vexpand: true,

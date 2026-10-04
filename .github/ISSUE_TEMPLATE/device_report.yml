@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks! Reports like this keep [Supported devices](https://github.com/Svashtar/govee-lights/blob/main/docs/supported-devices.md) up to date.
+        Thanks! Reports like this keep [Supported devices](https://github.com/Svashtar/lightsbuddy-gnome/blob/main/docs/supported-devices.md) up to date.
 
-        Before testing LAN, turn on **LAN Control** for the light in the Govee Home app and make sure your firewall allows UDP port 4002 (see [LAN control](https://github.com/Svashtar/govee-lights/blob/main/docs/lan-control.md)).
+        Before testing LAN, turn on **LAN Control** for the light in the Govee Home app and make sure your firewall allows UDP port 4002 (see [LAN control](https://github.com/Svashtar/lightsbuddy-gnome/blob/main/docs/lan-control.md)).
   - type: input
     id: sku
     attributes:

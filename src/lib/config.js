@@ -7,7 +7,7 @@
 // Settings and cache files shared by the shell and the preferences window.
 //
 // GSettings holds what the user chose (aliases, placements, presets).
-// ~/.cache/govee-lights/ holds what Govee told us, so menus render at once:
+// ~/.cache/lightsbuddy/ holds what Govee told us, so menus render at once:
 //   devices.json  cloud device list with parsed capabilities and scene lists
 //   lan.json      {deviceId: {ip, firmware, seen}} written by the shell's LAN scans
 
@@ -17,7 +17,7 @@ import GLib from 'gi://GLib';
 export const PLACEMENTS = ['hidden', 'panel', 'quick-settings'];
 export const DEFAULT_PLACEMENT = 'panel';
 
-const CACHE_DIR = GLib.build_filenamev([GLib.get_user_cache_dir(), 'govee-lights']);
+const CACHE_DIR = GLib.build_filenamev([GLib.get_user_cache_dir(), 'lightsbuddy']);
 export const DEVICES_CACHE = GLib.build_filenamev([CACHE_DIR, 'devices.json']);
 export const LAN_CACHE = GLib.build_filenamev([CACHE_DIR, 'lan.json']);
 

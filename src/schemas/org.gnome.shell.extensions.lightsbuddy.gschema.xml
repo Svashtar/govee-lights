@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="govee-lights">
-  <schema id="org.gnome.shell.extensions.govee-lights" path="/org/gnome/shell/extensions/govee-lights/">
+<schemalist gettext-domain="lightsbuddy">
+  <schema id="org.gnome.shell.extensions.lightsbuddy" path="/org/gnome/shell/extensions/lightsbuddy/">
     <key name="devices-config" type="s">
       <default>'{}'</default>
       <summary>Per-light settings</summary>
@@ -30,7 +30,7 @@
     <key name="lan-scan-request" type="x">
       <default>0</default>
       <summary>LAN scan request</summary>
-      <description>Bumped by the preferences window to ask the shell for a LAN scan; the shell writes results to ~/.cache/govee-lights/lan.json.</description>
+      <description>Bumped by the preferences window to ask the shell for a LAN scan; the shell writes results to ~/.cache/lightsbuddy/lan.json.</description>
     </key>
     <key name="cloud-status" type="s">
       <default>'{}'</default>

@@ -44,7 +44,7 @@ function stepSummary(step) {
 
 // Dialog that edits one preset step. onSave(step) is called with the result.
 const StepDialog = GObject.registerClass(
-class GoveeLightsStepDialog extends Adw.Dialog {
+class LightsBuddyStepDialog extends Adw.Dialog {
     _init({devices, config, step, onSave}) {
         super._init({title: step ? _('Edit Light') : _('Add Light'), content_width: 460});
         this._devices = devices;
@@ -199,7 +199,7 @@ class GoveeLightsStepDialog extends Adw.Dialog {
 });
 
 export const PresetsPage = GObject.registerClass(
-class GoveeLightsPresetsPage extends Adw.PreferencesPage {
+class LightsBuddyPresetsPage extends Adw.PreferencesPage {
     _init({window, settings}) {
         super._init({title: _('Presets'), icon_name: 'view-list-bullet-symbolic', name: 'presets'});
         this._window = window;

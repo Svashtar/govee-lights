@@ -18,10 +18,10 @@ import {PanelIndicator} from './ui/panelIndicator.js';
 import {QuickToggles} from './ui/quickToggles.js';
 import {SavePresetDialog} from './ui/savePresetDialog.js';
 
-export default class GoveeLightsExtension extends Extension {
+export default class LightsBuddyExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
-        this._gicon = Gio.icon_new_for_string(`${this.path}/icons/govee-lights-symbolic.svg`);
+        this._gicon = Gio.icon_new_for_string(`${this.path}/icons/lightsbuddy-symbolic.svg`);
         this._notified = new Set();
         this._timeouts = new Set();
 
@@ -36,7 +36,7 @@ export default class GoveeLightsExtension extends Extension {
         Main.panel.addToStatusArea(this.uuid, this._indicator);
         this._quickToggles = new QuickToggles(this._manager, this._gicon, savePreset);
 
-        this._manager.start().catch(e => logError(e, 'govee-lights: start'));
+        this._manager.start().catch(e => logError(e, 'lightsbuddy: start'));
     }
 
     disable() {
@@ -59,7 +59,7 @@ export default class GoveeLightsExtension extends Extension {
     _savePreset(devices) {
         const known = devices.filter(d => d.state.power !== null);
         if (!known.length) {
-            Main.notify(_('Govee Lights'), _('The light’s state isn’t known yet. Open its menu and try again.'));
+            Main.notify(_('LightsBuddy'), _('The light’s state isn’t known yet. Open its menu and try again.'));
             return;
         }
         const suggested = known.length === 1 ? known[0].name : _('My Preset');
@@ -83,7 +83,7 @@ export default class GoveeLightsExtension extends Extension {
         switch (kind) {
         case 'auth':
             title = _('Govee API key rejected');
-            body = _('Check the key in Govee Lights settings.');
+            body = _('Check the key in LightsBuddy settings.');
             break;
         case 'rate-limit':
             title = _('Govee rate limit reached');
@@ -98,7 +98,7 @@ export default class GoveeLightsExtension extends Extension {
         }
 
         if (!this._source) {
-            this._source = new MessageTray.Source({title: _('Govee Lights'), icon: this._gicon});
+            this._source = new MessageTray.Source({title: _('LightsBuddy'), icon: this._gicon});
             this._source.connect('destroy', () => {
                 this._source = null;
             });

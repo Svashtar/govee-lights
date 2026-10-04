@@ -31,7 +31,7 @@ export class Emitter {
             try {
                 callback(this, ...args);
             } catch (e) {
-                logError(e, `govee-lights: "${name}" handler`);
+                logError(e, `lightsbuddy: "${name}" handler`);
             }
         }
     }

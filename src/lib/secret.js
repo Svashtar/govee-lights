@@ -18,7 +18,7 @@ const ATTRIBUTES = {account: 'govee-api'};
 
 // Created per call so nothing is built when the module is imported.
 function schema() {
-    return new Secret.Schema('com.svashta.GoveeLights', Secret.SchemaFlags.NONE, {
+    return new Secret.Schema('com.svashta.LightsBuddy', Secret.SchemaFlags.NONE, {
         account: Secret.SchemaAttributeType.STRING,
     });
 }
@@ -29,7 +29,7 @@ export async function lookupApiKey(cancellable = null) {
 
 export async function storeApiKey(apiKey) {
     await Secret.password_store(schema(), ATTRIBUTES, Secret.COLLECTION_DEFAULT,
-                                'Govee Lights API key', apiKey, null);
+                                'LightsBuddy: Govee API key', apiKey, null);
 }
 
 export async function clearApiKey() {

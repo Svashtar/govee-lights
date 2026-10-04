@@ -35,7 +35,7 @@ export class OptionList extends PopupMenu.PopupMenuSection {
             this._search = new St.Entry({
                 hint_text: searchHint,
                 can_focus: true,
-                style_class: 'govee-option-search',
+                style_class: 'lightsbuddy-option-search',
                 primary_icon: new St.Icon({icon_name: 'edit-find-symbolic', style_class: 'popup-menu-icon'}),
                 visible: false,
             });
@@ -48,11 +48,11 @@ export class OptionList extends PopupMenu.PopupMenuSection {
             listBox.add_child(item);
             return {name: option.name, item};
         });
-        this._empty = new St.Label({text: _('No matches'), style_class: 'govee-option-empty', visible: false});
+        this._empty = new St.Label({text: _('No matches'), style_class: 'lightsbuddy-option-empty', visible: false});
         listBox.add_child(this._empty);
 
         this._scroll = new St.ScrollView({
-            style_class: long ? 'govee-option-list govee-option-list-long' : 'govee-option-list',
+            style_class: long ? 'lightsbuddy-option-list lightsbuddy-option-list-long' : 'lightsbuddy-option-list',
             child: listBox,
             hscrollbar_policy: St.PolicyType.NEVER,
             vscrollbar_policy: long ? St.PolicyType.AUTOMATIC : St.PolicyType.NEVER,

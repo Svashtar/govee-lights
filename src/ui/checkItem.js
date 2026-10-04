@@ -16,7 +16,7 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 // often try several in a row. GNOME's own ornament sits on the left (or just
 // after the label), so this row draws its own.
 export const CheckItem = GObject.registerClass(
-class GoveeLightsCheckItem extends PopupMenu.PopupBaseMenuItem {
+class LightsBuddyCheckItem extends PopupMenu.PopupBaseMenuItem {
     _init(text, onActivate, {iconName = null, styleClass = null} = {}) {
         super._init(styleClass ? {style_class: styleClass} : {});
         this._onActivate = onActivate;

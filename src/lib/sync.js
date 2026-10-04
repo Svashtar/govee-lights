@@ -27,7 +27,7 @@ export async function syncDevices(client) {
         } catch (e) {
             if (e.kind === 'auth' || e.kind === 'rate-limit')
                 throw e;
-            console.warn(`govee-lights: could not load ${field} for ${device.sku}: ${e.message}`);
+            console.warn(`lightsbuddy: could not load ${field} for ${device.sku}: ${e.message}`);
             device[field] = previous.get(device.id)?.[field] ?? [];
         }
     };

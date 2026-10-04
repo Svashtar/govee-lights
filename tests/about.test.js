@@ -30,8 +30,8 @@ test('backup round-trip keeps values and omits the API key', () => {
 test('backup rejects foreign and invalid files', () => {
     assertThrows(() => parseBackup('nope'), /not-json/);
     assertThrows(() => parseBackup('{"format":"other"}'), /not-backup/);
-    assertThrows(() => parseBackup('{"format":"govee-lights-settings","version":1,"presets":{}}'), /presets/);
-    assertThrows(() => parseBackup('{"format":"govee-lights-settings","version":99}'), /newer/);
+    assertThrows(() => parseBackup('{"format":"lightsbuddy-settings","version":1,"presets":{}}'), /presets/);
+    assertThrows(() => parseBackup('{"format":"lightsbuddy-settings","version":99}'), /newer/);
 });
 
 test('debug info lists models but no identifiers', () => {

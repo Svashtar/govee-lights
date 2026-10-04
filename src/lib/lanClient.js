@@ -105,7 +105,7 @@ export class LanClient extends Emitter {
                 [bytes, address] = this.#socket.receive_bytes_from(65536, 0, null);
             } catch (e) {
                 if (!e.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.WOULD_BLOCK))
-                    logError(e, 'govee-lights: LAN receive');
+                    logError(e, 'lightsbuddy: LAN receive');
                 break;
             }
             const ip = address.get_address().to_string();

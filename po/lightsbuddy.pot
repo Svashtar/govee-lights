@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Govee Lights package.
+# This file is distributed under the same license as the LightsBuddy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Govee Lights\n"
+"Project-Id-Version: LightsBuddy\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-04 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: src/ui/panelIndicator.js:125 src/prefs/aboutPage.js:54 src/extension.js:59
 #: src/extension.js:98
-msgid "Govee Lights"
+msgid "LightsBuddy"
 msgstr ""
 
 #: src/ui/panelIndicator.js:136
@@ -156,7 +156,7 @@ msgid "No lights found. Open Settings to fetch them."
 msgstr ""
 
 #: src/ui/panelIndicator.js:169
-msgid "Set Up Govee Lights…"
+msgid "Set Up LightsBuddy…"
 msgstr ""
 
 #: src/ui/panelIndicator.js:175 src/prefs/presetsPage.js:201
@@ -761,7 +761,7 @@ msgid "Govee API key rejected"
 msgstr ""
 
 #: src/extension.js:83
-msgid "Check the key in Govee Lights settings."
+msgid "Check the key in LightsBuddy settings."
 msgstr ""
 
 #: src/extension.js:87

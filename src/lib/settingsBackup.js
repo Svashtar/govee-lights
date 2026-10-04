@@ -17,7 +17,7 @@ export class BackupError extends Error {
     }
 }
 
-const BACKUP_FORMAT = 'govee-lights-settings';
+const BACKUP_FORMAT = 'lightsbuddy-settings';
 const BACKUP_VERSION = 1;
 
 // [GSettings key, backup field, type check]

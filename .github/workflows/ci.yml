@@ -46,6 +46,6 @@ jobs:
         run: make pack
       - uses: actions/upload-artifact@v5
         with:
-          name: govee-lights-${{ github.sha }}
+          name: lightsbuddy-${{ github.sha }}
           path: dist/*.zip
           if-no-files-found: error

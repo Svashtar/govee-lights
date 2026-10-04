@@ -20,7 +20,7 @@ import {AccountPage} from './prefs/accountPage.js';
 import {DevicesPage} from './prefs/devicesPage.js';
 import {PresetsPage} from './prefs/presetsPage.js';
 
-export default class GoveeLightsPreferences extends ExtensionPreferences {
+export default class LightsBuddyPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
             .add_search_path(`${this.path}/icons`);

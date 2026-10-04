@@ -206,7 +206,7 @@ export class DeviceManager extends Emitter {
         } catch (e) {
             if (e.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
                 throw e;
-            console.warn(`govee-lights: keyring unavailable: ${e.message}`);
+            console.warn(`lightsbuddy: keyring unavailable: ${e.message}`);
             return;
         }
         this.hasApiKey = Boolean(apiKey);
@@ -250,7 +250,7 @@ export class DeviceManager extends Emitter {
             } catch (e) {
                 // Port 4002 taken without SO_REUSEPORT, or no network: cloud only.
                 this.lanError = e.message;
-                console.warn(`govee-lights: LAN disabled: ${e.message}`);
+                console.warn(`lightsbuddy: LAN disabled: ${e.message}`);
                 this._lan = null;
                 return;
             }
@@ -277,7 +277,7 @@ export class DeviceManager extends Emitter {
         try {
             this._lan.scan();
         } catch (e) {
-            console.warn(`govee-lights: LAN scan failed: ${e.message}`);
+            console.warn(`lightsbuddy: LAN scan failed: ${e.message}`);
             return;
         }
         this._timers.clearTimeout(this._afterScanId);
@@ -301,7 +301,7 @@ export class DeviceManager extends Emitter {
         try {
             writeLanCache(lan);
         } catch (e) {
-            console.warn(`govee-lights: could not write LAN cache: ${e.message}`);
+            console.warn(`lightsbuddy: could not write LAN cache: ${e.message}`);
         }
     }
 
@@ -439,7 +439,7 @@ export class DeviceManager extends Emitter {
         // GoveeError has a kind; a cancelled keyring lookup is a GLib.Error.
         if (e.kind === 'cancelled' || (e instanceof GLib.Error && e.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED)))
             return;
-        console.warn(`govee-lights: ${device?.sku ?? 'sync'}: ${e.message}`);
+        console.warn(`lightsbuddy: ${device?.sku ?? 'sync'}: ${e.message}`);
         if (e.kind === 'auth' || e.kind === 'rate-limit')
             this.emit('error', e.kind, e.message);
         device?.setError(e.kind ?? 'error');

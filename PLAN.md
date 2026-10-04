@@ -1,4 +1,4 @@
-# Govee Lights — GNOME Shell extension
+# LightsBuddy — GNOME Shell extension
 
 ## Context
 `development/lightsbuddy` (a Rails web app using the Govee Platform cloud API) serves as a **reference, not a template**. A desktop extension has different needs: sliders must respond instantly, the extension runs all day so it has to respect rate limits, and it is single-user. Where a better approach exists for those needs, the plan uses it.
@@ -12,7 +12,7 @@ The goal:
 
 **Target:** GNOME Shell 50 (installed here: 50.5, gjs 1.88). The extension uses ESM and `"shell-version": ["50"]`.
 
-**Location:** `/home/svashtar/projects/development/govee-lights`
+**Location:** `/home/svashtar/projects/development/lightsbuddy-gnome`
 
 ## Key design decisions, and where they differ from lightsbuddy
 
@@ -56,9 +56,9 @@ The goal:
   - 5xx → retry only idempotent reads, with 1, 2, 4 s backoff
 - **Later:** `segment_color_setting` (per-segment colour on strips). The capability model already supports it, so it only needs UI.
 
-## Architecture (`govee-lights/`)
+## Architecture (`lightsbuddy/`)
 ```
-metadata.json             uuid govee-lights@svashta.com, shell-version ["50"], settings-schema
+metadata.json             uuid lightsbuddy@svashta.com, shell-version ["50"], settings-schema
 extension.js              enable/disable; wires store → UIs
 prefs.js                  Adw prefs: Account, Devices, Presets
 lib/cloudClient.js        Soup 3 client, typed GoveeError, retry rules, daily request counter
@@ -73,7 +73,7 @@ ui/deviceControls.js      shared PopupMenu builders (power, sliders, colour, sce
 ui/gradientSlider.js      Slider subclass with a hue or white-temperature gradient (Cairo)
 ui/panelIndicator.js      PanelMenu.Button: presets section + per-device sections; hidden when empty
 ui/quickToggles.js        SystemIndicator + QuickMenuToggle per quick-settings device
-schemas/org.gnome.shell.extensions.govee-lights.gschema.xml
+schemas/org.gnome.shell.extensions.lightsbuddy.gschema.xml
 stylesheet.css
 tests/*.test.js           gjs -m tests for capabilities, routing, presets
 Makefile                  schemas, install (symlink), test, pack
@@ -85,7 +85,7 @@ Makefile                  schemas, install (symlink), test, pack
   - `presets` (JSON): `[{id, name, steps:[{deviceId, power?, brightness?, temperature?|color?|scene?}]}]`
   - `use-lan` (bool, default true)
   - `refresh-stale-seconds`
-- **Metadata cache:** `~/.cache/govee-lights/devices.json` holds capabilities and scene lists, so the shell renders immediately.
+- **Metadata cache:** `~/.cache/lightsbuddy/devices.json` holds capabilities and scene lists, so the shell renders immediately.
 - **Change propagation:** prefs bumps a `cache-stamp` key, and the shell reloads on that and on other key changes.
 
 ## UI
@@ -148,7 +148,7 @@ docs/
   ISSUE_TEMPLATE/device_report.yml    report a SKU as working / not working
   pull_request_template.md
   workflows/ci.yml                    eslint + `make test` + `make pack` on every push/PR
-po/                       gettext template (`govee-lights.pot`); Slovenian translation as the first one
+po/                       gettext template (`lightsbuddy.pot`); Slovenian translation as the first one
 ```
 
 Release flow: bump `version`/`version-name` in `metadata.json`, update `CHANGELOG.md`, tag `vN`, `make pack`, attach the zip to the GitHub release and upload it to extensions.gnome.org.
@@ -167,7 +167,7 @@ Release flow: bump `version`/`version-name` in `metadata.json`, update `CHANGELO
 ## Verification
 - `make test` runs the `gjs -m` unit tests: capability parsing and clamping, routing (LAN vs cloud), RGB packing, preset apply plans.
 - `make install`, then:
-  - `gnome-extensions enable govee-lights@svashta.com`
+  - `gnome-extensions enable lightsbuddy@svashta.com`
   - Test in `dbus-run-session gnome-shell --devkit --wayland` (needs `mutter-devkit`) or after re-login.
   - Watch logs with `journalctl -f -o cat /usr/bin/gnome-shell`.
 - Real-device checks:

@@ -18,8 +18,8 @@ Treat the key like a password: anyone who has it can control your lights.
 ## 2. First run
 
 1. Open the extension's settings, in either of these ways:
-   - the **Extensions** app → **Govee Lights** → **Settings**
-   - `gnome-extensions prefs govee-lights@svashta.com`
+   - the **Extensions** app → **LightsBuddy** → **Settings**
+   - `gnome-extensions prefs lightsbuddy@svashta.com`
 2. On the **Account** page, paste the key into the **API Key** field and press Enter (or the ✓ button).
 3. The extension saves the key and fetches your lights straight away. The row under the field then shows **Saved in your keyring** and when the key last worked. The field itself stays empty from now on, so the key can't be read off the screen. Later, press **Fetch Lights** to pick up new lights or scenes added in the Govee Home app.
 

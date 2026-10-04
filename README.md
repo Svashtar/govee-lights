@@ -1,16 +1,16 @@
-# Govee Lights
+# LightsBuddy
 
 **Control your Govee lights from the GNOME top bar or Quick Settings: instantly over your local network, with the Govee cloud as a fallback.**
 
 [![GNOME 50](https://img.shields.io/badge/GNOME-50-4a86cf?logo=gnome&logoColor=white)](https://release.gnome.org/50/)
 [![License: GPL-2.0-or-later](https://img.shields.io/badge/license-GPL--2.0--or--later-blue)](LICENSE)
-[![CI](https://github.com/Svashtar/govee-lights/actions/workflows/ci.yml/badge.svg)](https://github.com/Svashtar/govee-lights/actions/workflows/ci.yml)
+[![CI](https://github.com/Svashtar/lightsbuddy-gnome/actions/workflows/ci.yml/badge.svg)](https://github.com/Svashtar/lightsbuddy-gnome/actions/workflows/ci.yml)
 
 > **Status: early development.** There is no release yet, and screenshots will be added with the first one. Follow the [changelog](CHANGELOG.md) for progress.
 
 ## Introduction
 
-Govee Lights puts your Govee lamps, bulbs and strips where the rest of your desktop controls already are. Each light can sit in its own **Quick Settings tile** (next to Wi-Fi and Night Light) or in the extension's **top-bar menu**, and you choose which goes where.
+LightsBuddy puts your Govee lamps, bulbs and strips where the rest of your desktop controls already are. Each light can sit in its own **Quick Settings tile** (next to Wi-Fi and Night Light) or in the extension's **top-bar menu**, and you choose which goes where.
 
 Lights that have *LAN Control* enabled are driven directly over your local network, so sliders follow your finger live and nothing depends on the internet. Everything else (scenes, DIY scenes, snapshots, music modes and lights without LAN support) goes through the official Govee cloud API.
 
@@ -52,18 +52,18 @@ Lights that have *LAN Control* enabled are driven directly over your local netwo
 
 ### From a release zip
 
-1. Download `govee-lights@svashta.com.shell-extension.zip` from the [latest release](https://github.com/Svashtar/govee-lights/releases/latest).
+1. Download `lightsbuddy@svashta.com.shell-extension.zip` from the [latest release](https://github.com/Svashtar/lightsbuddy-gnome/releases/latest).
 2. Install it:
 
    ```sh
-   gnome-extensions install --force govee-lights@svashta.com.shell-extension.zip
+   gnome-extensions install --force lightsbuddy@svashta.com.shell-extension.zip
    ```
 
 3. Log out and back in (on Wayland GNOME Shell can't be restarted in place).
 4. Enable it:
 
    ```sh
-   gnome-extensions enable govee-lights@svashta.com
+   gnome-extensions enable lightsbuddy@svashta.com
    ```
 
 ### From source
@@ -71,16 +71,16 @@ Lights that have *LAN Control* enabled are driven directly over your local netwo
 You need `git`, `make` and `glib-compile-schemas` (from the GLib development tools, usually already installed).
 
 ```sh
-git clone https://github.com/Svashtar/govee-lights.git
-cd govee-lights
+git clone https://github.com/Svashtar/lightsbuddy-gnome.git
+cd lightsbuddy-gnome
 make install
 ```
 
-`make install` symlinks `src/` into `~/.local/share/gnome-shell/extensions/govee-lights@svashta.com`. Log out and back in, then run `gnome-extensions enable govee-lights@svashta.com`. To remove it again, run `make uninstall`.
+`make install` symlinks `src/` into `~/.local/share/gnome-shell/extensions/lightsbuddy@svashta.com`. Log out and back in, then run `gnome-extensions enable lightsbuddy@svashta.com`. To remove it again, run `make uninstall`.
 
 ## Quick start
 
-1. **Add your API key.** Open the extension's settings (Extensions app → Govee Lights → Settings), paste your Govee API key on the **Account** page and press **Test & fetch devices**.
+1. **Add your API key.** Open the extension's settings (Extensions app → LightsBuddy → Settings), paste your Govee API key on the **Account** page and press **Test & fetch devices**.
 2. **Turn on LAN Control** for each light in the Govee Home app (device → settings → *LAN Control*). The Account page shows how many lights are reachable on your network, for example "3 of 5 lights reachable on LAN".
 3. **Choose where each light appears.** On the **Devices** page, give each light a name and set its placement to *Top bar*, *Quick Settings* or *Hidden*.
 4. *Optional:* create **presets** on the **Presets** page, or use *Save current as preset…* from a light's menu.
@@ -114,15 +114,15 @@ Yes. The extension shares the LAN ports with other Govee integrations instead of
 The extension shows devices that the Govee cloud reports as lights. Plugs, sensors and other appliances are skipped.
 
 **A control is missing for my light.**
-Controls are shown only when the light reports that capability. If you think yours should have it, please open a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml).
+Controls are shown only when the light reports that capability. If you think yours should have it, please open a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml).
 
 ## Privacy
 
-Govee Lights has no telemetry and no servers of its own. The only things it talks to are your lights on the local network and the official Govee cloud API (`openapi.api.govee.com`). Your API key is stored in GNOME Keyring. Debug info never contains your API key or device IDs, and settings exports never contain your API key. Details are in [Privacy](docs/privacy.md).
+LightsBuddy has no telemetry and no servers of its own. The only things it talks to are your lights on the local network and the official Govee cloud API (`openapi.api.govee.com`). Your API key is stored in GNOME Keyring. Debug info never contains your API key or device IDs, and settings exports never contain your API key. Details are in [Privacy](docs/privacy.md).
 
 ## Contributing
 
-Bug reports, device reports, translations and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first. When reporting a bug, open **Settings → About → Copy Debug Info** and paste the result into the [bug report form](https://github.com/Svashtar/govee-lights/issues/new/choose).
+Bug reports, device reports, translations and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first. When reporting a bug, open **Settings → About → Copy Debug Info** and paste the result into the [bug report form](https://github.com/Svashtar/lightsbuddy-gnome/issues/new/choose).
 
 ## Translations
 
@@ -130,7 +130,7 @@ Translations live in [`po/`](po/) as standard gettext files. Slovenian is the fi
 
 ## License
 
-Govee Lights is free software, released under the [GNU General Public License, version 2 or later](LICENSE) (GPL-2.0-or-later).
+LightsBuddy is free software, released under the [GNU General Public License, version 2 or later](LICENSE) (GPL-2.0-or-later).
 
 ## Disclaimer
 

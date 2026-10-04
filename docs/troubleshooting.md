@@ -1,10 +1,10 @@
 # Troubleshooting
 
-Start here when something doesn't work. If none of this helps, please [open a bug report](https://github.com/Svashtar/govee-lights/issues/new/choose) and include the output of **Settings → About → Copy Debug Info** and any relevant [logs](#collecting-logs).
+Start here when something doesn't work. If none of this helps, please [open a bug report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new/choose) and include the output of **Settings → About → Copy Debug Info** and any relevant [logs](#collecting-logs).
 
 ## The extension doesn't appear
 
-- Check that it's enabled: `gnome-extensions info govee-lights@svashta.com` should show `State: ACTIVE` (or `ENABLED`).
+- Check that it's enabled: `gnome-extensions info lightsbuddy@svashta.com` should show `State: ACTIVE` (or `ENABLED`).
 - After installing from a zip or from source, **log out and back in**. On Wayland, GNOME Shell only loads new extensions at login.
 - Check your GNOME version with `gnome-shell --version`. Only GNOME Shell 50 is supported.
 - If the state is `ERROR`, look at the [shell log](#collecting-logs) for the reason.
@@ -25,7 +25,7 @@ Authentication errors are shown once as a notification rather than repeating for
 
 - Only devices that Govee reports as **lights** are listed. Plugs, sensors and appliances are skipped.
 - Lights added to the Govee app after setup appear after you press **Test & fetch devices** on the Account page again.
-- Some older models aren't available through Govee's developer API at all. If the light doesn't show up after fetching, please file a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml).
+- Some older models aren't available through Govee's developer API at all. If the light doesn't show up after fetching, please file a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml).
 
 ## A light shows "Offline"
 
@@ -48,7 +48,7 @@ The Account page says "0 of N lights reachable on LAN", or every light shows **C
    ss -ulpn | grep 4002
    ```
 
-   You should see `gnome-shell` listed. If another program is listed instead and Govee Lights isn't, that program bound the port exclusively; the shell log will contain a `govee-lights:` message saying it fell back to cloud only. Stop that program or configure it to share the port, then disable and enable the extension.
+   You should see `gnome-shell` listed. If another program is listed instead and LightsBuddy isn't, that program bound the port exclusively; the shell log will contain a `lightsbuddy:` message saying it fell back to cloud only. Stop that program or configure it to share the port, then disable and enable the extension.
 6. **Does the light support LAN at all?** Check [Supported devices](supported-devices.md). You can also probe the network from a source checkout with `gjs -m tools/lan-spike.js`, which lists every light that answers.
 
 Lights that only work over the cloud are fully supported, just slower and subject to rate limits.
@@ -92,7 +92,7 @@ Debug info first: **Settings → About → Copy Debug Info** copies versions, yo
 journalctl -f -o cat /usr/bin/gnome-shell
 ```
 
-Leave it running, reproduce the problem, then copy the lines around it. Messages from the extension start with `govee-lights:`.
+Leave it running, reproduce the problem, then copy the lines around it. Messages from the extension start with `lightsbuddy:`.
 
 To get the log from the current session after the fact:
 

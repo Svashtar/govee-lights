@@ -96,7 +96,7 @@ export class CloudClient {
         this._apiKey = apiKey;
         this._onRequest = onRequest;
         this._onResult = onResult;
-        this._session = new Soup.Session({timeout: TIMEOUT_SECONDS, user_agent: 'govee-lights-gnome-extension'});
+        this._session = new Soup.Session({timeout: TIMEOUT_SECONDS, user_agent: 'lightsbuddy-gnome'});
         this._cancellable = new Gio.Cancellable();
     }
 
@@ -115,7 +115,7 @@ export class CloudClient {
                 const delay = retryDelay(e, attempt, idempotent);
                 if (delay === null)
                     throw e;
-                console.debug(`govee-lights: retrying ${method} ${path} in ${delay} ms (${e.message})`);
+                console.debug(`lightsbuddy: retrying ${method} ${path} in ${delay} ms (${e.message})`);
                 await wait(delay, this._cancellable);
             }
         }

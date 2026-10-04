@@ -8,7 +8,7 @@ The extension targets **GNOME Shell 50** only, uses ES modules, and runs as two 
 ## Module map
 
 ```
-src/metadata.json            uuid govee-lights@svashta.com, shell-version ["50"], settings-schema
+src/metadata.json            uuid lightsbuddy@svashta.com, shell-version ["50"], settings-schema
 src/extension.js             enable/disable; wires store → UIs
 src/prefs.js                 Adw preferences window; builds the pages in src/prefs/
 src/prefs/                   preference pages: accountPage, devicesPage ("Lights"), presetsPage, aboutPage
@@ -36,7 +36,7 @@ src/ui/optionList.js         scrollable, searchable scene/DIY/snapshot/music lis
 src/ui/checkItem.js          menu row that acts without closing the menu, with a right-hand checkmark
 src/ui/panelIndicator.js     PanelMenu.Button: presets section + per-device sections; hidden when empty
 src/ui/quickToggles.js       SystemIndicator + QuickMenuToggle per quick-settings device
-src/schemas/                 org.gnome.shell.extensions.govee-lights.gschema.xml
+src/schemas/                 org.gnome.shell.extensions.lightsbuddy.gschema.xml
 src/stylesheet.css
 src/icons/                   extension icons
 tests/*.test.js              gjs -m tests for capabilities, routing, presets, about helpers
@@ -55,8 +55,8 @@ The shell and prefs processes don't talk to each other directly. They share:
 
 | Store | Contents |
 |---|---|
-| **GSettings** `org.gnome.shell.extensions.govee-lights` | `devices-config` (JSON: `{id: {sku, alias, placement, order}}`), `presets` (JSON), `use-lan`, `refresh-stale-seconds` (default 120), `cache-stamp`, `request-counter` |
-| **Metadata cache** `~/.cache/govee-lights/devices.json` | Capabilities and scene lists, so the shell can draw menus immediately after login without a cloud call |
+| **GSettings** `org.gnome.shell.extensions.lightsbuddy` | `devices-config` (JSON: `{id: {sku, alias, placement, order}}`), `presets` (JSON), `use-lan`, `refresh-stale-seconds` (default 120), `cache-stamp`, `request-counter` |
+| **Metadata cache** `~/.cache/lightsbuddy/devices.json` | Capabilities and scene lists, so the shell can draw menus immediately after login without a cloud call |
 | **GNOME Keyring** (libsecret) | The API key. Never written to GSettings, logs, debug info or backups |
 
 When prefs rewrites the cache (after **Test & fetch devices**), it bumps `cache-stamp`. The shell listens for that and for other key changes and reloads.
@@ -80,7 +80,7 @@ The design is **LAN first, cloud as fallback**.
   - Runs on enable, then every 5 minutes, and on menu open when a device has no known IP.
   - The `device` value in scan replies has the same `AA:BB:…` format as the cloud device ID; that's how LAN and cloud devices are matched.
   - The socket is bound with address/port reuse so it coexists with Home Assistant and similar tools. If it can't bind, the extension runs cloud-only.
-  - Only the shell opens the socket. With port reuse, Linux spreads unicast replies across every socket bound to 4002, so a second listener in the prefs process would steal replies. The shell writes scan results to `~/.cache/govee-lights/lan.json`; the prefs window reads that file and asks for a rescan by bumping the `lan-scan-request` key.
+  - Only the shell opens the socket. With port reuse, Linux spreads unicast replies across every socket bound to 4002, so a second listener in the prefs process would steal replies. The shell writes scan results to `~/.cache/lightsbuddy/lan.json`; the prefs window reads that file and asks for a rescan by bumping the `lan-scan-request` key.
   - A light that misses more than two scans in a row is treated as off the LAN and falls back to the cloud.
 - **Cloud** (`cloudClient.js`) uses Soup 3 against `https://openapi.api.govee.com/router/api/v1/` with the `Govee-API-Key` header and a 10 s timeout:
   - `GET user/devices` keeps devices whose `type` contains `light`;

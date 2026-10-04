@@ -13,15 +13,15 @@ import * as ModalDialog from 'resource:///org/gnome/shell/ui/modalDialog.js';
 
 // Asks for a preset name; onSave(name) runs when the user confirms.
 export const SavePresetDialog = GObject.registerClass(
-class GoveeLightsSavePresetDialog extends ModalDialog.ModalDialog {
+class LightsBuddySavePresetDialog extends ModalDialog.ModalDialog {
     _init(suggestedName, description, onSave) {
-        super._init({styleClass: 'govee-save-preset-dialog'});
+        super._init({styleClass: 'lightsbuddy-save-preset-dialog'});
         this._onSave = onSave;
 
-        const box = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, style_class: 'govee-save-preset-box'});
+        const box = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, style_class: 'lightsbuddy-save-preset-box'});
         box.add_child(new St.Label({text: _('Save as Preset'), style_class: 'headline'}));
-        box.add_child(new St.Label({text: description, style_class: 'govee-save-preset-description'}));
-        this._entry = new St.Entry({text: suggestedName, can_focus: true, x_expand: true, style_class: 'govee-save-preset-entry'});
+        box.add_child(new St.Label({text: description, style_class: 'lightsbuddy-save-preset-description'}));
+        this._entry = new St.Entry({text: suggestedName, can_focus: true, x_expand: true, style_class: 'lightsbuddy-save-preset-entry'});
         this._entry.clutter_text.connect('activate', () => this._save());
         box.add_child(this._entry);
         this.contentLayout.add_child(box);

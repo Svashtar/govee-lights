@@ -18,19 +18,19 @@ import {ExpanderItem} from './expanderItem.js';
 
 // Header row for one light: name, state, power switch and expander arrow.
 const DeviceHeader = GObject.registerClass(
-class GoveeLightsDeviceHeader extends ExpanderItem {
+class LightsBuddyDeviceHeader extends ExpanderItem {
     _init(device, manager, gicon, onToggle) {
         super._init(device.name, gicon, onToggle);
         this._device = device;
 
-        this._summary = new St.Label({style_class: 'govee-device-summary', y_align: Clutter.ActorAlign.CENTER, opacity: 160});
+        this._summary = new St.Label({style_class: 'lightsbuddy-device-summary', y_align: Clutter.ActorAlign.CENTER, opacity: 160});
         this.addSuffix(this._summary);
 
         if (device.supports('power')) {
             this._switch = new PopupMenu.Switch(false);
             const button = new St.Button({
                 child: this._switch,
-                style_class: 'govee-power-button',
+                style_class: 'lightsbuddy-power-button',
                 y_align: Clutter.ActorAlign.CENTER,
                 can_focus: true,
                 accessible_name: _('Power'),
@@ -62,7 +62,7 @@ class DeviceSection extends PopupMenu.PopupMenuSection {
         this.addMenuItem(this._header);
 
         this._body = new PopupMenu.PopupMenuSection();
-        this._body.actor.add_style_class_name('govee-device-controls');
+        this._body.actor.add_style_class_name('lightsbuddy-device-controls');
         this._body.actor.visible = false;
         this.addMenuItem(this._body);
         this._controls = new DeviceControls(this._body, device, manager, {showPower: false, onSavePreset});
@@ -89,21 +89,21 @@ class DeviceSection extends PopupMenu.PopupMenuSection {
 }
 
 export const PanelIndicator = GObject.registerClass(
-class GoveeLightsPanelIndicator extends PanelMenu.Button {
+class LightsBuddyPanelIndicator extends PanelMenu.Button {
     // callbacks: {openPreferences(), savePreset(devices)}
     _init(manager, gicon, callbacks) {
-        super._init(0.5, _('Govee Lights'));
+        super._init(0.5, _('LightsBuddy'));
         this._manager = manager;
         this._callbacks = callbacks;
         this._gicon = gicon;
 
         this.add_child(new St.Icon({gicon, style_class: 'system-status-icon'}));
 
-        this.menu.actor.add_style_class_name('govee-menu');
+        this.menu.actor.add_style_class_name('lightsbuddy-menu');
         this._content = new PopupMenu.PopupMenuSection();
         this.menu.addMenuItem(this._content);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.menu.addAction(_('Refresh'), () => manager.sync().catch(e => logError(e, 'govee-lights: refresh')),
+        this.menu.addAction(_('Refresh'), () => manager.sync().catch(e => logError(e, 'lightsbuddy: refresh')),
                             'view-refresh-symbolic');
         this.menu.addAction(_('Settings'), () => callbacks.openPreferences(), 'preferences-system-symbolic');
 
@@ -136,20 +136,20 @@ class GoveeLightsPanelIndicator extends PanelMenu.Button {
         if (!allDevices.length) {
             const setup = new PopupMenu.PopupMenuItem(this._manager.hasApiKey
                 ? _('No lights found. Open Settings to fetch them.')
-                : _('Set Up Govee Lights…'));
+                : _('Set Up LightsBuddy…'));
             setup.connect('activate', () => this._callbacks.openPreferences());
             this._content.addMenuItem(setup);
         }
 
         if (presets.length) {
-            const header = new PopupMenu.PopupMenuItem(_('Presets'), {reactive: false, style_class: 'govee-section-title'});
+            const header = new PopupMenu.PopupMenuItem(_('Presets'), {reactive: false, style_class: 'lightsbuddy-section-title'});
             header.label.opacity = 180;
             this._content.addMenuItem(header);
             // Applying keeps the menu open, so presets can be tried one after
             // another; the active one shows a checkmark.
             const items = presets.map(preset => {
                 const item = new CheckItem(preset.name,
-                                           () => this._manager.applyPreset(preset).catch(e => logError(e, 'govee-lights: preset')),
+                                           () => this._manager.applyPreset(preset).catch(e => logError(e, 'lightsbuddy: preset')),
                                            {iconName: 'media-playback-start-symbolic'});
                 this._content.addMenuItem(item);
                 return [preset.id, item];

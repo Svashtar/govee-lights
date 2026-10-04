@@ -1,6 +1,6 @@
 # Supported devices
 
-Govee Lights works with any device that Govee's developer API reports as a **light**. Which controls appear depends on what each light reports, so in principle every light is supported over the cloud. LAN control depends on the model and firmware.
+LightsBuddy works with any device that Govee's developer API reports as a **light**. Which controls appear depends on what each light reports, so in principle every light is supported over the cloud. LAN control depends on the model and firmware.
 
 This is a **community-maintained** list of models that people have actually tested. If yours isn't here, or something is wrong, please tell us (see below).
 
@@ -21,7 +21,7 @@ The SKU is the model number, such as `H6008` or `H619A`. You can find it:
 
 ## How to report a device
 
-Open a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml) and fill in:
+Open a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml) and fill in:
 
 - the SKU and product name;
 - whether it answers over LAN (the **Devices** page shows *LAN* or *Cloud*; make sure LAN Control is on in the Govee Home app first);

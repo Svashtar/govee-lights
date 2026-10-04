@@ -61,7 +61,7 @@ function errorText(device) {
 // A menu row holding a slider, like the Quick Settings brightness slider.
 class SliderRow {
     constructor(section, iconName, slider, accessibleName) {
-        this.item = new PopupMenu.PopupBaseMenuItem({activate: false, style_class: 'govee-slider-item'});
+        this.item = new PopupMenu.PopupBaseMenuItem({activate: false, style_class: 'lightsbuddy-slider-item'});
         this.item.add_child(new St.Icon({icon_name: iconName, style_class: 'popup-menu-icon'}));
         this.slider = slider;
         this.slider.accessible_name = accessibleName;
@@ -150,7 +150,7 @@ export class DeviceControls {
         if (onSavePreset)
             section.addAction(_('Save as Preset…'), () => onSavePreset([device]));
 
-        this._status = new PopupMenu.PopupMenuItem('', {reactive: false, style_class: 'govee-status-item'});
+        this._status = new PopupMenu.PopupMenuItem('', {reactive: false, style_class: 'lightsbuddy-status-item'});
         this._status.label.opacity = 150;
         section.addMenuItem(this._status);
 
@@ -159,11 +159,11 @@ export class DeviceControls {
     }
 
     _swatchRow(onPick) {
-        const item = new PopupMenu.PopupBaseMenuItem({activate: false, can_focus: false, style_class: 'govee-swatch-item'});
-        const box = new St.BoxLayout({x_expand: true, x_align: Clutter.ActorAlign.CENTER, style_class: 'govee-swatches'});
+        const item = new PopupMenu.PopupBaseMenuItem({activate: false, can_focus: false, style_class: 'lightsbuddy-swatch-item'});
+        const box = new St.BoxLayout({x_expand: true, x_align: Clutter.ActorAlign.CENTER, style_class: 'lightsbuddy-swatches'});
         for (const color of SWATCHES) {
             const button = new St.Button({
-                style_class: 'govee-swatch',
+                style_class: 'lightsbuddy-swatch',
                 style: `background-color: ${toHex(color)};`,
                 can_focus: true,
                 accessible_name: toHex(color),

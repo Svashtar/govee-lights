@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: Troubleshooting guide
-    url: https://github.com/Svashtar/govee-lights/blob/main/docs/troubleshooting.md
+    url: https://github.com/Svashtar/lightsbuddy-gnome/blob/main/docs/troubleshooting.md
     about: Solutions for offline lights, LAN discovery, API key and rate-limit problems.

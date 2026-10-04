@@ -1,21 +1,21 @@
-# Contributing to Govee Lights
+# Contributing to LightsBuddy
 
 Thanks for helping out! This guide covers setting up a development environment, the checks that run in CI, code style and how to send changes.
 
-If you just want to report a problem, open an [issue](https://github.com/Svashtar/govee-lights/issues/new/choose) and paste the output of **Settings → About → Copy Debug Info**.
+If you just want to report a problem, open an [issue](https://github.com/Svashtar/lightsbuddy-gnome/issues/new/choose) and paste the output of **Settings → About → Copy Debug Info**.
 
 ## Development setup
 
 You need GNOME Shell 50, `gjs`, `make`, `glib-compile-schemas`, `gettext` (for `make pot`) and Node.js (for `make lint`).
 
 ```sh
-git clone https://github.com/Svashtar/govee-lights.git
-cd govee-lights
+git clone https://github.com/Svashtar/lightsbuddy-gnome.git
+cd lightsbuddy-gnome
 make install
-gnome-extensions enable govee-lights@svashta.com
+gnome-extensions enable lightsbuddy@svashta.com
 ```
 
-`make install` compiles the GSettings schema and symlinks `src/` into `~/.local/share/gnome-shell/extensions/govee-lights@svashta.com`, so your edits are live after a reload:
+`make install` compiles the GSettings schema and symlinks `src/` into `~/.local/share/gnome-shell/extensions/lightsbuddy@svashta.com`, so your edits are live after a reload:
 
 - **Extension code** (`extension.js`, `lib/`, `ui/`): GNOME Shell only loads it at startup. On Wayland, log out and back in.
 - **Preferences** (`prefs.js`, `prefs/`): just close and reopen the preferences window.
@@ -38,8 +38,8 @@ This runs `dbus-run-session gnome-shell --devkit --wayland`. Enable the extensio
 | `make uninstall` | Remove the symlink |
 | `make test` | Run the unit tests in `tests/*.test.js` with `gjs -m` |
 | `make lint` | Run ESLint 9 (`npx --yes eslint@9 .`) with `eslint.config.js` |
-| `make pack` | Build `dist/govee-lights@svashta.com.shell-extension.zip`, the file uploaded to extensions.gnome.org and attached to releases |
-| `make pot` | Regenerate `po/govee-lights.pot` from the sources |
+| `make pack` | Build `dist/lightsbuddy@svashta.com.shell-extension.zip`, the file uploaded to extensions.gnome.org and attached to releases |
+| `make pot` | Regenerate `po/lightsbuddy.pot` from the sources |
 | `make ego-check` | Test, lint and pack, then check the zip is ready for extensions.gnome.org (fails while any source file still carries the AI notice) |
 | `make nested` | Install and start a nested GNOME Shell |
 | `make clean` | Remove `build/`, `dist/` and the compiled schema |
@@ -72,7 +72,7 @@ Preferences window: the prefs run in a separate process, so its messages go else
 journalctl -f -o cat /usr/bin/gjs
 ```
 
-Messages from this extension are prefixed with `govee-lights:`. For a nested shell, the logs print to the terminal you started it from.
+Messages from this extension are prefixed with `lightsbuddy:`. For a nested shell, the logs print to the terminal you started it from.
 
 ## Code style
 
@@ -117,14 +117,14 @@ Messages from this extension are prefixed with `govee-lights:`. For a nested she
 
 Translations use gettext and live in `po/`:
 
-1. Regenerate the template if strings have changed: `make pot` (writes `po/govee-lights.pot`).
+1. Regenerate the template if strings have changed: `make pot` (writes `po/lightsbuddy.pot`).
 2. Create your language file from it, for example for German:
 
    ```sh
-   msginit --input=po/govee-lights.pot --locale=de --output=po/de.po
+   msginit --input=po/lightsbuddy.pot --locale=de --output=po/de.po
    ```
 
-   To update an existing translation instead: `msgmerge --update po/de.po po/govee-lights.pot`.
+   To update an existing translation instead: `msgmerge --update po/de.po po/lightsbuddy.pot`.
 3. Translate with any PO editor (Poedit, GNOME Translation Editor, Lokalize) or a text editor.
 4. Check it: `msgfmt --check --output-file=/dev/null po/de.po`.
 5. `make pack` compiles every `.po` file into the zip. Open a PR with just your `.po` file.
@@ -133,7 +133,7 @@ The interface uses British English spelling ("colour").
 
 ## Reporting devices
 
-Govee sells many models and we can only test a few. If you have a light that isn't in [docs/supported-devices.md](docs/supported-devices.md), please file a [device report](https://github.com/Svashtar/govee-lights/issues/new?template=device_report.yml) with its SKU (for example `H6008`, shown on the **Devices** page and in the debug info), whether it answers over LAN and which cloud features worked.
+Govee sells many models and we can only test a few. If you have a light that isn't in [docs/supported-devices.md](docs/supported-devices.md), please file a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml) with its SKU (for example `H6008`, shown on the **Devices** page and in the debug info), whether it answers over LAN and which cloud features worked.
 
 ## Code of conduct
 

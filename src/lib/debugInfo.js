@@ -11,7 +11,7 @@
 //        useLan, hasApiKey, lights: [{sku, connection, placement}]}
 export function formatDebugInfo(info) {
     const lines = [
-        `Govee Lights: ${info.extensionVersion}${info.commit ? ` (${info.commit})` : ''}`,
+        `LightsBuddy: ${info.extensionVersion}${info.commit ? ` (${info.commit})` : ''}`,
         `GNOME Shell: ${info.shellVersion}`,
         `GJS: ${info.gjsVersion}`,
         `OS: ${info.os}`,

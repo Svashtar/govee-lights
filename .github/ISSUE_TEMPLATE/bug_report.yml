@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a problem! Please check [Troubleshooting](https://github.com/Svashtar/govee-lights/blob/main/docs/troubleshooting.md) and existing issues first.
+        Thanks for taking the time to report a problem! Please check [Troubleshooting](https://github.com/Svashtar/lightsbuddy-gnome/blob/main/docs/troubleshooting.md) and existing issues first.
 
         **Never paste your API key.** The debug info below doesn't contain it.
   - type: textarea
@@ -15,7 +15,7 @@ body:
       description: Open the extension's settings → **About** → **Copy Debug Info**, then paste it here. It contains versions and light models, never your API key, device IDs or IP addresses.
       render: text
       placeholder: |
-        Govee Lights: 0.1.0
+        LightsBuddy: 0.1.0
         GNOME Shell: 50.5
         ...
     validations:
@@ -71,7 +71,7 @@ body:
       description: |
         Shell log: run `journalctl -f -o cat /usr/bin/gnome-shell`, reproduce the problem, then paste the lines around it.
         Preferences window problems: `journalctl -f -o cat /usr/bin/gjs`.
-        See [Collecting logs](https://github.com/Svashtar/govee-lights/blob/main/docs/troubleshooting.md#collecting-logs).
+        See [Collecting logs](https://github.com/Svashtar/lightsbuddy-gnome/blob/main/docs/troubleshooting.md#collecting-logs).
       render: text
   - type: checkboxes
     id: checks

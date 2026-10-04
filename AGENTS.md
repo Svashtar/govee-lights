@@ -1,8 +1,8 @@
 # AGENTS.md
 
-GNOME Shell 50 extension (`govee-lights@svashta.com`) that controls Govee lights from the
+GNOME Shell 50 extension (`lightsbuddy@svashta.com`) that controls Govee lights from the
 top bar and Quick Settings: Govee LAN API (UDP) first, Govee cloud API as fallback.
-Plain ESM GJS, no build step, no npm dependencies. Public repo: `Svashtar/govee-lights`.
+Plain ESM GJS, no build step, no npm dependencies. Public repo: `Svashtar/lightsbuddy-gnome`.
 
 - Design and roadmap: [PLAN.md](PLAN.md)
 - Module map, routing, state model: [docs/architecture.md](docs/architecture.md)
@@ -26,8 +26,8 @@ docs/  po/  .github/
 make test        # unit tests (gjs -m tests/*.test.js)
 make lint        # npx eslint@9 . — must stay at 0 errors/warnings
 make install     # symlink src/ into ~/.local/share/gnome-shell/extensions/
-make pack        # dist/govee-lights@svashta.com.shell-extension.zip (EGO / releases)
-make pot         # regenerate po/govee-lights.pot after changing UI strings
+make pack        # dist/lightsbuddy@svashta.com.shell-extension.zip (EGO / releases)
+make pot         # regenerate po/lightsbuddy.pot after changing UI strings
 make ego-check   # test + lint + pack, then fail while any AI notice remains
 GSETTINGS_BACKEND=memory GI_TYPELIB_PATH=/usr/lib/gnome-shell/girepository-1.0 \
   LD_LIBRARY_PATH=/usr/lib/gnome-shell gjs -m tools/prefs-preview.js <page> out.png
@@ -84,7 +84,7 @@ https://gjs.guide/extensions/review-guidelines/best-practices.html. The ones tha
   nothing from GNOME, and every change to them gets a unit test.
 - Every user-facing string goes through `_()` / `ngettext()`; run `make pot` afterwards.
   UI copy uses British "colour". Keep strings short.
-- Only the shell opens UDP 4002. Prefs reads `~/.cache/govee-lights/lan.json` and asks for
+- Only the shell opens UDP 4002. Prefs reads `~/.cache/lightsbuddy/lan.json` and asks for
   a scan via the `lan-scan-request` key (port reuse would split replies between processes).
 - `device/control` is never retried; only idempotent reads are.
 - The API key lives in the keyring (`lib/secret.js`) only: never in GSettings, logs, debug

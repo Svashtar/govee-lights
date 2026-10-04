@@ -17,9 +17,9 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 // the menu. GNOME's PopupSubMenu can't be used here: only one submenu may be
 // open at a time, so a submenu inside another one closes its parent.
 export const ExpanderItem = GObject.registerClass(
-class GoveeLightsExpanderItem extends PopupMenu.PopupBaseMenuItem {
+class LightsBuddyExpanderItem extends PopupMenu.PopupBaseMenuItem {
     _init(text, icon, onToggle) {
-        super._init({style_class: 'govee-expander-item'});
+        super._init({style_class: 'lightsbuddy-expander-item'});
         this._onToggle = onToggle;
 
         this.icon = new St.Icon({style_class: 'popup-menu-icon'});

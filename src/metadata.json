@@ -1,12 +1,12 @@
 {
-  "uuid": "govee-lights@svashta.com",
-  "name": "Govee Lights",
+  "uuid": "lightsbuddy@svashta.com",
+  "name": "LightsBuddy",
   "description": "Control your Govee lights from the top bar or Quick Settings.\n\nInstant control over your local network (LAN), with the Govee cloud as a fallback. Power, brightness, colour temperature, colour, scenes, DIY scenes, snapshots, music modes and your own multi-light presets.\n\nNeeds a free Govee API key, stored in your keyring. Network use: the Govee cloud API and UDP on your local network (ports 4001–4003). Clipboard: Settings → About → Copy Debug Info copies a report to the clipboard when you click it.\n\nNot affiliated with Govee.",
   "shell-version": [
     "50"
   ],
-  "url": "https://github.com/Svashtar/govee-lights",
-  "settings-schema": "org.gnome.shell.extensions.govee-lights",
-  "gettext-domain": "govee-lights",
+  "url": "https://github.com/Svashtar/lightsbuddy-gnome",
+  "settings-schema": "org.gnome.shell.extensions.lightsbuddy",
+  "gettext-domain": "lightsbuddy",
   "version-name": "0.1.0"
 }

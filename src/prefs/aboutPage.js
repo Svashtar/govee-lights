@@ -36,8 +36,8 @@ function linkRow(title, subtitle, uri) {
 function backupErrorMessage(e) {
     switch (e.reason) {
     case 'not-json': return _('The file is not valid JSON.');
-    case 'not-backup': return _('The file is not a Govee Lights settings backup.');
-    case 'newer': return _('The backup was made by a newer version of Govee Lights.');
+    case 'not-backup': return _('The file is not a LightsBuddy settings backup.');
+    case 'newer': return _('The backup was made by a newer version of LightsBuddy.');
     default: return _('The backup has an invalid “%s” value.').format(e.field);
     }
 }
@@ -65,7 +65,7 @@ function suffixLabel(row, label) {
 }
 
 export const AboutPage = GObject.registerClass(
-class GoveeLightsAboutPage extends Adw.PreferencesPage {
+class LightsBuddyAboutPage extends Adw.PreferencesPage {
     // getDebugInfo: async () => string
     _init({window, settings, metadata, path, getDebugInfo}) {
         super._init({title: _('About'), icon_name: 'help-about-symbolic', name: 'about'});
@@ -79,8 +79,8 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
 
         const header = new Adw.PreferencesGroup();
         const box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, spacing: 6, margin_bottom: 12});
-        box.append(new Gtk.Image({icon_name: 'govee-lights', pixel_size: 112, margin_bottom: 6}));
-        box.append(new Gtk.Label({label: _('Govee Lights'), css_classes: ['title-1']}));
+        box.append(new Gtk.Image({icon_name: 'lightsbuddy', pixel_size: 112, margin_bottom: 6}));
+        box.append(new Gtk.Label({label: _('LightsBuddy'), css_classes: ['title-1']}));
         box.append(new Gtk.Label({
             label: _('Control your Govee lights from the top bar and Quick Settings'),
             css_classes: ['dim-label'],
@@ -118,7 +118,7 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
                 Gdk.Display.get_default().get_clipboard().set(text);
                 this._toast(_('Debug info copied'));
             } catch (e) {
-                logError(e, 'govee-lights: debug info');
+                logError(e, 'lightsbuddy: debug info');
                 this._toast(_('Could not collect debug info'));
             }
         });
@@ -165,7 +165,7 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
         }
         if (e instanceof GLib.Error && e.matches(Gtk.DialogError, Gtk.DialogError.DISMISSED))
             return;
-        logError(e, 'govee-lights: settings backup');
+        logError(e, 'lightsbuddy: settings backup');
         this._toast(e.message);
     }
 
@@ -238,7 +238,7 @@ class GoveeLightsAboutPage extends Adw.PreferencesPage {
     }
 
     async _export() {
-        const dialog = new Gtk.FileDialog({initial_name: 'govee-lights-settings.json'});
+        const dialog = new Gtk.FileDialog({initial_name: 'lightsbuddy-settings.json'});
         const file = await dialog.save(this._window, null);
         const json = buildBackup(this._currentValues(), this._metadata['version-name']);
         await file.replace_contents_async(new TextEncoder().encode(json), null, false,

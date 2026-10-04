@@ -17,13 +17,13 @@ const TAU = Math.PI * 2;
 // A Slider whose whole track is a colour gradient (hue, or warm→cool white),
 // with a ring handle filled in the selected colour.
 const GradientSlider = GObject.registerClass(
-class GoveeLightsGradientSlider extends Slider.Slider {
+class LightsBuddyGradientSlider extends Slider.Slider {
     // stops: [[offset 0–1, {r,g,b}]]; colorAt: value 0–1 → {r,g,b}
     _init(value, stops, colorAt) {
         super._init(value);
         this._stops = stops;
         this._colorAt = colorAt;
-        this.add_style_class_name('govee-gradient-slider');
+        this.add_style_class_name('lightsbuddy-gradient-slider');
     }
 
     vfunc_repaint() {

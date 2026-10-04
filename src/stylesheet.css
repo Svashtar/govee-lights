@@ -3,86 +3,86 @@
    Do NOT upload to extensions.gnome.org (EGO) unless you understand JavaScript
    and can maintain this code. */
 
-.govee-menu {
+.lightsbuddy-menu {
   min-width: 340px;
 }
 
-.govee-section-title .popup-menu-item-label,
-.govee-section-title {
+.lightsbuddy-section-title .popup-menu-item-label,
+.lightsbuddy-section-title {
   font-weight: bold;
   font-size: 0.9em;
 }
 
-.govee-device-summary {
+.lightsbuddy-device-summary {
   font-size: 0.9em;
   padding: 0 6px;
 }
 
-.govee-power-button {
+.lightsbuddy-power-button {
   padding: 0 4px;
 }
 
-.govee-swatches {
+.lightsbuddy-swatches {
   spacing: 8px;
   padding: 2px 0;
 }
 
-.govee-swatch {
+.lightsbuddy-swatch {
   width: 22px;
   height: 22px;
   border-radius: 99px;
   border: 2px solid rgba(255, 255, 255, 0.25);
 }
 
-.govee-swatch:hover,
-.govee-swatch:focus {
+.lightsbuddy-swatch:hover,
+.lightsbuddy-swatch:focus {
   border-color: rgba(255, 255, 255, 0.9);
 }
 
-.govee-status-item .popup-menu-item-label,
-.govee-status {
+.lightsbuddy-status-item .popup-menu-item-label,
+.lightsbuddy-status {
   font-size: 0.85em;
 }
 
-.govee-gradient-slider {
+.lightsbuddy-gradient-slider {
   -slider-handle-radius: 10px;
 }
 
-.govee-save-preset-box {
+.lightsbuddy-save-preset-box {
   spacing: 12px;
   min-width: 320px;
 }
 
-.govee-save-preset-description {
+.lightsbuddy-save-preset-description {
 }
 
-.govee-device-controls {
+.lightsbuddy-device-controls {
   padding-left: 12px;
 }
 
 /* Quick Settings card: as wide as the tiles above it. Some shell themes
    (e.g. Catppuccin) inset these cards with side margins. */
-.quick-toggle-menu.govee-quick-menu {
+.quick-toggle-menu.lightsbuddy-quick-menu {
   margin-left: 0;
   margin-right: 0;
 }
 
 /* Scene, DIY scene, snapshot and music mode lists: indented under their
    header, no block background, rounded hover highlight per row. */
-.govee-option-list {
+.lightsbuddy-option-list {
   padding-left: 12px;
 }
 
 /* About 6–7 rows; the rest scrolls. */
-.govee-option-list-long {
+.lightsbuddy-option-list-long {
   max-height: 280px;
 }
 
-.govee-option-search {
+.lightsbuddy-option-search {
   border-radius: 12px;
   margin: 2px 0 6px 12px;
 }
 
-.govee-option-empty {
+.lightsbuddy-option-empty {
   padding: 9px 12px;
 }

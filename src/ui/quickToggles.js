@@ -14,13 +14,13 @@ import {DeviceControls, stateSummary} from './deviceControls.js';
 
 // One tile: clicking it toggles power, the arrow opens the light's controls.
 const DeviceToggle = GObject.registerClass(
-class GoveeLightsDeviceToggle extends QuickSettings.QuickMenuToggle {
+class LightsBuddyDeviceToggle extends QuickSettings.QuickMenuToggle {
     _init(device, manager, gicon, onSavePreset) {
         super._init({title: device.name, gicon, toggle_mode: false});
         this._device = device;
         this._gicon = gicon;
         this.menuButtonAccessibleName = _('%s Settings').format(device.name);
-        this.menu.box.add_style_class_name('govee-quick-menu');
+        this.menu.box.add_style_class_name('lightsbuddy-quick-menu');
 
         this.connect('clicked', () => {
             if (device.supports('power'))
@@ -52,7 +52,7 @@ class GoveeLightsDeviceToggle extends QuickSettings.QuickMenuToggle {
 });
 
 const Indicator = GObject.registerClass(
-class GoveeLightsQuickIndicator extends QuickSettings.SystemIndicator {
+class LightsBuddyQuickIndicator extends QuickSettings.SystemIndicator {
     _init(devices, manager, gicon, onSavePreset) {
         super._init();
         for (const device of devices)

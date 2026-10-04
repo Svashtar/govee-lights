@@ -1,6 +1,6 @@
 # LAN control
 
-Govee Lights prefers to talk to your lights directly over your local network and uses the Govee cloud only when it has to. This page explains how that works, how to turn it on and what to do when lights don't answer.
+LightsBuddy prefers to talk to your lights directly over your local network and uses the Govee cloud only when it has to. This page explains how that works, how to turn it on and what to do when lights don't answer.
 
 ## What is LAN Control?
 
@@ -96,13 +96,13 @@ ss -ulpn | grep 4002
 
 ## Coexisting with Home Assistant
 
-Home Assistant's **Govee LAN** integration (and similar tools such as Homebridge plugins) use the same ports. Govee Lights opens its listening socket with address and port reuse, so it shares port 4002 with them instead of taking it over. Both can control the same lights at the same time.
+Home Assistant's **Govee LAN** integration (and similar tools such as Homebridge plugins) use the same ports. LightsBuddy opens its listening socket with address and port reuse, so it shares port 4002 with them instead of taking it over. Both can control the same lights at the same time.
 
 Notes:
 
 - If both run **on the same computer**, both receive scan replies. Status replies to one program's request may also be seen by the other; this is harmless.
 - If Home Assistant runs **on another machine**, nothing special is needed.
-- If another program bound port 4002 *without* port reuse, Govee Lights can't listen and falls back to cloud-only mode. The troubleshooting page explains how to [find which program holds the port](troubleshooting.md#no-lights-answer-on-lan).
+- If another program bound port 4002 *without* port reuse, LightsBuddy can't listen and falls back to cloud-only mode. The troubleshooting page explains how to [find which program holds the port](troubleshooting.md#no-lights-answer-on-lan).
 
 ## Turning it off
 

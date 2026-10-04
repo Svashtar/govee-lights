@@ -1,6 +1,6 @@
 # Privacy
 
-Govee Lights is designed to keep as much as possible on your computer.
+LightsBuddy is designed to keep as much as possible on your computer.
 
 ## Summary
 
@@ -45,8 +45,8 @@ The extension doesn't contact any other server. Links on the About page (website
 | What | Where |
 |---|---|
 | API key | GNOME Keyring (Secret Service), via libsecret. Protected by your keyring password. |
-| Light names, placements and order; presets; LAN on/off; refresh interval; today's cloud request count | GSettings, under `/org/gnome/shell/extensions/govee-lights/` (view with `dconf dump /org/gnome/shell/extensions/govee-lights/`) |
-| Device list, capabilities and scene lists | `~/.cache/govee-lights/devices.json`, so menus can be shown immediately after login. Safe to delete; it's rebuilt on the next fetch. |
+| Light names, placements and order; presets; LAN on/off; refresh interval; today's cloud request count | GSettings, under `/org/gnome/shell/extensions/lightsbuddy/` (view with `dconf dump /org/gnome/shell/extensions/lightsbuddy/`) |
+| Device list, capabilities and scene lists | `~/.cache/lightsbuddy/devices.json`, so menus can be shown immediately after login. Safe to delete; it's rebuilt on the next fetch. |
 
 ## Debug info
 
@@ -65,8 +65,8 @@ It never contains your API key, device IDs, IP addresses or light names. Nothing
 
 ## Removing everything
 
-1. Uninstall the extension (Extensions app, or `gnome-extensions uninstall govee-lights@svashta.com`).
-2. Remove settings: `dconf reset -f /org/gnome/shell/extensions/govee-lights/`
-3. Remove the cache: `rm -r ~/.cache/govee-lights`
-4. Remove the key: open **Passwords and Keys** (Seahorse), find the Govee Lights entry in the *Login* keyring and delete it.
+1. Uninstall the extension (Extensions app, or `gnome-extensions uninstall lightsbuddy@svashta.com`).
+2. Remove settings: `dconf reset -f /org/gnome/shell/extensions/lightsbuddy/`
+3. Remove the cache: `rm -r ~/.cache/lightsbuddy`
+4. Remove the key: open **Passwords and Keys** (Seahorse), find the LightsBuddy entry in the *Login* keyring and delete it.
 5. Optionally revoke the key with Govee by requesting a new one in the Govee Home app.
