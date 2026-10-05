@@ -15,7 +15,7 @@ manager.start().then(() => {
     manager.menuOpened();
 }).catch(e => logError(e));
 
-GLib.timeout_add(GLib.PRIORITY_DEFAULT, 5000, () => {
+GLib.timeout_add(GLib.PRIORITY_DEFAULT, Number(GLib.getenv("SMOKE_MS") ?? 5000), () => {
     for (const d of manager.devices)
         print(`${d.sku}  ${d.name}  ${d.connection}  ${JSON.stringify(d.state)}${d.error ? `  error: ${d.error}` : ''}`);
     print(`${manager.devices.length} light(s)`);

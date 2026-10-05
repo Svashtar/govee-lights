@@ -25,6 +25,7 @@ import {
 import {Device} from './device.js';
 import {Emitter} from './emitter.js';
 import {LanClient} from './lanClient.js';
+import {LanTracker} from './lanTracker.js';
 import {planPreset} from './presets.js';
 import {CLOUD_DEBOUNCE_MS, LAN_CONFIRM_MS, LAN_THROTTLE_MS, chooseRoute, isStale} from './routing.js';
 import {lookupApiKey} from './secret.js';
@@ -32,8 +33,12 @@ import {syncDevices} from './sync.js';
 import {Debounce, Throttle} from './throttle.js';
 
 const SCAN_INTERVAL_S = 5 * 60;
-// A light that misses this many scans in a row is treated as off the LAN.
+// A light that answers nothing for more scan rounds in a row than this is
+// treated as off the LAN.
 const LAN_MISSES_ALLOWED = 2;
+// Extra scans within one round, and when the round is evaluated.
+const SCAN_REPEATS_MS = [1000, 2500];
+const SCAN_ROUND_MS = 4000;
 const RATE_WARNING_AT = Math.floor(DAILY_LIMIT * 0.9);
 
 // GLib-backed timers for Throttle/Debounce; all ids are tracked so destroy()
@@ -74,7 +79,8 @@ export class DeviceManager extends Emitter {
         this._confirms = new Map();
         this._lan = null;
         this._cloud = null;
-        this._lanSeen = new Map();
+        this._lanTracker = new LanTracker(LAN_MISSES_ALLOWED);
+        this._scanRepeatIds = [];
         // The preset applied last, until one of its lights is changed by hand.
         // Kept for this session only.
         this.activePresetId = null;
@@ -163,8 +169,10 @@ export class DeviceManager extends Emitter {
                 existing.setConfig(config[cached.id]);
             } else {
                 const device = new Device(cached, config[cached.id]);
-                if (lan[cached.id]?.ip)
+                if (lan[cached.id]?.ip) {
                     device.ip = lan[cached.id].ip;
+                    this._lanTracker.restore(cached.id, lan[cached.id]);
+                }
                 this._devices.set(cached.id, device);
             }
         }
@@ -264,61 +272,66 @@ export class DeviceManager extends Emitter {
         } else if (!wanted && this._lan) {
             GLib.source_remove(this._scanId);
             this._scanId = 0;
+            this._scanRepeatIds.forEach(id => this._timers.clearTimeout(id));
+            this._scanRepeatIds = [];
+            this._timers.clearTimeout(this._afterScanId);
             this._lan.destroy();
             this._lan = null;
+            this._lanTracker = new LanTracker(LAN_MISSES_ALLOWED);
             this._devices.forEach(d => d.setIp(null));
+            writeLanCache({});
         }
     }
 
-    // Sends a scan and, a few seconds later, forgets lights that stopped answering.
+    // One scan round: the multicast scan is sent three times (Wi-Fi drops
+    // multicast easily) and every known light is also asked directly. A few
+    // seconds later the tracker drops lights that answered neither.
     scan() {
         if (!this._lan)
             return;
+        this._scanRepeatIds.forEach(id => this._timers.clearTimeout(id));
+        this._scanRepeatIds = SCAN_REPEATS_MS.map(ms => this._timers.setTimeout(() => this._sendScan(), ms));
+        this._sendScan();
+        for (const ip of this._lanTracker.knownIps())
+            this._lan.requestStatus(ip);
+
+        this._timers.clearTimeout(this._afterScanId);
+        this._afterScanId = this._timers.setTimeout(() => this._afterScan(), SCAN_ROUND_MS);
+    }
+
+    _sendScan() {
         try {
             this._lan.scan();
         } catch (e) {
             console.warn(`lightsbuddy: LAN scan failed: ${e.message}`);
-            return;
         }
-        this._timers.clearTimeout(this._afterScanId);
-        this._afterScanId = this._timers.setTimeout(() => this._afterScan(), 3000);
     }
 
     _afterScan() {
-        const lan = {};
-        for (const device of this._devices.values()) {
-            const seen = this._lanSeen.get(device.id);
-            if (!seen)
-                continue;
-            if (seen.missed > LAN_MISSES_ALLOWED) {
-                this._lanSeen.delete(device.id);
-                device.setIp(null);
-                continue;
-            }
-            lan[device.id] = {ip: seen.ip, firmware: seen.firmware, seen: seen.at};
-            seen.missed++;
-        }
+        const {dropped, reachable} = this._lanTracker.endRound();
+        for (const id of dropped)
+            this._devices.get(id)?.setIp(null);
         try {
-            writeLanCache(lan);
+            writeLanCache(reachable);
         } catch (e) {
             console.warn(`lightsbuddy: could not write LAN cache: ${e.message}`);
         }
     }
 
     _onLanDevice(found) {
-        this._lanSeen.set(found.id, {ip: found.ip, firmware: found.firmware, at: Math.floor(Date.now() / 1000), missed: 0});
+        const moved = this._lanTracker.heard(found.id, found, Math.floor(Date.now() / 1000));
         const device = this._devices.get(found.id);
         if (!device)
             return;
         // Ask for state when the light is new to us, has moved, or its state
-        // is still unknown (its IP may have come from the cache at startup).
-        const ask = device.ip !== found.ip || device.state.power === null;
+        // is still unknown.
         device.setIp(found.ip);
-        if (ask)
+        if (moved || device.state.power === null)
             this._lan.requestStatus(found.ip);
     }
 
     _onLanStatus(ip, data) {
+        this._lanTracker.heardFromIp(ip, Math.floor(Date.now() / 1000));
         for (const device of this._devices.values()) {
             if (device.ip === ip) {
                 device.update(stateFromLan(data));

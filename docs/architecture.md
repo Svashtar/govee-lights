@@ -23,6 +23,7 @@ src/lib/secret.js            libsecret helpers (shared by shell + prefs)
 src/lib/config.js            GSettings JSON helpers, cache files (devices.json, lan.json), request counter
 src/lib/sync.js              fetch lights + scene lists from the cloud, write devices.json
 src/lib/routing.js           pure: LAN vs cloud choice, timing constants, staleness
+src/lib/lanTracker.js        pure: which lights are reachable on the LAN across scan rounds
 src/lib/throttle.js          pure: Throttle (LAN drags) and Debounce (cloud drags)
 src/lib/debugInfo.js         pure: "Copy Debug Info" text (no key, IDs, IPs or names)
 src/lib/settingsBackup.js    pure: settings export/import format (never the API key)
@@ -81,7 +82,8 @@ The design is **LAN first, cloud as fallback**.
   - The `device` value in scan replies has the same `AA:BB:…` format as the cloud device ID; that's how LAN and cloud devices are matched.
   - The socket is bound with address/port reuse so it coexists with Home Assistant and similar tools. If it can't bind, the extension runs cloud-only.
   - Only the shell opens the socket. With port reuse, Linux spreads unicast replies across every socket bound to 4002, so a second listener in the prefs process would steal replies. The shell writes scan results to `~/.cache/lightsbuddy/lan.json`; the prefs window reads that file and asks for a rescan by bumping the `lan-scan-request` key.
-  - A light that misses more than two scans in a row is treated as off the LAN and falls back to the cloud.
+  - A scan round sends the multicast `scan` three times (Wi-Fi drops multicast easily, and lights in power save miss it) and asks every known light for `devStatus` directly. A light counts as reachable while it answers either; after three silent rounds in a row it falls back to the cloud (`lib/lanTracker.js`).
+  - `lan.json` lists every light currently reachable, so the prefs window and the actual route always agree.
 - **Cloud** (`cloudClient.js`) uses Soup 3 against `https://openapi.api.govee.com/router/api/v1/` with the `Govee-API-Key` header and a 10 s timeout:
   - `GET user/devices` keeps devices whose `type` contains `light`;
   - `POST device/state` is flattened to `type.instance → value`;
