@@ -34,7 +34,7 @@ Anything you leave unset is not changed. Only modes the light supports are offer
 
 Changes are saved straight away and show up in the top-bar menu.
 
-![The Presets page with a preset that sets two lights](screenshots/prefs-presets.png)
+<p align="center"><img src="screenshots/prefs-presets.png" alt="The Presets page with the Movie Night preset, which sets two lights" width="450"></p>
 
 ## Saving the current state
 

@@ -27,7 +27,7 @@ The key is saved in GNOME Keyring, not in GSettings. See [Privacy](privacy.md).
 
 Only devices that Govee reports as lights are listed. Plugs, sensors, humidifiers and so on are skipped.
 
-![The Account page with a saved key, two lights reachable on LAN and the cloud usage counter](screenshots/prefs-account.png)
+<p align="center"><img src="screenshots/prefs-account.png" alt="The Account page with a saved key, two lights reachable on LAN and the cloud usage counter" width="450"></p>
 
 ## 3. Enable LAN Control (recommended)
 
@@ -51,7 +51,7 @@ Open the **Lights** page. Each light has its own expandable row:
 
 The top-bar icon only appears when at least one light or preset is placed there.
 
-![The Lights page listing two lights with their model and connection](screenshots/prefs-lights.png)
+<p align="center"><img src="screenshots/prefs-lights.png" alt="The Lights page listing two lights with their model and connection" width="450"></p>
 
 ## 5. Using the controls
 
@@ -67,7 +67,7 @@ Over LAN the light follows the slider as you drag it. Over the cloud the value i
 
 The footer of each light's menu shows whether it is currently controlled over **LAN** or **Cloud**. A tile's subtitle shows the brightness, the active scene or **Offline**.
 
-![A light's controls opened from its Quick Settings tile](screenshots/quick-settings-light-menu.png)
+<p align="center"><img src="screenshots/quick-settings-light-menu.png" alt="A light's controls opened from its Quick Settings tile" width="330"></p>
 
 ## 6. Refreshing
 

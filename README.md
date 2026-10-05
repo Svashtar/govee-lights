@@ -9,9 +9,9 @@
 > **Status: early development.** There is no release yet. Follow the [changelog](CHANGELOG.md) for progress.
 
 <p align="center">
-  <img src="docs/screenshots/quick-settings.png" alt="Two lights as tiles in GNOME Quick Settings" width="380">
-  &nbsp;
-  <img src="docs/screenshots/top-bar-menu.png" alt="The top-bar menu with a preset and a light's controls" width="300">
+  <img src="docs/screenshots/quick-settings.png" alt="Two lights as tiles in GNOME Quick Settings" width="392">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/top-bar-menu.png" alt="The top-bar menu with the Movie Night preset applied and two lights" width="344">
 </p>
 
 ## Introduction
@@ -45,11 +45,16 @@ Lights that have *LAN Control* enabled are driven directly over your local netwo
 
 ## Screenshots
 
-| Light controls from a Quick Settings tile | Account settings |
-|---|---|
-| ![A light's brightness, temperature and colour controls opened from its tile](docs/screenshots/quick-settings-light-menu.png) | ![The Account page: API key, LAN reachability and cloud usage](docs/screenshots/prefs-account.png) |
-| **Lights settings** | **Presets settings** |
-| ![The Lights page listing two lights and how they are reached](docs/screenshots/prefs-lights.png) | ![The Presets page with a two-light preset](docs/screenshots/prefs-presets.png) |
+<p align="center">
+  <img src="docs/screenshots/quick-settings-light-menu.png" alt="A light's brightness, temperature, colour and scene controls opened from its Quick Settings tile" width="330">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/prefs-account.png" alt="Settings, Account page: API key, LAN reachability and cloud usage" width="270">
+  <img src="docs/screenshots/prefs-lights.png" alt="Settings, Lights page: two lights and how they are reached" width="270">
+  <img src="docs/screenshots/prefs-presets.png" alt="Settings, Presets page: the Movie Night preset with two lights" width="270">
+</p>
+<p align="center"><em>Settings: Account, Lights and Presets</em></p>
 
 ## Requirements
 
