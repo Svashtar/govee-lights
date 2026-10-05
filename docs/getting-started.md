@@ -51,7 +51,7 @@ Open the **Lights** page. Each light has its own expandable row:
 
 The top-bar icon only appears when at least one light or preset is placed there.
 
-<p align="center"><img src="screenshots/prefs-lights.png" alt="The Lights page listing two lights with their model and connection" width="450"></p>
+<p align="center"><img src="screenshots/prefs-lights.png" alt="The Lights page with Rope expanded: name, Show In, model, connection and features" width="450"></p>
 
 ## 5. Using the controls
 

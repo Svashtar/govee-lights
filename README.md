@@ -51,7 +51,7 @@ Lights that have *LAN Control* enabled are driven directly over your local netwo
 
 <p align="center">
   <img src="docs/screenshots/prefs-account.png" alt="Settings, Account page: API key, LAN reachability and cloud usage" width="270">
-  <img src="docs/screenshots/prefs-lights.png" alt="Settings, Lights page: two lights and how they are reached" width="270">
+  <img src="docs/screenshots/prefs-lights.png" alt="Settings, Lights page: Rope expanded, shown in Quick Settings and reached over LAN" width="270">
   <img src="docs/screenshots/prefs-presets.png" alt="Settings, Presets page: the Movie Night preset with two lights" width="270">
 </p>
 <p align="center"><em>Settings: Account, Lights and Presets</em></p>
