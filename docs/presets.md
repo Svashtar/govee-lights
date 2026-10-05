@@ -34,6 +34,8 @@ Anything you leave unset is not changed. Only modes the light supports are offer
 
 Changes are saved straight away and show up in the top-bar menu.
 
+![The Presets page with a preset that sets two lights](screenshots/prefs-presets.png)
+
 ## Saving the current state
 
 The quickest way to make a preset is to set a light up how you like it, then choose **Save as Preset…** from that light's menu (or **Save All as Preset…** at the bottom of the top-bar menu for every light there). Enter a name, and the extension creates a preset from the light's current power, brightness, colour or temperature and scene. You can add more lights to it later on the Presets page.
