@@ -162,7 +162,30 @@ Release flow: bump `version`/`version-name` in `metadata.json`, update `CHANGELO
 6. `deviceControls.js`, then `panelIndicator.js`, then `quickToggles.js`.
 7. Presets: model, prefs page, menu section, "save current".
 8. Polish: notifications, stylesheet, offline states, and a clean `disable()` that removes every signal, timeout and socket, as extensions.gnome.org review requires.
-9. Docs pass: finish every `docs/` page, take screenshots, write the first `CHANGELOG.md` entry, then push to GitHub and tag `v1`.
+9. Docs pass: finish every `docs/` page and take screenshots. Done (2026-10-05); English only, translations left to contributors.
+10. Code review and AI-notice removal (see the backlog below).
+11. Release v1 (see the backlog below).
+
+## Release backlog
+
+### Code review and AI-notice removal
+Removing the notice means the maintainer understands every file and can answer an EGO reviewer about any line. Walk through each file with Claude ("walk me through `lib/routing.js`"), fix or simplify anything unclear, then delete the notice (lines 3–5) by hand. Before removing it, be able to say what each function is for, what the file creates (timers, signals, sockets, files) and where it is cleaned up, and what goes over the network.
+
+- [ ] A. Pure logic (has unit tests): `routing`, `throttle`, `emitter`, `capabilities`, `presets`, `lanTracker`, `markdown`, `settingsBackup`, `debugInfo`
+- [ ] B. I/O: `config`, `secret`, `cloudClient`, `lanClient`, `sync`, `device`, `deviceManager`
+- [ ] C. Shell: `extension.js`, `ui/*`, `stylesheet.css` (enable/disable cleanup is the most common rejection reason)
+- [ ] D. Preferences: `prefs.js`, `prefs/*`
+- [ ] `make ego-check` passes; after a re-login, toggling the extension leaves no journal errors and `ss -ulpn | grep 4002` is empty while it is off.
+
+### Release v1
+- [ ] Choose `version-name` in `metadata.json` (e.g. `1.0`; EGO sets its own integer version).
+- [ ] `CHANGELOG.md`: `[Unreleased]` becomes `[1.0] - <date>`, add an empty `[Unreleased]`; check About → What's New.
+- [ ] Commit, `make ego-check`, install the zip locally, re-login and try it once more.
+- [ ] Push `main`, tag `v1.0`, push the tag, `gh release create` with the zip and the changelog notes.
+- [ ] Upload the zip at https://extensions.gnome.org/upload/ (maintainer's account).
+- [ ] Answer reviewer comments, re-upload as needed.
+- [ ] After approval: add `docs/screenshots/quick-settings.png` on the EGO page; replace "Coming soon" in the README with the EGO link.
+- [ ] Optional: retake the preset screenshots with a realistic preset (same one in `top-bar-menu.png` and `prefs-presets.png`) and capture the prefs window focused (Alt+Print Screen).
 
 ## Verification
 - `make test` runs the `gjs -m` unit tests: capability parsing and clamping, routing (LAN vs cloud), RGB packing, preset apply plans.
