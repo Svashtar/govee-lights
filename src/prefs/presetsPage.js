@@ -240,7 +240,7 @@ class LightsBuddyPresetsPage extends Adw.PreferencesPage {
             description: _('A preset sets one or more lights in one click. Presets appear at the top of the top-bar menu. You can also save a light’s current state as a preset from its menu.'),
         });
         const add = new Gtk.Button({icon_name: 'list-add-symbolic', css_classes: ['flat'], tooltip_text: _('Add Preset'),
-                                    sensitive: this._devices.length > 0});
+                                    valign: Gtk.Align.CENTER, sensitive: this._devices.length > 0});
         add.connect('clicked', () => this._addPreset());
         list.set_header_suffix(add);
 
