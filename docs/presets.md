@@ -16,17 +16,16 @@ A preset has a **name** and a list of **steps**. Each step targets one light and
 
 | Setting | Notes |
 |---|---|
-| **Power** | On or off. |
-| **Brightness** | 1–100 %. |
-| **Colour temperature** *or* **colour** | Pick one. The temperature range comes from the light. |
-| **Scene** | A Govee scene from the light's scene list (cloud only). |
+| **Turn On** | On or off. A light that is turned off has no other settings. |
+| **Brightness** | 1–100 %, or 0 to keep the current brightness. |
+| **Light Mode** | *Keep Current*, *White* (colour temperature), *Colour*, or one of the light's scenes, DIY scenes, snapshots or music modes (cloud only). The temperature range comes from the light. |
 
-Anything you leave unset is not changed. Only settings the light supports are offered.
+Anything you leave unset is not changed. Only modes the light supports are offered.
 
 ## Creating a preset in Settings
 
 1. Open the extension's settings and go to the **Presets** page.
-2. Click the **+** button. A preset called "New Preset" is created and the **Add Light** dialog opens.
+2. Click the **+** button (**Add Preset**). A preset called "New Preset" is created and the **Add Light** dialog opens.
 3. In the dialog:
    1. choose the light;
    2. choose whether it turns on, and its brightness (0 keeps the current brightness);
@@ -43,10 +42,10 @@ The quickest way to make a preset is to set a light up how you like it, then cho
 
 On the **Presets** page you can:
 
-- **Rename** a preset;
-- **Reorder** presets, which changes their order in the menu;
-- **Edit** or remove individual steps;
-- **Delete** a preset.
+- **Rename** a preset in its **Name** row (press Enter or the ✓ button);
+- **Move Up** / **Move Down** presets, which changes their order in the menu;
+- **Edit** or **Remove** a light's step, or **Add Light** to add one;
+- **Delete Preset**.
 
 Presets are included in **About → Export Settings…**, so you can move them to another computer. See [Troubleshooting](troubleshooting.md#moving-settings-to-another-computer).
 
@@ -55,7 +54,7 @@ Presets are included in **About → Export Settings…**, so you can move them t
 - Each light's steps are sent at the same time as the other lights', so a five-light preset doesn't take five times as long.
 - Power, brightness, colour and temperature go **over LAN** for lights that have [LAN Control](lan-control.md), and through the cloud otherwise.
 - Scenes always go through the cloud.
-- If one light fails (for example it's offline), the others are still applied and the menu shows what went wrong.
+- If one light fails (for example it's offline), the others are still applied and the failing light shows what went wrong in its menu.
 
 ## Tips
 

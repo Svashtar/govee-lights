@@ -15,7 +15,7 @@ This is a **community-maintained** list of models that people have actually test
 
 The SKU is the model number, such as `H6008` or `H619A`. You can find it:
 
-- on the **Devices** page of the extension's settings;
+- on the **Lights** page of the extension's settings (**Model**);
 - in **Settings → About → Copy Debug Info**;
 - in the Govee Home app, under the light's settings → *Device info*.
 
@@ -24,7 +24,7 @@ The SKU is the model number, such as `H6008` or `H619A`. You can find it:
 Open a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml) and fill in:
 
 - the SKU and product name;
-- whether it answers over LAN (the **Devices** page shows *LAN* or *Cloud*; make sure LAN Control is on in the Govee Home app first);
+- whether it answers over LAN (the **Lights** page shows *LAN* or *Cloud* as the **Connection**; make sure LAN Control is on in the Govee Home app first);
 - which features you tested and whether they worked;
 - the extension version, and your debug info.
 

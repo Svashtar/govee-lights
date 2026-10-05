@@ -133,7 +133,7 @@ The interface uses British English spelling ("colour").
 
 ## Reporting devices
 
-Govee sells many models and we can only test a few. If you have a light that isn't in [docs/supported-devices.md](docs/supported-devices.md), please file a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml) with its SKU (for example `H6008`, shown on the **Devices** page and in the debug info), whether it answers over LAN and which cloud features worked.
+Govee sells many models and we can only test a few. If you have a light that isn't in [docs/supported-devices.md](docs/supported-devices.md), please file a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml) with its SKU (for example `H6008`, shown on the **Lights** page and in the debug info), whether it answers over LAN and which cloud features worked.
 
 ## Code of conduct
 

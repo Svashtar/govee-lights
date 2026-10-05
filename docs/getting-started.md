@@ -31,21 +31,21 @@ Only devices that Govee reports as lights are listed. Plugs, sensors, humidifier
 
 Lights with **LAN Control** turned on respond instantly, keep working when the internet is down and don't count against Govee's daily request limit. In the Govee Home app, open each light → settings (gear icon) → turn on **LAN Control**.
 
-Back in the extension, the **Account** page shows how many lights answered on your network, for example "3 of 5 lights reachable on LAN". If some don't show up, see [LAN control](lan-control.md), especially the firewall section.
+Back in the extension, the **Reachable on LAN** row on the **Account** page shows how many lights answered on your network, for example "3 of 5 lights". **Scan Now** asks again. If some don't show up, see [LAN control](lan-control.md), especially the firewall section.
 
-You can turn LAN control off with the **LAN** switch on the Account page. Everything then goes through the cloud.
+You can turn LAN control off with the **Control Lights over LAN** switch on the Account page. Everything then goes through the cloud.
 
 ## 4. Choose where each light appears
 
-Open the **Devices** page. Each light has its own expandable row:
+Open the **Lights** page. Each light has its own expandable row:
 
 - **Name**: an alias shown in menus and tiles. Leave it empty to use the name from the Govee app.
-- **Placement**:
+- **Show In**:
   - **Quick Settings**: the light gets its own tile next to Wi-Fi and Night Light. Clicking the tile toggles power; the arrow opens its controls.
-  - **Top bar**: the light appears as a section in the extension's light-bulb menu.
+  - **Top Bar Menu**: the light appears as a section in the extension's light-bulb menu.
   - **Hidden**: not shown anywhere (it can still be used in presets).
-- **Order**: move lights up or down to control the order of tiles and menu sections.
-- The row also shows the model (SKU), how the light is reached (LAN or Cloud) and its capabilities, for information.
+- **Move Up** / **Move Down**: set the order of tiles and menu sections.
+- The row also shows the light's name in Govee Home, its model (SKU), how it is reached (**Connection**: LAN or Cloud) and its **Features**, for information.
 
 The top-bar icon only appears when at least one light or preset is placed there.
 
@@ -65,10 +65,10 @@ The footer of each light's menu shows whether it is currently controlled over **
 
 ## 6. Refreshing
 
-- Lights on the LAN are asked for their state every time you open a menu. This is free and instant.
-- Cloud state is refreshed when you open a menu and the last refresh is more than 2 minutes old.
-- **Refresh** in the top-bar menu forces an update.
-- If you add or rename lights in the Govee app, press **Test & fetch devices** on the Account page again.
+- Lights on the LAN are asked for their state every time you open a menu or Quick Settings. This is free and instant.
+- Cloud state is refreshed when you open a menu and the last refresh is more than 2 minutes old. You can change that under **Cloud Usage → Refresh Light State After** on the Account page.
+- **Refresh** in the top-bar menu fetches your light list and scenes again and reads every light's state.
+- If you add or rename lights, scenes or snapshots in the Govee app, press **Refresh** in the top-bar menu or **Fetch Lights** on the Account page.
 
 ## Next steps
 

@@ -56,11 +56,11 @@ The shell and prefs processes don't talk to each other directly. They share:
 
 | Store | Contents |
 |---|---|
-| **GSettings** `org.gnome.shell.extensions.lightsbuddy` | `devices-config` (JSON: `{id: {sku, alias, placement, order}}`), `presets` (JSON), `use-lan`, `refresh-stale-seconds` (default 120), `cache-stamp`, `request-counter` |
+| **GSettings** `org.gnome.shell.extensions.lightsbuddy` | `devices-config` (JSON: `{id: {sku, alias, placement, order}}`), `presets` (JSON), `use-lan`, `refresh-stale-seconds` (default 120), `cache-stamp`, `request-counter`, `cloud-status` (when the key last worked or failed) |
 | **Metadata cache** `~/.cache/lightsbuddy/devices.json` | Capabilities and scene lists, so the shell can draw menus immediately after login without a cloud call |
 | **GNOME Keyring** (libsecret) | The API key. Never written to GSettings, logs, debug info or backups |
 
-When prefs rewrites the cache (after **Test & fetch devices**), it bumps `cache-stamp`. The shell listens for that and for other key changes and reloads.
+When prefs rewrites the cache (after **Fetch Lights**), it bumps `cache-stamp`. The shell listens for that and for other key changes and reloads.
 
 ## Transport routing: LAN vs cloud
 

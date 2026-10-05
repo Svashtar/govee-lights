@@ -17,10 +17,10 @@ Requests go to `https://openapi.api.govee.com/` over HTTPS, with your API key in
 
 | Request | When |
 |---|---|
-| List your devices | When you press **Test & fetch devices** |
-| Read a light's state | When you open a menu and the cached state is more than 2 minutes old, or when you press **Refresh** (cloud-only lights) |
+| List your devices | When you press **Fetch Lights** on the Account page or **Refresh** in the top-bar menu, and at login if no device list is cached yet |
+| Read a light's state | For lights not reachable on LAN: once at login, when you open a menu and the cached state is older than **Refresh Light State After** (2 minutes by default), after a failed command, and when you press **Refresh** |
 | Control a light | When you change something and the light isn't reachable over LAN, and for scenes, DIY scenes, snapshots and music modes |
-| List scenes and DIY scenes | When fetching devices |
+| List scenes and DIY scenes | Together with the device list, one request each per light that has them |
 
 Govee receives what it needs to carry out those requests: your API key, the device ID and model, and the change you made. Govee's own privacy policy applies to that data.
 
@@ -45,8 +45,9 @@ The extension doesn't contact any other server. Links on the About page (website
 | What | Where |
 |---|---|
 | API key | GNOME Keyring (Secret Service), via libsecret. Protected by your keyring password. |
-| Light names, placements and order; presets; LAN on/off; refresh interval; today's cloud request count | GSettings, under `/org/gnome/shell/extensions/lightsbuddy/` (view with `dconf dump /org/gnome/shell/extensions/lightsbuddy/`) |
+| Light names, placements and order; presets; LAN on/off; refresh interval; today's cloud request count; when the API key last worked or failed | GSettings, under `/org/gnome/shell/extensions/lightsbuddy/` (view with `dconf dump /org/gnome/shell/extensions/lightsbuddy/`) |
 | Device list, capabilities and scene lists | `~/.cache/lightsbuddy/devices.json`, so menus can be shown immediately after login. Safe to delete; it's rebuilt on the next fetch. |
+| IP addresses of lights found on the LAN | `~/.cache/lightsbuddy/lan.json`, so the settings window can show which lights are reachable. Rewritten after every scan. |
 
 ## Debug info
 

@@ -24,22 +24,22 @@ Authentication errors are shown once as a notification rather than repeating for
 ## A light is missing from the list
 
 - Only devices that Govee reports as **lights** are listed. Plugs, sensors and appliances are skipped.
-- Lights added to the Govee app after setup appear after you press **Test & fetch devices** on the Account page again.
+- Lights added to the Govee app after setup appear after you press **Refresh** in the top-bar menu or **Fetch Lights** on the Account page.
 - Some older models aren't available through Govee's developer API at all. If the light doesn't show up after fetching, please file a [device report](https://github.com/Svashtar/lightsbuddy-gnome/issues/new?template=device_report.yml).
 
 ## A light shows "Offline"
 
 - Check that the light has power and is online in the Govee Home app.
 - If the Govee app also shows it as offline, the light has lost its Wi-Fi connection. Power-cycling it usually helps.
-- If it's online in the app but offline in the extension, press **Refresh** in the top-bar menu. Cloud state is only refreshed when it's more than 2 minutes old.
+- If it's online in the app but offline in the extension, press **Refresh** in the top-bar menu. Otherwise cloud state is only refreshed when it's more than 2 minutes old (see **Refresh Light State After** on the Account page).
 - Lights reached over LAN can still be shown as offline if your computer and the light are on different networks (for example after switching Wi-Fi networks or connecting to a VPN).
 
 ## No lights answer on LAN
 
-The Account page says "0 of N lights reachable on LAN", or every light shows **Cloud**.
+The **Reachable on LAN** row on the Account page says "0 of N lights", or every light shows **Cloud**. Press **Scan Now** once; a single scan can be missed on Wi-Fi. If it stays at 0:
 
 1. **Is LAN Control on?** It's off by default for each light. Turn it on in the Govee Home app (light → settings → LAN Control). See [LAN control](lan-control.md#enabling-it).
-2. **Is the LAN switch on** in the extension's Account page?
+2. **Is Control Lights over LAN on** on the extension's Account page?
 3. **Is your firewall dropping replies?** Lights reply on **UDP port 4002**. Allow it as described in [LAN control → Ports and firewall](lan-control.md#ports-and-firewall).
 4. **Same network?** The computer and lights must be on the same subnet. Guest Wi-Fi, "AP/client isolation", VPNs that capture all traffic and some mesh or multi-router setups block multicast discovery.
 5. **Is something else holding the port without sharing it?** Run:
@@ -68,7 +68,7 @@ Govee limits the cloud API to **10,000 requests per day** per account, plus shor
 ## Scenes, DIY scenes, snapshots or music modes are missing
 
 - These only exist for lights that support them, and they always come from the cloud.
-- DIY scenes and snapshots are created in the Govee Home app. After adding new ones, press **Test & fetch devices** to update the cached lists.
+- DIY scenes and snapshots are created in the Govee Home app. After adding new ones, press **Refresh** in the top-bar menu or **Fetch Lights** on the Account page to update the cached lists.
 - They need internet access even for LAN-capable lights.
 
 ## A control changed but the light didn't
@@ -89,7 +89,7 @@ Debug info first: **Settings → About → Copy Debug Info** copies versions, yo
 **Shell log** (top-bar menu, Quick Settings tiles, LAN discovery, cloud calls):
 
 ```sh
-journalctl -f -o cat /usr/bin/gnome-shell
+journalctl -f -o cat _COMM=gnome-shell
 ```
 
 Leave it running, reproduce the problem, then copy the lines around it. Messages from the extension start with `lightsbuddy:`.
@@ -97,13 +97,13 @@ Leave it running, reproduce the problem, then copy the lines around it. Messages
 To get the log from the current session after the fact:
 
 ```sh
-journalctl -b -o cat /usr/bin/gnome-shell | grep -i -A5 govee
+journalctl -b -o cat _COMM=gnome-shell | grep -A5 lightsbuddy
 ```
 
 **Preferences log** (the settings window runs as a separate process):
 
 ```sh
-journalctl -f -o cat /usr/bin/gjs
+journalctl -f -o cat _COMM=gjs
 ```
 
 Before pasting logs into a public issue, check them for anything private. The extension never logs your API key, but other extensions' messages may appear in the same log.

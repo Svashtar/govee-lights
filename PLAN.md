@@ -148,7 +148,7 @@ docs/
   ISSUE_TEMPLATE/device_report.yml    report a SKU as working / not working
   pull_request_template.md
   workflows/ci.yml                    eslint + `make test` + `make pack` on every push/PR
-po/                       gettext template (`lightsbuddy.pot`); Slovenian translation as the first one
+po/                       gettext template (`lightsbuddy.pot`); English only, translations welcome from contributors
 ```
 
 Release flow: bump `version`/`version-name` in `metadata.json`, update `CHANGELOG.md`, tag `vN`, `make pack`, attach the zip to the GitHub release and upload it to extensions.gnome.org.
@@ -162,7 +162,7 @@ Release flow: bump `version`/`version-name` in `metadata.json`, update `CHANGELO
 6. `deviceControls.js`, then `panelIndicator.js`, then `quickToggles.js`.
 7. Presets: model, prefs page, menu section, "save current".
 8. Polish: notifications, stylesheet, offline states, and a clean `disable()` that removes every signal, timeout and socket, as extensions.gnome.org review requires.
-9. Docs pass: finish every `docs/` page, take screenshots, write the first `CHANGELOG.md` entry, translations, then push to GitHub and tag `v1`.
+9. Docs pass: finish every `docs/` page, take screenshots, write the first `CHANGELOG.md` entry, then push to GitHub and tag `v1`.
 
 ## Verification
 - `make test` runs the `gjs -m` unit tests: capability parsing and clamping, routing (LAN vs cloud), RGB packing, preset apply plans.

@@ -80,9 +80,9 @@ make install
 
 ## Quick start
 
-1. **Add your API key.** Open the extension's settings (Extensions app → LightsBuddy → Settings), paste your Govee API key on the **Account** page and press **Test & fetch devices**.
-2. **Turn on LAN Control** for each light in the Govee Home app (device → settings → *LAN Control*). The Account page shows how many lights are reachable on your network, for example "3 of 5 lights reachable on LAN".
-3. **Choose where each light appears.** On the **Devices** page, give each light a name and set its placement to *Top bar*, *Quick Settings* or *Hidden*.
+1. **Add your API key.** Open the extension's settings (Extensions app → LightsBuddy → Settings), paste your Govee API key into **API Key** on the **Account** page and press Enter. The key is saved in your keyring and your lights are fetched straight away.
+2. **Turn on LAN Control** for each light in the Govee Home app (device → settings → *LAN Control*). The Account page shows how many lights answer on your network under **Reachable on LAN**, for example "3 of 5 lights".
+3. **Choose where each light appears.** On the **Lights** page, give each light a name and choose where it appears under **Show In**: *Top Bar Menu*, *Quick Settings* or *Hidden*.
 4. *Optional:* create **presets** on the **Presets** page, or use *Save current as preset…* from a light's menu.
 
 The full walk-through is in [Getting started](docs/getting-started.md).
@@ -122,11 +122,11 @@ LightsBuddy has no telemetry and no servers of its own. The only things it talks
 
 ## Contributing
 
-Bug reports, device reports, translations and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first. When reporting a bug, open **Settings → About → Copy Debug Info** and paste the result into the [bug report form](https://github.com/Svashtar/lightsbuddy-gnome/issues/new/choose).
+Bug reports, device reports and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first. When reporting a bug, open **Settings → About → Copy Debug Info** and paste the result into the [bug report form](https://github.com/Svashtar/lightsbuddy-gnome/issues/new/choose).
 
 ## Translations
 
-Translations live in [`po/`](po/) as standard gettext files. Slovenian is the first translation. To add your language, see [CONTRIBUTING.md → Translations](CONTRIBUTING.md#translations).
+LightsBuddy is in English only. Every string is ready for gettext ([`po/lightsbuddy.pot`](po/lightsbuddy.pot)), so if you'd like it in your language, see [CONTRIBUTING.md → Translations](CONTRIBUTING.md#translations).
 
 ## License
 

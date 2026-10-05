@@ -24,18 +24,18 @@ LAN Control is off by default on Govee lights. For each light:
 
 Then, in the extension:
 
-1. Make sure the **LAN** switch on the **Account** page is on (it is by default).
-2. Within a few seconds the Account page shows how many lights answered, for example "3 of 5 lights reachable on LAN".
-3. On the **Devices** page, each light shows **LAN** or **Cloud** as its connection.
+1. Make sure **Control Lights over LAN** on the **Account** page is on (it is by default).
+2. Within a few seconds the **Reachable on LAN** row shows how many lights answered, for example "3 of 5 lights". Press **Scan Now** to ask again.
+3. On the **Lights** page, each light shows **LAN** or **Cloud** as its **Connection**.
 
 The computer and the lights must be on the same network (the same subnet). Guest networks and "AP isolation" / "client isolation" settings on Wi-Fi routers block LAN control.
 
 ## How the extension uses it
 
-- **Discovery** runs when the extension is enabled, then every 5 minutes, and again when you open a menu while a light's address is unknown. Lights are matched to your cloud devices by their device ID, so you don't have to configure IP addresses.
+- **Discovery** runs when the extension is enabled, then every 5 minutes, and again when you open a menu while a light's address is unknown. Each round sends the scan three times (Wi-Fi easily drops multicast) and also asks every known light directly. A light that misses three rounds in a row is treated as not reachable on LAN. Lights are matched to your cloud devices by their device ID, so you don't have to configure IP addresses.
 - **Commands** for power, brightness, colour and temperature go over LAN whenever the light is reachable there. Brightness and colour slider changes are throttled to about one every 100 ms.
 - **Confirmation.** LAN commands aren't acknowledged by the light, so after each change the extension asks the light for its status and corrects the menu if something didn't apply.
-- **Fallback.** If a light stops answering on LAN, or if the LAN switch is off, the same controls go through the cloud.
+- **Fallback.** If a light stops answering on LAN, or if LAN control is switched off, the same controls go through the cloud.
 - If the extension can't open its listening port at all, it carries on in cloud-only mode.
 
 ## Ports and firewall
@@ -106,4 +106,4 @@ Notes:
 
 ## Turning it off
 
-Switch off **LAN** on the **Account** page. The extension closes its socket and sends everything through the cloud. Sliders then send a value when you let go, rather than live, to stay within Govee's rate limits.
+Switch off **Control Lights over LAN** on the **Account** page. The extension closes its socket and sends everything through the cloud. Sliders then send a value when you let go, rather than live, to stay within Govee's rate limits.
