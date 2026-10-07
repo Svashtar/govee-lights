@@ -1,6 +1,6 @@
 # AGENTS.md
 
-GNOME Shell 50 extension (`lightsbuddy@svashta.com`) that controls Govee lights from the
+GNOME Shell 50+ extension (`lightsbuddy@svashta.com`) that controls Govee lights from the
 top bar and Quick Settings: Govee LAN API (UDP) first, Govee cloud API as fallback.
 Plain ESM GJS, no build step, no npm dependencies. Public repo: `Svashtar/lightsbuddy-gnome`.
 

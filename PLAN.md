@@ -10,7 +10,7 @@ The goal:
 - Each light offers the controls its capabilities allow: power, brightness, colour temperature, colour, Govee scenes and modes.
 - The user can save their own presets.
 
-**Target:** GNOME Shell 50 (installed here: 50.5, gjs 1.88). The extension uses ESM and `"shell-version": ["50"]`.
+**Target:** GNOME Shell 50 and 51 (installed here: 51.0). The extension uses ESM and `"shell-version": ["50", "51"]`.
 
 **Location:** `/home/svashtar/projects/development/lightsbuddy-gnome`
 
@@ -58,7 +58,7 @@ The goal:
 
 ## Architecture (`lightsbuddy/`)
 ```
-metadata.json             uuid lightsbuddy@svashta.com, shell-version ["50"], settings-schema
+metadata.json             uuid lightsbuddy@svashta.com, shell-version ["50", "51"], settings-schema
 extension.js              enable/disable; wires store → UIs
 prefs.js                  Adw prefs: Account, Devices, Presets
 lib/cloudClient.js        Soup 3 client, typed GoveeError, retry rules, daily request counter

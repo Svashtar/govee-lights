@@ -2,7 +2,7 @@
 
 **Control your Govee lights from the GNOME top bar or Quick Settings: instantly over your local network, with the Govee cloud as a fallback.**
 
-[![GNOME 50](https://img.shields.io/badge/GNOME-50-4a86cf?logo=gnome&logoColor=white)](https://release.gnome.org/50/)
+[![GNOME 50+](https://img.shields.io/badge/GNOME-50%2B-4a86cf?logo=gnome&logoColor=white)](https://release.gnome.org/50/)
 [![License: GPL-2.0-or-later](https://img.shields.io/badge/license-GPL--2.0--or--later-blue)](LICENSE)
 [![CI](https://github.com/Svashtar/lightsbuddy-gnome/actions/workflows/ci.yml/badge.svg)](https://github.com/Svashtar/lightsbuddy-gnome/actions/workflows/ci.yml)
 
@@ -58,7 +58,7 @@ Lights that have *LAN Control* enabled are driven directly over your local netwo
 
 ## Requirements
 
-- **GNOME Shell 50.** Older versions are not supported.
+- **GNOME Shell 50 or 51.** Older versions are not supported.
 - **A Govee API key** (free). See [Getting started](docs/getting-started.md) for how to request one.
 - **GNOME Keyring** (or another Secret Service provider) to store the key. Standard on GNOME desktops.
 - *Optional, but recommended:* **LAN Control** enabled for your lights in the Govee Home app, and UDP port 4002 open in your firewall. See [LAN control](docs/lan-control.md).

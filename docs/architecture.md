@@ -2,13 +2,13 @@
 
 This page is for contributors. It describes how the extension is put together, how it decides between LAN and cloud, how state flows, and how it stays within Govee's rate limits. For setup and code style, see [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-The extension targets **GNOME Shell 50** only, uses ES modules, and runs as two processes: the **shell** side (`extension.js`, `ui/`) inside `gnome-shell`, and the **preferences** window (`prefs.js`, `prefs/`) in a separate `gjs` process. `lib/` is shared by both, and its pure modules are unit-tested with plain `gjs -m`.
+The extension targets **GNOME Shell 50 and 51**, uses ES modules, and runs as two processes: the **shell** side (`extension.js`, `ui/`) inside `gnome-shell`, and the **preferences** window (`prefs.js`, `prefs/`) in a separate `gjs` process. `lib/` is shared by both, and its pure modules are unit-tested with plain `gjs -m`.
 
 
 ## Module map
 
 ```
-src/metadata.json            uuid lightsbuddy@svashta.com, shell-version ["50"], settings-schema
+src/metadata.json            uuid lightsbuddy@svashta.com, shell-version ["50", "51"], settings-schema
 src/extension.js             enable/disable; wires store → UIs
 src/prefs.js                 Adw preferences window; builds the pages in src/prefs/
 src/prefs/                   preference pages: accountPage, devicesPage ("Lights"), presetsPage, aboutPage

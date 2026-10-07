@@ -19,7 +19,7 @@ Fixes #
 
 - [ ] `make test` passes
 - [ ] `make lint` passes
-- [ ] Tested in a real or nested GNOME Shell 50 session
+- [ ] Tested in a real or nested GNOME Shell 50 or 51 session
 - [ ] Disabled and re-enabled the extension with no journal errors or leftovers
 
 ## Checklist

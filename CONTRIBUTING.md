@@ -6,7 +6,7 @@ If you just want to report a problem, open an [issue](https://github.com/Svashta
 
 ## Development setup
 
-You need GNOME Shell 50, `gjs`, `make`, `glib-compile-schemas`, `gettext` (for `make pot`) and Node.js (for `make lint`).
+You need GNOME Shell 50 or 51, `gjs`, `make`, `glib-compile-schemas`, `gettext` (for `make pot`) and Node.js (for `make lint`).
 
 ```sh
 git clone https://github.com/Svashtar/lightsbuddy-gnome.git

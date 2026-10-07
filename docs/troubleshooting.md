@@ -6,7 +6,7 @@ Start here when something doesn't work. If none of this helps, please [open a bu
 
 - Check that it's enabled: `gnome-extensions info lightsbuddy@svashta.com` should show `State: ACTIVE` (or `ENABLED`).
 - After installing from a zip or from source, **log out and back in**. On Wayland, GNOME Shell only loads new extensions at login.
-- Check your GNOME version with `gnome-shell --version`. Only GNOME Shell 50 is supported.
+- Check your GNOME version with `gnome-shell --version`. GNOME Shell 50 and 51 are supported.
 - If the state is `ERROR`, look at the [shell log](#collecting-logs) for the reason.
 - The top-bar icon is hidden while no light or preset is placed in the top bar. Lights placed in **Quick Settings** appear as tiles instead. See [Getting started → Choose where each light appears](getting-started.md#4-choose-where-each-light-appears).
 
